@@ -1,26 +1,130 @@
 @import "tailwindcss";
 
+@theme {
+  --color-navy-950: #03101F;
+  --color-navy-900: #06172A;
+  --color-navy-800: #0A2340;
+  --color-navy-700: #123452;
+  --color-navy-600: #1a456c;
+  
+  --color-gold-600: #d9991a;
+  --color-gold-500: #F6B936;
+  --color-gold-400: #FFD16A;
+  --color-gold-300: #ffe399;
+  --color-gold-100: #fff5da;
+
+  --color-cream: #FFF8EA;
+  --color-cream-dark: #f0e6d2;
+
+  --color-text-primary: #F7F8FA;
+  --color-text-secondary: #C4D1DF;
+  --color-text-muted: #8ba2bc;
+  --color-text-dark: #102033;
+
+  --font-serif: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #03101F;
+  --foreground: #F7F8FA;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: var(--font-serif);
+  letter-spacing: -0.015em;
+}
+
+/* Custom Gold Button Styles */
+.btn-gold {
+  background: linear-gradient(135deg, #FFD16A 0%, #F6B936 50%, #d9991a 100%);
+  color: #102033;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(246, 185, 54, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #FFE399 0%, #FFD16A 50%, #F6B936 100%);
+  box-shadow: 0 6px 22px rgba(246, 185, 54, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-outline-gold {
+  border: 1px solid rgba(246, 185, 54, 0.6);
+  color: #FFD16A;
+  background: rgba(246, 185, 54, 0.05);
+  transition: all 0.25s ease;
+}
+
+.btn-outline-gold:hover {
+  border-color: #FFD16A;
+  background: rgba(246, 185, 54, 0.15);
+  color: #FFF8EA;
+  transform: translateY(-1px);
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: rgba(6, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(10, 35, 64, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(246, 185, 54, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(3, 16, 31, 0.6);
+}
+
+/* Gold Gradient Text */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFE399 0%, #F6B936 60%, #FFD16A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Gold Divider */
+.gold-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, #F6B936 50%, transparent 100%);
+}
+
+/* Custom Scrollbar for Directory/Carousels */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #03101F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #123452;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F6B936;
 }
