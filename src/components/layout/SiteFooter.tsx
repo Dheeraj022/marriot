@@ -31,9 +31,7 @@ export function SiteFooter() {
             </div>
 
             <p className="text-sm leading-relaxed text-[#C4D1DF]/90 max-w-sm">
-              GuestAssist is an independent information and stay enquiry assistance platform operated
-              by <strong>{SITE_CONFIG.operatorName}</strong>. We help travellers discover Courtyard
-              by Marriott destinations across India and coordinate stay requirements effortlessly.
+              Discover 29 premier Courtyard by Marriott hotels and resorts across India. Providing personalized stay assistance, modern accommodations, world-class dining, and tailored meeting facilities.
             </p>
 
             <div className="pt-2">
@@ -64,7 +62,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/about" className="hover:text-[#FFD16A] transition-colors">
-                  About GuestAssist
+                  About Us
                 </Link>
               </li>
               <li>
@@ -141,7 +139,7 @@ export function SiteFooter() {
             <ShieldCheck className="w-5 h-5 text-[#F6B936] shrink-0 mt-0.5" />
             <div className="space-y-1">
               <h5 className="font-semibold text-[#F7F8FA] tracking-wide uppercase text-[11px]">
-                Independent Hotel Information & Enquiry Platform Notice
+                Courtyard by Marriott India Notice
               </h5>
               <p>{SITE_CONFIG.disclaimer.full}</p>
             </div>
@@ -151,7 +149,7 @@ export function SiteFooter() {
         {/* Copyright and Operator line */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8ba2bc] gap-4">
           <p>
-            © {currentYear} {SITE_CONFIG.name}. Operated by {SITE_CONFIG.operatorName}. All rights reserved.
+            © {currentYear} {SITE_CONFIG.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-[#FFD16A] transition-colors">

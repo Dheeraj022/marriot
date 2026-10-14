@@ -14,7 +14,7 @@ import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
 import { FAQS } from "@/data/faqs";
 
 export const metadata: Metadata = {
-  title: "GuestAssist | Explore 29 Courtyard by Marriott Hotels Across India",
+  title: "Courtyard by Marriott | Explore 29 Hotels Across India",
   description:
     "Explore 29 Courtyard by Marriott hotels across India. Check room categories, hotel amenities, and submit an enquiry for personalized stay assistance.",
 };
@@ -50,13 +50,13 @@ export default function HomePage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="FREQUENTLY ASKED QUESTIONS"
-          title="Stay Enquiry & Service Clarifications"
-          description="Clear answers regarding our independent platform, enquiry handling, booking terms, and property details."
+          title="Stay Enquiry & Reservation FAQs"
+          description="Clear answers regarding room options, stay enquiries, booking procedures, and property details."
         />
         <FAQAccordion items={FAQS} />
       </section>
 
-      {/* 10. Prominent Independence Notice */}
+      {/* 10. Stay Notice */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <DisclaimerNotice variant="card" />
       </div>

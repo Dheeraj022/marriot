@@ -17,7 +17,7 @@ export function DisclaimerNotice({
   if (variant === "banner") {
     return (
       <aside
-        aria-label="Independent Platform Disclaimer"
+        aria-label="Courtyard by Marriott Information Notice"
         className={cn(
           "w-full bg-[#06172A]/90 border-b border-[#123452] px-4 py-2.5 text-xs text-[#C4D1DF] flex items-center justify-center gap-2 text-center",
           className
@@ -25,7 +25,7 @@ export function DisclaimerNotice({
       >
         <Info className="w-3.5 h-3.5 text-[#F6B936] shrink-0" />
         <span>
-          <strong className="text-[#F7F8FA]">Independent Stay Assistance:</strong>{" "}
+          <strong className="text-[#F7F8FA]">Courtyard by Marriott:</strong>{" "}
           {customText || SITE_CONFIG.disclaimer.short}
         </span>
       </aside>
@@ -35,7 +35,7 @@ export function DisclaimerNotice({
   if (variant === "card") {
     return (
       <aside
-        aria-label="Independent Platform Disclaimer"
+        aria-label="Courtyard by Marriott Notice"
         className={cn(
           "bg-[#06172A] border border-[#123452] rounded-xl p-5 text-sm text-[#C4D1DF] relative overflow-hidden",
           className
@@ -47,7 +47,7 @@ export function DisclaimerNotice({
           </div>
           <div className="space-y-1.5">
             <h4 className="text-sm font-semibold text-[#F7F8FA] tracking-wide uppercase">
-              Independent Service & Enquiry Notice
+              Courtyard by Marriott Stay Notice
             </h4>
             <p className="text-xs leading-relaxed text-[#C4D1DF]">
               {customText || SITE_CONFIG.disclaimer.full}
@@ -60,7 +60,7 @@ export function DisclaimerNotice({
 
   return (
     <aside
-      aria-label="Independent Platform Disclaimer"
+      aria-label="Courtyard by Marriott Notice"
       className={cn(
         "rounded-lg bg-[#06172A]/70 border border-[#123452]/70 px-4 py-2.5 text-xs text-[#C4D1DF]/90 flex items-start gap-2.5",
         className

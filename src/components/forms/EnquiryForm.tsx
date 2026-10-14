@@ -1,422 +1,456 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
+import React, { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Calendar,
   Users,
-  Moon,
-  ShieldCheck,
-  Send,
+  Search,
+  Check,
+  CheckCircle2,
   AlertCircle,
   Loader2,
-  Edit3,
+  MapPin,
+  Building,
+  BedDouble,
+  Sparkles,
+  ShieldCheck,
+  ChevronDown,
+  Clock,
+  Layers,
 } from "lucide-react";
 import { PROPERTIES } from "@/data/properties";
-import { formatDateDisplay, calculateNights } from "@/lib/utils";
-import { validateEnquiryForm, EnquiryFormValidationErrors } from "@/lib/validation";
-import { SITE_CONFIG } from "@/data/site-config";
+import { getTodayDateString, getTomorrowDateString, calculateNights } from "@/lib/utils";
+import { BookingModal } from "@/components/forms/BookingModal";
+
+export const ROOM_TYPE_OPTIONS = [
+  { id: "all", name: "All Room Types" },
+  { id: "deluxe-room", name: "Deluxe Room" },
+  { id: "executive-room", name: "Executive Room" },
+  { id: "suite", name: "Courtyard Suite" },
+  { id: "standard-room", name: "Standard Guest Room" },
+];
 
 export function EnquiryForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Search parameters from query string
-  const propertySlug = searchParams.get("property") || searchParams.get("propertySlug") || "courtyard-mumbai-international-airport";
-  const propertyNameParam = searchParams.get("propertyName");
-  const checkIn = searchParams.get("checkIn") || searchParams.get("checkin") || "";
-  const checkOut = searchParams.get("checkOut") || searchParams.get("checkout") || "";
-  const adults = parseInt(searchParams.get("adults") || "2", 10);
-  const rooms = parseInt(searchParams.get("rooms") || "1", 10);
-  const children = parseInt(searchParams.get("children") || "0", 10);
-  const roomCategoryParam = searchParams.get("roomCategory") || "";
-  const messageParam = searchParams.get("message") || "";
+  // Read query params from URL
+  const paramProperty =
+    searchParams.get("property") ||
+    searchParams.get("propertySlug") ||
+    "courtyard-mumbai-international-airport";
+  const paramPropertyName = searchParams.get("propertyName");
+  const paramCheckIn = searchParams.get("checkIn") || searchParams.get("checkin");
+  const paramCheckOut = searchParams.get("checkOut") || searchParams.get("checkout");
+  const paramAdults = parseInt(searchParams.get("adults") || "2", 10);
+  const paramRoomType = searchParams.get("roomType") || "all";
+  const paramChecked = searchParams.get("checked") === "true";
 
-  // Lookup matched property or default to first
-  const property =
-    PROPERTIES.find((p) => p.slug === propertySlug) ||
-    PROPERTIES.find((p) => p.name === propertyNameParam) ||
+  // Step 1 State: Check Availability parameters
+  const [selectedSlug, setSelectedSlug] = useState<string>(paramProperty);
+  const matchedProp =
+    PROPERTIES.find((p) => p.slug === paramProperty) ||
+    PROPERTIES.find((p) => p.name === paramPropertyName) ||
     PROPERTIES[0];
 
-  const totalNights = checkIn && checkOut ? calculateNights(checkIn, checkOut) : 1;
+  const [searchTerm, setSearchTerm] = useState<string>(matchedProp ? matchedProp.name : "");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Form inputs state
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState(
-    roomCategoryParam ? `Interested in ${roomCategoryParam}. ${messageParam}` : messageParam
+  const [minDate] = useState(() => getTodayDateString());
+  const [checkIn, setCheckIn] = useState<string>(() => paramCheckIn || getTodayDateString());
+  const [checkOut, setCheckOut] = useState<string>(() => paramCheckOut || getTomorrowDateString());
+  const [adults, setAdults] = useState<number>(paramAdults > 0 ? paramAdults : 2);
+  const [preferredRoomType, setPreferredRoomType] = useState<string>(paramRoomType || "all");
+
+  // Popup Modal State (instead of inline dropdown/expansion)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(() => Boolean(paramChecked));
+  const [hasChecked, setHasChecked] = useState<boolean>(Boolean(paramChecked || paramCheckIn));
+  const [isChecking, setIsChecking] = useState<boolean>(false);
+  const [searchErrors, setSearchErrors] = useState<{ location?: string; dates?: string }>({});
+
+  // Close property dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Filter properties for autocomplete
+  const filteredProperties = PROPERTIES.filter(
+    (p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      p.state.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  const [consent, setConsent] = useState(true);
-  const [honeypot, setHoneypot] = useState("");
 
-  // Submission state
-  const [errors, setErrors] = useState<EnquiryFormValidationErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
+  const selectedProperty =
+    PROPERTIES.find((p) => p.slug === selectedSlug) || matchedProp || PROPERTIES[0];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const totalNights = calculateNights(checkIn, checkOut);
+
+  // Step 1: Check Availability Handler -> Opens Popup Modal
+  const handleCheckAvailability = (e: React.FormEvent) => {
     e.preventDefault();
-    setServerError(null);
+    setSearchErrors({});
 
-    // Validate client-side
-    const validation = validateEnquiryForm({
-      fullName,
-      email,
-      phone,
-      consent,
-      honeypot,
-    });
-
-    if (!validation.isValid) {
-      setErrors(validation.errors);
+    if (!selectedSlug) {
+      setSearchErrors({ location: "Please select a Courtyard by Marriott location." });
       return;
     }
 
-    setErrors({});
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          propertyName: property.name,
-          propertySlug: property.slug,
-          checkIn: checkIn || "To be confirmed",
-          checkOut: checkOut || "To be confirmed",
-          adults,
-          rooms,
-          children,
-          fullName,
-          email,
-          phone,
-          message,
-          consent,
-          honeypot,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        setServerError(
-          data.message || "Failed to process enquiry. Please try again or call our helpline."
-        );
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Store non-sensitive summary in sessionStorage for the confirmation page
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem(
-          "guestassist_last_enquiry",
-          JSON.stringify({
-            referenceId: data.referenceId,
-            propertyName: property.name,
-            checkIn,
-            checkOut,
-            adults,
-            rooms,
-            children,
-            fullName,
-          })
-        );
-      }
-
-      // Redirect to thank-you page with reference ID
-      router.push(`/thank-you?ref=${encodeURIComponent(data.referenceId)}`);
-    } catch (err) {
-      console.error("Submission error:", err);
-      setServerError("Network error. Please check your internet connection and try again.");
-      setIsSubmitting(false);
+    if (!checkIn || !checkOut || checkOut <= checkIn) {
+      setSearchErrors({ dates: "Please select a valid check-in and check-out date." });
+      return;
     }
+
+    setIsChecking(true);
+    setTimeout(() => {
+      setIsChecking(false);
+      setHasChecked(true);
+      // Show as popup modal instead of inline dropdown/expansion
+      setIsModalOpen(true);
+    }, 350);
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      {/* Search Details Summary Card (Values carried forward automatically) */}
-      <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 shadow-xl relative overflow-hidden">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 border-b border-white/10">
-          <div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FFD16A] block mb-1">
-              Your Requested Stay Details
-            </span>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#F7F8FA]">
-              {property.name}
-            </h2>
-            <p className="text-xs text-[#8ba2bc]">
-              {property.city}, {property.state} • {property.region} India
-            </p>
+    <div className="max-w-5xl mx-auto space-y-8">
+      {/* =========================================================================
+          STEP 1: Check Availability Search Card
+          ========================================================================= */}
+      <div className="bg-[#06172A] border border-[#123452] rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+        <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-[#F6B936]/20 border border-[#F6B936]/40 flex items-center justify-center text-[#FFD16A] text-sm font-bold">
+              1
+            </div>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#F7F8FA]">
+                Check Availability
+              </h2>
+              <p className="text-xs text-[#8ba2bc]">
+                Select your destination, dates, adults, and preferred room type
+              </p>
+            </div>
           </div>
 
-          <Link
-            href={`/?property=${property.slug}&checkIn=${checkIn}&checkOut=${checkOut}&adults=${adults}&rooms=${rooms}&children=${children}`}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0A2340] border border-[#123452] text-xs font-semibold text-[#FFD16A] hover:border-[#F6B936] transition-colors"
-          >
-            <Edit3 className="w-3.5 h-3.5" />
-            <span>Modify Dates / Property</span>
-          </Link>
+          {hasChecked && (
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors cursor-pointer"
+            >
+              <Check className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Rooms Available (Click to view)</span>
+            </button>
+          )}
         </div>
 
-        {/* Stay Parameters Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-5 text-sm">
-          <div className="space-y-1">
-            <span className="text-xs text-[#8ba2bc] flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-[#F6B936]" />
-              Check-in Date
-            </span>
-            <span className="font-semibold text-[#F7F8FA] block">
-              {checkIn ? formatDateDisplay(checkIn) : "Dates to be confirmed"}
-            </span>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-xs text-[#8ba2bc] flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-[#F6B936]" />
-              Check-out Date
-            </span>
-            <span className="font-semibold text-[#F7F8FA] block">
-              {checkOut ? formatDateDisplay(checkOut) : "Dates to be confirmed"}
-            </span>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-xs text-[#8ba2bc] flex items-center gap-1">
-              <Moon className="w-3.5 h-3.5 text-[#F6B936]" />
-              Duration
-            </span>
-            <span className="font-semibold text-[#F7F8FA] block">
-              {totalNights} {totalNights === 1 ? "Night" : "Nights"}
-            </span>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-xs text-[#8ba2bc] flex items-center gap-1">
-              <Users className="w-3.5 h-3.5 text-[#F6B936]" />
-              Guests & Rooms
-            </span>
-            <span className="font-semibold text-[#F7F8FA] block">
-              {adults} {adults === 1 ? "Adult" : "Adults"} • {rooms} {rooms === 1 ? "Room" : "Rooms"}
-              {children > 0 ? ` • ${children} Ch` : ""}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Enquiry Form */}
-      <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-8 shadow-2xl space-y-6">
-        <div className="border-b border-white/10 pb-4">
-          <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#F7F8FA]">
-            Contact & Stay Preferences
-          </h3>
-          <p className="text-xs sm:text-sm text-[#C4D1DF] mt-1">
-            Enter your details below. Our stay assistance team will review availability and contact you shortly.
-          </p>
-        </div>
-
-        {/* Server Error Banner */}
-        {serverError && (
-          <div className="p-4 rounded-xl bg-rose-500/15 border border-rose-500/40 text-sm text-rose-300 flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-rose-400" />
-            <p>{serverError}</p>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-          {/* Honeypot field for anti-spam (visually hidden) */}
-          <div className="hidden" aria-hidden="true">
-            <label htmlFor="website_url">Leave empty</label>
-            <input
-              id="website_url"
-              type="text"
-              name="website_url"
-              value={honeypot}
-              onChange={(e) => setHoneypot(e.target.value)}
-              tabIndex={-1}
-              autoComplete="off"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Full Name */}
-            <div className="space-y-1.5 sm:col-span-2">
+        <form onSubmit={handleCheckAvailability} noValidate>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
+            {/* 1. Location */}
+            <div className="sm:col-span-2 lg:col-span-4 relative" ref={dropdownRef}>
               <label
-                htmlFor="fullName"
-                className="block text-xs font-semibold uppercase tracking-wider text-[#C4D1DF]"
+                htmlFor="avail-location"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
               >
-                Full Name <span className="text-rose-400">*</span>
+                <MapPin className="w-3.5 h-3.5 text-[#F6B936]" />
+                <span>Location (29 Properties)</span>
               </label>
-              <input
-                id="fullName"
-                type="text"
-                required
-                placeholder="e.g. Rahul Sharma"
-                value={fullName}
-                onChange={(e) => {
-                  setFullName(e.target.value);
-                  if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }));
-                }}
-                className={`w-full bg-[#0A2340] border rounded-xl px-4 py-3 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${
-                  errors.fullName
-                    ? "border-rose-500 focus:ring-1 focus:ring-rose-500"
-                    : "border-[#123452] focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
-                }`}
-              />
-              {errors.fullName && (
-                <p className="text-xs text-rose-400 flex items-center gap-1 mt-1">
+
+              <div className="relative">
+                <div className="flex items-center bg-[#0A2340] border border-[#123452] rounded-xl px-3.5 py-3 focus-within:border-[#F6B936] focus-within:ring-2 focus-within:ring-[#F6B936]/20 transition-all">
+                  <Building className="w-4 h-4 text-[#8ba2bc] shrink-0 mr-2" />
+                  <input
+                    id="avail-location"
+                    type="text"
+                    role="combobox"
+                    aria-expanded={isDropdownOpen}
+                    aria-controls="avail-properties-dropdown"
+                    value={searchTerm}
+                    placeholder="Select hotel or city..."
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      setSelectedSlug("");
+                      setIsDropdownOpen(true);
+                    }}
+                    onFocus={() => setIsDropdownOpen(true)}
+                    className="w-full bg-transparent text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="p-1 text-[#8ba2bc] hover:text-[#FFD16A]"
+                    aria-label="Toggle property list"
+                  >
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform ${
+                        isDropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                {isDropdownOpen && (
+                  <div
+                    id="avail-properties-dropdown"
+                    className="absolute left-0 right-0 top-full mt-2 z-50 max-h-60 overflow-y-auto bg-[#0A2340] border border-[#123452] rounded-xl shadow-2xl divide-y divide-white/5 py-1"
+                  >
+                    {filteredProperties.length > 0 ? (
+                      filteredProperties.map((p) => {
+                        const isSelected = selectedSlug === p.slug;
+                        return (
+                          <button
+                            key={p.slug}
+                            type="button"
+                            onClick={() => {
+                              setSelectedSlug(p.slug);
+                              setSearchTerm(p.name);
+                              setIsDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 flex items-center justify-between text-sm transition-colors ${
+                              isSelected
+                                ? "bg-[#F6B936]/20 text-[#FFD16A] font-semibold"
+                                : "text-[#F7F8FA] hover:bg-[#123452]/70"
+                            }`}
+                          >
+                            <div>
+                              <span className="block font-medium">{p.name}</span>
+                              <span className="block text-xs text-[#8ba2bc]">
+                                {p.city}, {p.state}
+                              </span>
+                            </div>
+                            {isSelected && <Check className="w-4 h-4 text-[#F6B936]" />}
+                          </button>
+                        );
+                      })
+                    ) : (
+                      <div className="px-4 py-3 text-xs text-[#8ba2bc] text-center">
+                        No properties found
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {searchErrors.location && (
+                <p className="mt-1.5 text-xs text-rose-400 flex items-center gap-1">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.fullName}</span>
+                  <span>{searchErrors.location}</span>
                 </p>
               )}
             </div>
 
-            {/* Email Address */}
-            <div className="space-y-1.5">
+            {/* 2. Check-in Date */}
+            <div className="lg:col-span-2">
               <label
-                htmlFor="email"
-                className="block text-xs font-semibold uppercase tracking-wider text-[#C4D1DF]"
+                htmlFor="avail-checkin"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
               >
-                Email Address <span className="text-rose-400">*</span>
+                <Calendar className="w-3.5 h-3.5 text-[#F6B936]" />
+                <span>Check-in</span>
               </label>
-              <input
-                id="email"
-                type="email"
-                required
-                placeholder="e.g. rahul@example.com"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
-                }}
-                className={`w-full bg-[#0A2340] border rounded-xl px-4 py-3 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${
-                  errors.email
-                    ? "border-rose-500 focus:ring-1 focus:ring-rose-500"
-                    : "border-[#123452] focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
-                }`}
-              />
-              {errors.email && (
-                <p className="text-xs text-rose-400 flex items-center gap-1 mt-1">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.email}</span>
-                </p>
-              )}
-            </div>
-
-            {/* Phone Number */}
-            <div className="space-y-1.5">
-              <label
-                htmlFor="phone"
-                className="block text-xs font-semibold uppercase tracking-wider text-[#C4D1DF]"
-              >
-                Mobile Number <span className="text-rose-400">*</span>
-              </label>
-              <div className="flex">
-                <span className="inline-flex items-center px-3.5 rounded-l-xl border border-r-0 border-[#123452] bg-[#03101F] text-xs font-medium text-[#C4D1DF]">
-                  +91
-                </span>
+              <div className="bg-[#0A2340] border border-[#123452] rounded-xl px-3 py-3 focus-within:border-[#F6B936]">
                 <input
-                  id="phone"
-                  type="tel"
-                  required
-                  placeholder="9876543210"
-                  value={phone}
+                  id="avail-checkin"
+                  type="date"
+                  min={minDate}
+                  value={checkIn}
                   onChange={(e) => {
-                    setPhone(e.target.value);
-                    if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
+                    const val = e.target.value;
+                    setCheckIn(val);
+                    if (checkOut <= val) {
+                      const next = new Date(val);
+                      next.setDate(next.getDate() + 1);
+                      setCheckOut(next.toISOString().split("T")[0]);
+                    }
                   }}
-                  className={`w-full bg-[#0A2340] border rounded-r-xl px-4 py-3 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${
-                    errors.phone
-                      ? "border-rose-500 focus:ring-1 focus:ring-rose-500"
-                      : "border-[#123452] focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
-                  }`}
+                  className="w-full bg-transparent text-sm text-[#F7F8FA] focus:outline-none [color-scheme:dark]"
                 />
               </div>
-              {errors.phone && (
-                <p className="text-xs text-rose-400 flex items-center gap-1 mt-1">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.phone}</span>
-                </p>
-              )}
+            </div>
+
+            {/* 3. Check-out Date */}
+            <div className="lg:col-span-2">
+              <label
+                htmlFor="avail-checkout"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
+              >
+                <Calendar className="w-3.5 h-3.5 text-[#F6B936]" />
+                <span>Check-out</span>
+              </label>
+              <div className="bg-[#0A2340] border border-[#123452] rounded-xl px-3 py-3 focus-within:border-[#F6B936]">
+                <input
+                  id="avail-checkout"
+                  type="date"
+                  min={checkIn || minDate}
+                  value={checkOut}
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  className="w-full bg-transparent text-sm text-[#F7F8FA] focus:outline-none [color-scheme:dark]"
+                />
+              </div>
+            </div>
+
+            {/* 4. Number of Adults */}
+            <div className="lg:col-span-2">
+              <label
+                htmlFor="avail-adults"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
+              >
+                <Users className="w-3.5 h-3.5 text-[#F6B936]" />
+                <span>Adults</span>
+              </label>
+              <div className="bg-[#0A2340] border border-[#123452] rounded-xl px-3 py-3 focus-within:border-[#F6B936]">
+                <select
+                  id="avail-adults"
+                  value={adults}
+                  onChange={(e) => setAdults(Number(e.target.value))}
+                  className="w-full bg-transparent text-sm text-[#F7F8FA] focus:outline-none cursor-pointer [color-scheme:dark]"
+                >
+                  <option value={1} className="bg-[#0A2340] text-white">1 Adult</option>
+                  <option value={2} className="bg-[#0A2340] text-white">2 Adults</option>
+                  <option value={3} className="bg-[#0A2340] text-white">3 Adults</option>
+                  <option value={4} className="bg-[#0A2340] text-white">4 Adults</option>
+                  <option value={5} className="bg-[#0A2340] text-white">5+ Adults</option>
+                </select>
+              </div>
+            </div>
+
+            {/* 5. Preferred Room Type */}
+            <div className="lg:col-span-2">
+              <label
+                htmlFor="avail-roomtype"
+                className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
+              >
+                <BedDouble className="w-3.5 h-3.5 text-[#F6B936]" />
+                <span>Room Type</span>
+              </label>
+              <div className="bg-[#0A2340] border border-[#123452] rounded-xl px-3 py-3 focus-within:border-[#F6B936]">
+                <select
+                  id="avail-roomtype"
+                  value={preferredRoomType}
+                  onChange={(e) => setPreferredRoomType(e.target.value)}
+                  className="w-full bg-transparent text-sm text-[#F7F8FA] focus:outline-none cursor-pointer [color-scheme:dark]"
+                >
+                  {ROOM_TYPE_OPTIONS.map((rt) => (
+                    <option key={rt.id} value={rt.id} className="bg-[#0A2340] text-white">
+                      {rt.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
-          {/* Optional Message / Special Requests */}
-          <div className="space-y-1.5">
-            <label
-              htmlFor="message"
-              className="block text-xs font-semibold uppercase tracking-wider text-[#C4D1DF]"
-            >
-              Special Requests or Room Preferences (Optional)
-            </label>
-            <textarea
-              id="message"
-              rows={3}
-              placeholder="e.g. Preferred room type (Deluxe/Suite), airport pickup assistance, dietary preferences, or early check-in enquiry..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="w-full bg-[#0A2340] border border-[#123452] rounded-xl px-4 py-3 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936] transition-all resize-none"
-            />
-          </div>
+          {searchErrors.dates && (
+            <p className="mt-2 text-xs text-rose-400 flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{searchErrors.dates}</span>
+            </p>
+          )}
 
-          {/* Privacy Consent Checkbox */}
-          <div className="space-y-1">
-            <label className="flex items-start gap-3 cursor-pointer text-xs text-[#C4D1DF] select-none">
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(e) => {
-                  setConsent(e.target.checked);
-                  if (errors.consent) setErrors((prev) => ({ ...prev, consent: undefined }));
-                }}
-                className="mt-0.5 rounded border-[#123452] bg-[#0A2340] text-[#F6B936] focus:ring-[#F6B936] focus:ring-offset-0 w-4 h-4 cursor-pointer"
-              />
-              <span className="leading-relaxed">
-                I agree to allow GuestAssist coordinators from {SITE_CONFIG.operatorName} to contact me via phone, WhatsApp, or email regarding this stay enquiry. I have reviewed the{" "}
-                <Link href="/privacy-policy" className="text-[#FFD16A] underline hover:text-[#FFF8EA]">
-                  Privacy Policy
-                </Link>{" "}
-                and acknowledge that this is an enquiry, not a confirmed hotel reservation.
-              </span>
-            </label>
-            {errors.consent && (
-              <p className="text-xs text-rose-400 flex items-center gap-1 mt-1 pl-7">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                <span>{errors.consent}</span>
-              </p>
-            )}
-          </div>
+          {/* Action Row */}
+          <div className="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-xs text-[#C4D1DF]">
+              <span>Selected Hotel: </span>
+              <strong className="text-[#FFD16A]">{selectedProperty.name}</strong>
+              <span className="text-[#8ba2bc]"> • {selectedProperty.city} ({totalNights} Nights)</span>
+            </div>
 
-          {/* Submit Button & Clear Advisory */}
-          <div className="pt-2 space-y-4">
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full py-4 px-6 rounded-xl btn-gold text-base font-bold flex items-center justify-center gap-2.5 transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-xl shadow-[#F6B936]/25"
+              disabled={isChecking}
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl btn-gold text-sm font-bold flex items-center justify-center gap-2.5 shadow-xl shadow-[#F6B936]/20 transition-all disabled:opacity-50"
             >
-              {isSubmitting ? (
+              {isChecking ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin text-[#102033]" />
-                  <span>Submitting Stay Enquiry...</span>
+                  <Loader2 className="w-4 h-4 animate-spin text-[#102033]" />
+                  <span>Checking Availability...</span>
                 </>
               ) : (
                 <>
-                  <Send className="w-5 h-5 text-[#102033]" />
-                  <span>Submit Stay Enquiry</span>
+                  <Search className="w-4 h-4 text-[#102033]" />
+                  <span>Check Availability</span>
                 </>
               )}
             </button>
-
-            <div className="p-4 rounded-xl bg-[#03101F]/80 border border-[#123452] text-xs text-[#8ba2bc] text-center flex items-center justify-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#F6B936] shrink-0" />
-              <span>
-                Zero booking fees • Independent enquiry assistance • No payment details requested
-              </span>
-            </div>
           </div>
         </form>
       </div>
+
+      {/* =========================================================================
+          Availability Status & Popup Trigger Card
+          ========================================================================= */}
+      {hasChecked && (
+        <div className="bg-[#06172A] border-2 border-emerald-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 shrink-0 shadow-lg">
+                <Sparkles className="w-6 h-6 animate-pulse" />
+              </div>
+              <div className="space-y-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 block">
+                  Live Inventory Status
+                </span>
+                <h3 className="text-lg sm:text-xl font-serif font-bold text-[#F7F8FA]">
+                  Congratulations! Four room types are available for your selected dates.
+                </h3>
+                <p className="text-xs text-[#C4D1DF]">
+                  {selectedProperty.name} • {checkIn} to {checkOut} ({totalNights} {totalNights === 1 ? "Night" : "Nights"}) • {adults} {adults === 1 ? "Adult" : "Adults"}
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full md:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="px-6 py-3.5 rounded-xl btn-gold text-sm font-bold flex items-center justify-center gap-2.5 shadow-xl shadow-[#F6B936]/25 hover:scale-[1.02] transition-transform"
+              >
+                <Layers className="w-4 h-4 text-[#102033]" />
+                <span>View Available Rooms & Reserve</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Perks */}
+          <div className="mt-6 pt-5 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-[#C4D1DF]">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>4 Room Types Available</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#F6B936] shrink-0" />
+              <span>Zero Booking Fees</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-[#F6B936] shrink-0" />
+              <span>2-4 Hr Direct Response</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>Instant Reservation</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          POPUP MODAL: Step 2 Available Rooms & Step 3/4 Guest Details Form
+          ========================================================================= */}
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        property={selectedProperty}
+        checkIn={checkIn}
+        checkOut={checkOut}
+        adults={adults}
+        initialRoomType={preferredRoomType}
+      />
     </div>
   );
 }

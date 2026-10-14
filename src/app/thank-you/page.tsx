@@ -4,7 +4,7 @@ import { ThankYouView } from "@/components/shared/ThankYouView";
 import { Loader2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Enquiry Received | GuestAssist",
+  title: "Enquiry Received | Courtyard by Marriott",
   description:
     "Thank you for submitting your stay enquiry. Our dedicated team will review your requirements and assist you shortly.",
 };

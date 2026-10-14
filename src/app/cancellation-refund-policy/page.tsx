@@ -1,11 +1,10 @@
 import React from "react";
 import { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Cancellation & Refund Policy | GuestAssist",
-  description: "Information regarding cancellation and refund terms for stays coordinated via GuestAssist.",
+  title: "Cancellation & Refund Policy | Courtyard by Marriott",
+  description: "Information regarding cancellation and refund terms for Courtyard by Marriott hotel stays across India.",
 };
 
 export default function CancellationRefundPolicyPage() {
@@ -14,39 +13,33 @@ export default function CancellationRefundPolicyPage() {
       <SectionHeading
         eyebrow="POLICY GUIDELINES"
         title="Cancellation & Refund Policy"
-        description="Clarification on booking cancellations, deposits, and refunds."
+        description="Clarification on booking cancellations, reservation deposits, and refund conditions."
       />
-
-      <div className="p-4 rounded-xl bg-[#F6B936]/10 border border-[#F6B936]/30 text-xs text-[#FFD16A] flex items-start gap-3">
-        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-        <p>
-          <strong>Draft Copy Notice:</strong> This policy outlines standard operational procedures regarding booking cancellations and refunds.
-        </p>
-      </div>
 
       <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. No Fees Charged by GuestAssist</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. No Fees for Stay Enquiries</h3>
           <p>
-            GuestAssist is an enquiry assistance service and charges zero consultation fees to travellers submitting stay enquiries. Because no payments or deposits are collected on this website, no refunds are processed directly by GuestAssist.
+            Submitting a stay enquiry through this website is completely complimentary. No upfront deposits or processing fees are charged at the time of submitting an enquiry.
           </p>
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">2. Hotel Specific Cancellation Rules</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">2. Property Specific Cancellation Terms</h3>
           <p>
-            When you finalize a room reservation directly with a Courtyard by Marriott property or an authorized booking agency, their specific cancellation schedule, deposit requirements, and refund conditions apply. Standard rules typically vary by rate category:
+            When your reservation is finalized with a Courtyard by Marriott property, the specific cancellation schedule, deposit requirements, and refund terms governing your room rate category apply:
           </p>
           <ul className="list-disc pl-5 space-y-1">
-            <li><strong>Flexible / Best Available Rates:</strong> Often permit cancellation without penalty up to 24-48 hours before check-in.</li>
-            <li><strong>Prepaid / Promotional Rates:</strong> May be non-refundable or incur cancellation fees as determined by hotel policy.</li>
+            <li><strong>Flexible / Best Available Rates:</strong> Typically allow penalty-free cancellation up to 24-48 hours prior to check-in.</li>
+            <li><strong>Prepaid / Promotional Offers:</strong> May be non-refundable or incur cancellation charges as specified in your booking confirmation.</li>
+            <li><strong>Group & Event Bookings:</strong> Customized cancellation and attrition schedules are outlined in your group agreement.</li>
           </ul>
         </section>
 
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Assistance with Booking Modifications</h3>
           <p>
-            If you need assistance contacting a hotel property to modify travel dates or clarify cancellation timelines for an enquiry we assisted with, our team will gladly provide the direct contact details of the hotel management.
+            If you need assistance modifying your travel dates, room count, or special requests for an enquiry coordinated with our team, please contact our helpline at <strong>+91 1800 890 4567</strong> or your assigned stay coordinator.
           </p>
         </section>
       </div>

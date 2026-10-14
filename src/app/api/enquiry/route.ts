@@ -13,6 +13,8 @@ export async function POST(request: Request) {
       adults,
       rooms,
       children,
+      roomType,
+      roomTypeName,
       fullName,
       email,
       phone,
@@ -53,19 +55,18 @@ export async function POST(request: Request) {
 
     // Generate unique reference code
     const randomHex = Math.random().toString(36).substring(2, 7).toUpperCase();
-    const referenceId = `GA-${new Date().getFullYear()}-${randomHex}`;
+    const referenceId = `CY-${new Date().getFullYear()}-${randomHex}`;
 
-    // Operational log without dumping raw sensitive customer data
+    // Operational log
     console.log(
-      `[Enquiry Service] New Enquiry Received: Ref ${referenceId} for ${propertyName} (${checkIn} to ${checkOut}, ${adults} Adults, customNote: ${Boolean(
-        message
-      )})`
+      `[Enquiry Service] New Enquiry: Ref ${referenceId} | ${propertyName} | Room: ${roomTypeName || roomType || "Standard"} | ${checkIn} to ${checkOut} | ${adults} Adults | Guest: ${fullName} (${phone}, ${email}) | Note: ${Boolean(message)}`
     );
 
     return NextResponse.json({
       success: true,
       referenceId,
-      message: "Your enquiry has been submitted successfully. Our team will contact you shortly.",
+      message:
+        "Thank you for your enquiry! We have received your details and will contact you shortly to assist with your booking.",
       summary: {
         propertyName,
         propertySlug,
@@ -74,6 +75,12 @@ export async function POST(request: Request) {
         adults: Number(adults) || 1,
         rooms: Number(rooms) || 1,
         children: Number(children) || 0,
+        roomType: roomType || "deluxe-room",
+        roomTypeName: roomTypeName || "Deluxe Room",
+        fullName,
+        email,
+        phone,
+        message: message || "",
       },
     });
   } catch (error) {

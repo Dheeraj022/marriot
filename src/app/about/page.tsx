@@ -15,18 +15,19 @@ import { CallNowButton } from "@/components/shared/CallNowButton";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { FAQS } from "@/data/faqs";
 import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
+import { EnquiryProcess } from "@/components/home/EnquiryProcess";
 
 export const metadata: Metadata = {
-  title: "About Us | GuestAssist - Operated by BrightSpark Leisure Services",
+  title: "About Us | Courtyard by Marriott",
   description:
-    "Learn about GuestAssist, an independent stay enquiry assistance service operated by BrightSpark Leisure Services Private Limited.",
+    "Learn about Courtyard by Marriott across India — 29 premier hotels and resorts offering modern comfort, flexible workspaces, and exceptional hospitality.",
 };
 
 const FOUR_VALUES = [
   {
     icon: Search,
     title: "Explore 29 Hotels",
-    description: "Discover Courtyard by Marriott properties across India with verified locations and curated facility overviews.",
+    description: "Discover Courtyard by Marriott properties across India with verified locations, prime city addresses, and curated facility overviews.",
   },
   {
     icon: Sparkles,
@@ -35,32 +36,32 @@ const FOUR_VALUES = [
   },
   {
     icon: Headphones,
-    title: "Personalized Assistance",
-    description: "Our dedicated team clarifies room specifications, amenities, and group requirements to simplify your stay planning.",
+    title: "Dedicated Assistance",
+    description: "Our stay coordination team clarifies room specifications, amenities, and group requirements to simplify your stay planning.",
   },
   {
     icon: Building2,
-    title: "Wide Destination Choices",
-    description: "From metropolitan IT hubs to serene hill retreats and coastal havens, find the right destination for any itinerary.",
+    title: "Prime Destinations",
+    description: "From metropolitan IT corridors to scenic hill retreats and coastal havens, find the ideal Courtyard hotel for every itinerary.",
   },
 ];
 
 const GUIDING_PRINCIPLES = [
   {
-    title: "Transparency First",
-    desc: "We clearly declare our independent status and never mislead visitors into believing we are an official brand portal.",
+    title: "Intuitive Comfort",
+    desc: "Every room, suite, and public space is thoughtfully designed to empower guests to work, recharge, and connect with ease.",
   },
   {
     title: "Traveller-Focused Care",
-    desc: "Every recommendation and assistance call is tailored around the visitor's comfort, itinerary, and specific preferences.",
+    desc: "Every recommendation and assistance call is tailored around the guest's comfort, travel schedule, and personal preferences.",
   },
   {
-    title: "Prompt & Helpful Assistance",
-    desc: "We prioritize swift response times, aiming to connect with every enquiry within 2 to 4 business hours.",
+    title: "Prompt & Dedicated Support",
+    desc: "We prioritize swift response times, aiming to connect with every stay enquiry within 2 to 4 business hours.",
   },
   {
-    title: "Convenient & No-Pressure",
-    desc: "Our platform provides free stay guidance. You retain full freedom to verify rates and confirm with your preferred booking provider.",
+    title: "Flexible & Transparent Planning",
+    desc: "Our platform provides comprehensive stay guidance with clear rates, amenities, and booking assistance for single and group stays.",
   },
 ];
 
@@ -81,17 +82,15 @@ export default function AboutPage() {
 
           <div className="relative z-10 max-w-2xl space-y-4">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase bg-[#F6B936]/15 text-[#FFD16A] border border-[#F6B936]/30">
-              ABOUT GUESTASSIST
+              ABOUT COURTYARD BY MARRIOTT
             </span>
 
             <h1 className="text-3xl sm:text-5xl font-serif font-extrabold text-[#F7F8FA] leading-tight">
-              Simplifying Your Stay Enquiries Across India
+              Inspiring Stays Across 29 Indian Destinations
             </h1>
 
             <p className="text-sm sm:text-base text-[#C4D1DF] leading-relaxed">
-              GuestAssist is an independent hotel information and enquiry assistance platform operated by{" "}
-              <strong className="text-[#F7F8FA]">{SITE_CONFIG.operatorName}</strong>. We help travellers
-              explore property information and coordinate stay enquiries conveniently.
+              Courtyard by Marriott provides premier hotel accommodations and stay enquiry assistance across India. We help travellers explore property features, compare rooms and amenities, and coordinate stay bookings conveniently.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-4">
@@ -108,9 +107,9 @@ export default function AboutPage() {
       {/* 2. Core Pillars / Value Cards */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
-          eyebrow="OUR FOCUS"
-          title="Why Travellers Rely on GuestAssist"
-          description="Designed to offer clarity, responsive coordination, and transparent guidance for every domestic stay."
+          eyebrow="OUR COMMITMENT"
+          title="Why Travellers Choose Courtyard by Marriott"
+          description="Designed to offer clarity, responsive coordination, and comfortable hospitality for every stay in India."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -132,35 +131,31 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Operator Spotlight */}
+      {/* 3. Brand Spotlight */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="bg-[#06172A] border border-[#123452] rounded-3xl p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl">
           <div className="lg:col-span-7 space-y-4">
             <span className="text-xs font-semibold tracking-wider uppercase text-[#FFD16A]">
-              OPERATOR SPOTLIGHT
+              HOSPITALITY EXCELLENCE
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#F7F8FA]">
-              BrightSpark Leisure Services Private Limited
+              Courtyard by Marriott India
             </h2>
             <p className="text-sm text-[#C4D1DF] leading-relaxed">
-              GuestAssist is proudly conceived, developed, and maintained by{" "}
-              <strong>BrightSpark Leisure Services Private Limited</strong>, an Indian enterprise dedicated
-              to delivering reliable concierge advisory and stay enquiry facilitation.
+              Courtyard by Marriott is tailored for ambitious travellers who seek a balance between productive work and refreshing downtime. From high-tech workstations and plush bedding to vibrant all-day dining and rejuvenating pools, our properties deliver an effortless hospitality experience.
             </p>
             <p className="text-xs text-[#8ba2bc] leading-relaxed">
-              We act as an independent information facilitator between potential hotel guests and property
-              details. We do not claim official affiliation or inventory ownership, maintaining the highest
-              standards of transparency across every enquiry touchpoint.
+              With 29 strategically located hotels across North, South, West, East, and Central India, guests enjoy seamless access to major financial districts, airports, cultural landmarks, and holiday gateways.
             </p>
 
             <div className="pt-2 flex items-center gap-6 text-xs text-[#FFD16A]">
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-[#F6B936]" />
-                Registered Indian Company
+                29 Prime Destinations
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-[#F6B936]" />
-                Independent Operations
+                Dedicated Stay Assistance
               </span>
             </div>
           </div>
@@ -170,10 +165,10 @@ export default function AboutPage() {
               Stay Assistance Helpline
             </h3>
             <p className="text-xs text-[#C4D1DF]">
-              Have questions regarding Courtyard destinations or need guidance with a group booking?
+              Have questions regarding Courtyard destinations or need guidance with a group reservation?
             </p>
             <div className="p-4 rounded-xl bg-[#03101F] border border-[#123452] space-y-1">
-              <span className="block text-[11px] text-[#8ba2bc] uppercase">Toll-Free Assistance</span>
+              <span className="block text-[11px] text-[#8ba2bc] uppercase">Toll-Free Helpline</span>
               <a href={SITE_CONFIG.phoneTel} className="text-lg font-bold text-[#FFD16A] hover:underline">
                 {SITE_CONFIG.phoneDisplay}
               </a>
@@ -184,12 +179,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Our Guiding Principles */}
+      {/* How Our Enquiry Assistance Works Section */}
+      <EnquiryProcess />
+
+      {/* 4. Guiding Principles */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
-          eyebrow="CORE VALUES"
-          title="Our Commitment to Travellers"
-          description="The values that steer our operations and customer coordination every day."
+          eyebrow="OUR VALUES"
+          title="Our Commitment to Guests"
+          description="The principles that guide our hospitality and guest coordination every day."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -213,13 +211,13 @@ export default function AboutPage() {
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="FREQUENTLY ASKED"
-          title="Questions About Our Service"
-          description="Everything you need to know about our role and the stay enquiry process."
+          title="Common Questions"
+          description="Everything you need to know about our properties and stay enquiries."
         />
         <FAQAccordion items={FAQS.slice(0, 5)} />
       </section>
 
-      {/* 6. Independence Notice Card */}
+      {/* 6. Notice Card */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <DisclaimerNotice variant="card" />
       </div>

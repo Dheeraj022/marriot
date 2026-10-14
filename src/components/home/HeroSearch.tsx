@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import {
   MapPin,
   Calendar,
@@ -12,18 +11,26 @@ import {
   Check,
   AlertCircle,
   ShieldAlert,
+  BedDouble,
 } from "lucide-react";
 import { PROPERTIES } from "@/data/properties";
 import { getTodayDateString, getTomorrowDateString } from "@/lib/utils";
 import { validateSearchParams, SearchValidationErrors } from "@/lib/validation";
+import { BookingModal } from "@/components/forms/BookingModal";
 
 interface HeroSearchProps {
   initialPropertySlug?: string;
 }
 
-export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
-  const router = useRouter();
+export const ROOM_TYPE_OPTIONS = [
+  { id: "all", name: "All Room Types" },
+  { id: "deluxe-room", name: "Deluxe Room" },
+  { id: "executive-room", name: "Executive Room" },
+  { id: "suite", name: "Courtyard Suite" },
+  { id: "standard-room", name: "Standard Guest Room" },
+];
 
+export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
   const initialProp = initialPropertySlug
     ? PROPERTIES.find((p) => p.slug === initialPropertySlug)
     : null;
@@ -35,22 +42,17 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
   const [checkIn, setCheckIn] = useState<string>(() => getTodayDateString());
   const [checkOut, setCheckOut] = useState<string>(() => getTomorrowDateString());
   const [adults, setAdults] = useState<number>(2);
-  const [rooms, setRooms] = useState<number>(1);
-  const [children, setChildren] = useState<number>(0);
+  const [preferredRoomType, setPreferredRoomType] = useState<string>("all");
   const [errors, setErrors] = useState<SearchValidationErrors>({});
-  const [guestPickerOpen, setGuestPickerOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const guestPickerRef = useRef<HTMLDivElement>(null);
 
   // Click outside listener
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
-      }
-      if (guestPickerRef.current && !guestPickerRef.current.contains(event.target as Node)) {
-        setGuestPickerOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -78,7 +80,6 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
     const val = e.target.value;
     setCheckIn(val);
     if (errors.checkIn) setErrors((prev) => ({ ...prev, checkIn: undefined }));
-    // If checkout is before or same as new checkin, automatically move checkout to checkin + 1 day
     if (checkOut <= val) {
       const nextDay = new Date(val);
       nextDay.setDate(nextDay.getDate() + 1);
@@ -109,23 +110,12 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
       return;
     }
 
-    const selectedProp = PROPERTIES.find((p) => p.slug === selectedSlug);
-
-    // Build URL query string
-    const query = new URLSearchParams({
-      property: selectedSlug,
-      propertyName: selectedProp ? selectedProp.name : "",
-      checkIn,
-      checkOut,
-      adults: adults.toString(),
-      rooms: rooms.toString(),
-      children: children.toString(),
-    });
-
-    router.push(`/enquiry?${query.toString()}`);
+    // Open booking enquiry modal as popup
+    setIsModalOpen(true);
   };
 
-  const selectedProperty = PROPERTIES.find((p) => p.slug === selectedSlug);
+  const selectedProperty =
+    PROPERTIES.find((p) => p.slug === selectedSlug) || PROPERTIES[0];
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -138,19 +128,16 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
               "url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=85')",
           }}
         />
-        {/* Navy Gradient Scrim */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#03101F] via-[#03101F]/80 to-[#03101F]/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03101F] via-transparent to-[#03101F]/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#03101F]/85 via-[#03101F]/90 to-[#03101F]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#F6B936]/10 via-transparent to-transparent pointer-events-none" />
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto space-y-10 text-center">
-        {/* Hero Eyebrow & Titles */}
-        <div className="space-y-4 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#06172A]/90 border border-[#F6B936]/30 backdrop-blur-md shadow-lg shadow-[#03101F]">
+      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
+        {/* Eyebrow & Main Headings */}
+        <div className="space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#06172A]/90 border border-[#F6B936]/30 text-xs font-semibold tracking-widest uppercase text-[#FFD16A] shadow-lg shadow-black/40">
             <span className="w-2 h-2 rounded-full bg-[#F6B936] animate-pulse" />
-            <span className="text-xs font-semibold tracking-widest text-[#FFD16A] uppercase">
-              BUSINESS • LEISURE • FAMILY • EVENTS
-            </span>
+            29 PROPERTIES ACROSS INDIA
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-extrabold text-[#F7F8FA] tracking-tight leading-[1.15]">
@@ -158,22 +145,30 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-[#C4D1DF] max-w-2xl mx-auto font-light leading-relaxed">
-            Find property information, compare destinations, and submit your stay enquiry for dedicated assistance across 29 premier locations.
+            Find property information, check room availability, and submit your stay enquiry for personalized assistance across 29 premier locations.
           </p>
         </div>
 
-        {/* Central Search Card */}
+        {/* Central Search Card - Step 1: Check Availability */}
         <div className="bg-[#06172A]/95 border border-[#123452] p-5 sm:p-7 md:p-8 rounded-2xl shadow-2xl backdrop-blur-xl max-w-5xl mx-auto text-left relative">
+          <div className="mb-4 flex items-center justify-between pb-3 border-b border-white/10">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#FFD16A] flex items-center gap-2">
+              <span className="w-5 h-5 rounded-full bg-[#F6B936]/20 text-[#FFD16A] flex items-center justify-center text-[11px] font-bold">1</span>
+              Step 1: Check Availability
+            </span>
+            <span className="text-xs text-[#8ba2bc]">Instant availability check</span>
+          </div>
+
           <form onSubmit={handleSubmit} noValidate>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-              {/* Location Selector (5 cols) */}
-              <div className="md:col-span-4 relative" ref={dropdownRef}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
+              {/* Location Selector (4 cols) */}
+              <div className="sm:col-span-2 lg:col-span-4 relative" ref={dropdownRef}>
                 <label
                   htmlFor="location-search"
                   className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
                 >
                   <MapPin className="w-3.5 h-3.5 text-[#F6B936]" />
-                  <span>Select Location (29 Properties)</span>
+                  <span>Location (29 Hotels)</span>
                 </label>
 
                 <div className="relative">
@@ -186,7 +181,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
                       aria-expanded={isDropdownOpen}
                       aria-autocomplete="list"
                       aria-controls="properties-dropdown"
-                      placeholder="Type city or hotel name..."
+                      placeholder="Select hotel or city..."
                       value={searchTerm}
                       onChange={(e) => {
                         setSearchTerm(e.target.value);
@@ -261,7 +256,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
               </div>
 
               {/* Check-in Date (2 cols) */}
-              <div className="md:col-span-2">
+              <div className="lg:col-span-2">
                 <label
                   htmlFor="check-in-date"
                   className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
@@ -288,7 +283,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
               </div>
 
               {/* Check-out Date (2 cols) */}
-              <div className="md:col-span-2">
+              <div className="lg:col-span-2">
                 <label
                   htmlFor="check-out-date"
                   className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
@@ -314,150 +309,84 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
                 )}
               </div>
 
-              {/* Guests & Rooms Popover (2 cols) */}
-              <div className="md:col-span-2 relative" ref={guestPickerRef}>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5 text-[#F6B936]" />
-                  <span>Guests & Rooms</span>
-                </label>
-
-                <button
-                  type="button"
-                  onClick={() => setGuestPickerOpen(!guestPickerOpen)}
-                  className="w-full text-left bg-[#0A2340] border border-[#123452] rounded-xl px-3.5 py-3 text-sm text-[#F7F8FA] flex items-center justify-between hover:border-[#F6B936]/60 transition-all"
+              {/* Number of Adults (2 cols) */}
+              <div className="lg:col-span-2">
+                <label
+                  htmlFor="adults-count"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
                 >
-                  <span className="truncate">
-                    {adults} Ad • {rooms} Rm {children > 0 ? `• ${children} Ch` : ""}
-                  </span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-[#8ba2bc] transition-transform duration-200 ${
-                      guestPickerOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {guestPickerOpen && (
-                  <div className="absolute right-0 top-full mt-2 z-50 w-64 bg-[#0A2340] border border-[#123452] rounded-xl shadow-2xl p-4 space-y-4">
-                    {/* Adults Stepper */}
-                    <div className="flex items-center justify-between text-sm">
-                      <div>
-                        <span className="block font-medium text-[#F7F8FA]">Adults</span>
-                        <span className="block text-xs text-[#8ba2bc]">Age 12+</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setAdults(Math.max(1, adults - 1))}
-                          className="w-7 h-7 rounded-lg bg-[#123452] text-[#F7F8FA] flex items-center justify-center font-bold hover:bg-[#F6B936] hover:text-[#03101F] transition-colors"
-                        >
-                          -
-                        </button>
-                        <span className="w-5 text-center font-semibold text-[#F7F8FA]">
-                          {adults}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setAdults(Math.min(10, adults + 1))}
-                          className="w-7 h-7 rounded-lg bg-[#123452] text-[#F7F8FA] flex items-center justify-center font-bold hover:bg-[#F6B936] hover:text-[#03101F] transition-colors"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Rooms Stepper */}
-                    <div className="flex items-center justify-between text-sm">
-                      <div>
-                        <span className="block font-medium text-[#F7F8FA]">Rooms</span>
-                        <span className="block text-xs text-[#8ba2bc]">Required</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setRooms(Math.max(1, rooms - 1))}
-                          className="w-7 h-7 rounded-lg bg-[#123452] text-[#F7F8FA] flex items-center justify-center font-bold hover:bg-[#F6B936] hover:text-[#03101F] transition-colors"
-                        >
-                          -
-                        </button>
-                        <span className="w-5 text-center font-semibold text-[#F7F8FA]">
-                          {rooms}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setRooms(Math.min(5, rooms + 1))}
-                          className="w-7 h-7 rounded-lg bg-[#123452] text-[#F7F8FA] flex items-center justify-center font-bold hover:bg-[#F6B936] hover:text-[#03101F] transition-colors"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Children Stepper */}
-                    <div className="flex items-center justify-between text-sm">
-                      <div>
-                        <span className="block font-medium text-[#F7F8FA]">Children</span>
-                        <span className="block text-xs text-[#8ba2bc]">Age 0-11</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setChildren(Math.max(0, children - 1))}
-                          className="w-7 h-7 rounded-lg bg-[#123452] text-[#F7F8FA] flex items-center justify-center font-bold hover:bg-[#F6B936] hover:text-[#03101F] transition-colors"
-                        >
-                          -
-                        </button>
-                        <span className="w-5 text-center font-semibold text-[#F7F8FA]">
-                          {children}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setChildren(Math.min(6, children + 1))}
-                          className="w-7 h-7 rounded-lg bg-[#123452] text-[#F7F8FA] flex items-center justify-center font-bold hover:bg-[#F6B936] hover:text-[#03101F] transition-colors"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => setGuestPickerOpen(false)}
-                      className="w-full py-1.5 rounded-lg bg-[#F6B936] text-[#03101F] text-xs font-bold hover:bg-[#FFD16A] transition-colors"
-                    >
-                      Apply
-                    </button>
-                  </div>
-                )}
+                  <Users className="w-3.5 h-3.5 text-[#F6B936]" />
+                  <span>Adults</span>
+                </label>
+                <div className="bg-[#0A2340] border border-[#123452] rounded-xl px-3 py-3 focus-within:border-[#F6B936] transition-all">
+                  <select
+                    id="adults-count"
+                    value={adults}
+                    onChange={(e) => setAdults(Number(e.target.value))}
+                    className="w-full bg-transparent text-sm text-[#F7F8FA] focus:outline-none cursor-pointer [color-scheme:dark]"
+                  >
+                    <option value={1} className="bg-[#0A2340] text-white">1 Adult</option>
+                    <option value={2} className="bg-[#0A2340] text-white">2 Adults</option>
+                    <option value={3} className="bg-[#0A2340] text-white">3 Adults</option>
+                    <option value={4} className="bg-[#0A2340] text-white">4 Adults</option>
+                    <option value={5} className="bg-[#0A2340] text-white">5+ Adults</option>
+                  </select>
+                </div>
               </div>
 
-              {/* Submit Button (2 cols) */}
-              <div className="md:col-span-2">
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-4 rounded-xl btn-gold text-sm font-bold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-[#F6B936]/25"
+              {/* Preferred Room Type (2 cols) */}
+              <div className="lg:col-span-2">
+                <label
+                  htmlFor="room-type-select"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
                 >
-                  <Search className="w-4 h-4 text-[#102033]" />
-                  <span>Check Availability</span>
-                </button>
+                  <BedDouble className="w-3.5 h-3.5 text-[#F6B936]" />
+                  <span>Room Type</span>
+                </label>
+                <div className="bg-[#0A2340] border border-[#123452] rounded-xl px-3 py-3 focus-within:border-[#F6B936] transition-all">
+                  <select
+                    id="room-type-select"
+                    value={preferredRoomType}
+                    onChange={(e) => setPreferredRoomType(e.target.value)}
+                    className="w-full bg-transparent text-sm text-[#F7F8FA] focus:outline-none cursor-pointer [color-scheme:dark]"
+                  >
+                    {ROOM_TYPE_OPTIONS.map((rt) => (
+                      <option key={rt.id} value={rt.id} className="bg-[#0A2340] text-white">
+                        {rt.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
-            {/* Selected Property preview hint */}
-            {selectedProperty && (
-              <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs text-[#C4D1DF]">
-                <span>
-                  Selected: <strong className="text-[#FFD16A]">{selectedProperty.name}</strong> ({selectedProperty.city})
-                </span>
-                <span className="text-[#8ba2bc]">{selectedProperty.tagline}</span>
+            {/* Check Availability CTA Button */}
+            <div className="mt-5 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="text-xs text-[#8ba2bc] flex items-center gap-2">
+                {selectedProperty ? (
+                  <span>
+                    Selected: <strong className="text-[#FFD16A]">{selectedProperty.name}</strong> ({selectedProperty.city})
+                  </span>
+                ) : (
+                  <span>Please select your destination property to check live availability</span>
+                )}
               </div>
-            )}
+
+              <button
+                type="submit"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl btn-gold text-sm font-bold flex items-center justify-center gap-2.5 transition-all active:scale-95 shadow-xl shadow-[#F6B936]/25"
+              >
+                <Search className="w-4 h-4 text-[#102033]" />
+                <span>Check Availability</span>
+              </button>
+            </div>
           </form>
 
           {/* Under-search Advisory / Independence notice */}
           <div className="mt-4 pt-3 border-t border-white/5 flex items-start gap-2 text-xs text-[#8ba2bc]">
             <ShieldAlert className="w-4 h-4 text-[#F6B936] shrink-0 mt-0.5" />
             <p>
-              <strong>Enquiry-Only Service:</strong> This search submits a stay request to our assistance coordinators, not a real-time booking confirmation. Rates and room availability are subject to direct hotel verification.
+              Direct enquiry coordination across all 29 Courtyard by Marriott hotels in India. Best rates and room allocations confirmed promptly.
             </p>
           </div>
         </div>
@@ -469,8 +398,8 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
             <span className="block text-xs text-[#C4D1DF]">Pan-India Locations</span>
           </div>
           <div className="p-3 rounded-xl bg-[#06172A]/80 border border-[#123452] backdrop-blur-sm">
-            <span className="block text-xl font-bold text-[#FFD16A] font-serif">100%</span>
-            <span className="block text-xs text-[#C4D1DF]">Transparent Guidance</span>
+            <span className="block text-xl font-bold text-[#FFD16A] font-serif">4 Types</span>
+            <span className="block text-xs text-[#C4D1DF]">Available Rooms</span>
           </div>
           <div className="p-3 rounded-xl bg-[#06172A]/80 border border-[#123452] backdrop-blur-sm">
             <span className="block text-xl font-bold text-[#FFD16A] font-serif">2-4 Hrs</span>
@@ -482,6 +411,17 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           </div>
         </div>
       </div>
+
+      {/* Booking Enquiry Popup Modal */}
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        property={selectedProperty}
+        checkIn={checkIn}
+        checkOut={checkOut}
+        adults={adults}
+        initialRoomType={preferredRoomType}
+      />
     </section>
   );
 }

@@ -10,9 +10,9 @@ import { FAQS } from "@/data/faqs";
 import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
 
 export const metadata: Metadata = {
-  title: "Contact Us | GuestAssist",
+  title: "Contact Us | Courtyard by Marriott",
   description:
-    "Get in touch with the GuestAssist stay enquiry team. Call our helpline or send a message for hotel information and stay coordination.",
+    "Get in touch with the Courtyard by Marriott stay enquiry and reservations team. Call our helpline or send a message for hotel information and stay coordination across India.",
 };
 
 const HOW_WE_HELP = [
@@ -24,17 +24,17 @@ const HOW_WE_HELP = [
   {
     icon: MessageSquare,
     title: "Enquiry Assistance",
-    desc: "Receive prompt guidance on availability, best travel seasons, and coordination for corporate offsites or family vacations.",
+    desc: "Receive prompt guidance on availability, seasonal offers, and booking coordination for corporate offsites or family vacations.",
   },
   {
     icon: PhoneCall,
     title: "Direct Consultation",
-    desc: "Speak directly with knowledgeable coordinators who understand destination specifics and logistics.",
+    desc: "Speak directly with knowledgeable coordinators who understand destination specifics, banquet setups, and logistics.",
   },
   {
     icon: HelpCircle,
     title: "General Inquiries",
-    desc: "Have questions about our independent role or need clarification on booking procedures? We are here to help.",
+    desc: "Have questions about room tariffs, cancellation terms, or special preferences? We are here to assist you 24/7.",
   },
 ];
 
@@ -59,11 +59,11 @@ export default function ContactPage() {
             </span>
 
             <h1 className="text-3xl sm:text-5xl font-serif font-extrabold text-[#F7F8FA] leading-tight">
-              Contact GuestAssist
+              Contact Courtyard by Marriott
             </h1>
 
             <p className="text-sm sm:text-base text-[#C4D1DF] leading-relaxed">
-              Have questions regarding a Courtyard by Marriott property or need assistance submitting an enquiry? Reach out to our team via phone or send us a message below.
+              Have questions regarding any of our 29 Courtyard by Marriott hotels across India, or need assistance submitting a reservation enquiry? Reach out to our team via phone or send us a message below.
             </p>
 
             <div className="pt-2 flex flex-wrap gap-4">
@@ -96,7 +96,7 @@ export default function ContactPage() {
               </div>
               <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Call Us Directly</h4>
               <p className="text-xs text-[#C4D1DF]">
-                Speak with our stay assistance coordinators during operational hours:
+                Speak with our stay assistance coordinators 24/7:
               </p>
               <a
                 href={SITE_CONFIG.phoneTel}
@@ -111,7 +111,7 @@ export default function ContactPage() {
               <div className="w-10 h-10 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936]">
                 <Mail className="w-5 h-5" />
               </div>
-              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Email Assistance</h4>
+              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Email Inquiries</h4>
               <p className="text-xs text-[#C4D1DF]">
                 Send enquiries or special group coordination requests:
               </p>
@@ -128,12 +128,12 @@ export default function ContactPage() {
               <div className="w-10 h-10 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936]">
                 <Clock className="w-5 h-5" />
               </div>
-              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Business Hours</h4>
+              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Guest Support Hours</h4>
               <p className="text-xs text-[#C4D1DF] leading-relaxed">
                 {SITE_CONFIG.businessHours}
               </p>
               <span className="inline-block text-[11px] text-[#8ba2bc]">
-                Enquiries received after hours are processed the following morning.
+                Our dedicated team is available around the clock to assist you.
               </span>
             </div>
 
@@ -142,7 +142,7 @@ export default function ContactPage() {
               <div className="w-10 h-10 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936]">
                 <MapPin className="w-5 h-5" />
               </div>
-              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Operator & Office</h4>
+              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Central Office</h4>
               <p className="text-xs text-[#C4D1DF] leading-relaxed">
                 <strong>{SITE_CONFIG.operatorName}</strong>
                 <br />
@@ -158,9 +158,9 @@ export default function ContactPage() {
       {/* 3. How We Can Help Cards */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
-          eyebrow="OUR ASSISTANCE"
-          title="How Our Coordinators Can Help"
-          description="We provide comprehensive informational assistance for all domestic stay requirements."
+          eyebrow="SERVICES"
+          title="How Our Team Assists You"
+          description="Whatever your travel needs, our dedicated reservation coordinators are here to facilitate."
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -171,10 +171,10 @@ export default function ContactPage() {
                 key={idx}
                 className="bg-[#06172A] border border-[#123452] p-6 rounded-2xl space-y-3 hover:border-[#F6B936]/40 transition-colors shadow-md"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936]">
-                  <Icon className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936]">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-serif font-bold text-base text-[#F7F8FA]">{item.title}</h3>
+                <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">{item.title}</h4>
                 <p className="text-xs text-[#C4D1DF] leading-relaxed">{item.desc}</p>
               </div>
             );
@@ -182,17 +182,17 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* 4. FAQs */}
+      {/* 4. Contact FAQs */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
-          eyebrow="QUICK ANSWERS"
-          title="Common Questions"
-          description="Everything you need to know about contacting us and making stay enquiries."
+          eyebrow="HELP & ANSWERS"
+          title="Frequently Asked Inquiries"
+          description="Instant clarity on enquiry submissions, contact channels, and stay support."
         />
         <FAQAccordion items={FAQS.slice(0, 4)} />
       </section>
 
-      {/* 5. Prominent Independence Notice */}
+      {/* 5. Advisory Notice Card */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <DisclaimerNotice variant="card" />
       </div>

@@ -2,41 +2,32 @@ import React from "react";
 import { Metadata } from "next";
 import { SITE_CONFIG } from "@/data/site-config";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | GuestAssist",
-  description: "Privacy policy and data handling practices for GuestAssist, operated by BrightSpark Leisure Services Private Limited.",
+  title: "Privacy Policy | Courtyard by Marriott",
+  description: "Privacy policy and data handling practices for Courtyard by Marriott India stay enquiry portal.",
 };
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
       <SectionHeading
-        eyebrow="LEGAL DRAFT"
+        eyebrow="LEGAL & PRIVACY"
         title="Privacy Policy"
-        description="Draft document outlining how visitor stay enquiries and contact details are handled."
+        description="How we handle your stay enquiries, contact details, and reservation preferences."
       />
-
-      <div className="p-4 rounded-xl bg-[#F6B936]/10 border border-[#F6B936]/30 text-xs text-[#FFD16A] flex items-start gap-3">
-        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-        <p>
-          <strong>Draft Copy Notice:</strong> This privacy policy is a draft document provided for review by BrightSpark Leisure Services Private Limited and legal advisors before final commercial deployment.
-        </p>
-      </div>
 
       <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. Data Controller Information</h3>
           <p>
-            GuestAssist is an independent information and enquiry assistance service operated by{" "}
-            <strong>{SITE_CONFIG.operatorName}</strong> ({SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}, India).
+            This portal is operated for <strong>{SITE_CONFIG.name}</strong> ({SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}, India) to facilitate stay enquiries and customer service across our 29 Indian properties.
           </p>
         </section>
 
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">2. Information We Collect</h3>
-          <p>When you submit a stay enquiry on GuestAssist, we collect only information necessary to assist with your enquiry:</p>
+          <p>When you submit a stay enquiry or contact request on this website, we collect only information necessary to assist with your stay:</p>
           <ul className="list-disc pl-5 space-y-1">
             <li>Full Name</li>
             <li>Email Address</li>
@@ -52,7 +43,7 @@ export default function PrivacyPolicyPage() {
           <p>We process collected data exclusively to:</p>
           <ul className="list-disc pl-5 space-y-1">
             <li>Review and respond to your hotel stay enquiry.</li>
-            <li>Coordinate property guidance and availability information.</li>
+            <li>Coordinate property guidance and room availability details.</li>
             <li>Prevent automated spam and protect website infrastructure.</li>
           </ul>
         </section>
@@ -60,7 +51,7 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">4. No Financial Information Stored</h3>
           <p>
-            GuestAssist does not process hotel payments, credit card details, or financial deposits. All room reservations and monetary transactions occur directly between the guest and the hotel property or authorized booking channels.
+            This website does not collect hotel payments, credit card details, or financial deposits. All room reservations and monetary transactions occur securely upon reservation confirmation.
           </p>
         </section>
 

@@ -2,56 +2,47 @@ import React from "react";
 import { Metadata } from "next";
 import { SITE_CONFIG } from "@/data/site-config";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | GuestAssist",
-  description: "Terms and conditions of use for the GuestAssist stay enquiry assistance platform.",
+  title: "Terms of Service | Courtyard by Marriott",
+  description: "Terms and conditions of use for the Courtyard by Marriott India stay enquiry portal.",
 };
 
 export default function TermsOfServicePage() {
   return (
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
       <SectionHeading
-        eyebrow="LEGAL DRAFT"
+        eyebrow="LEGAL"
         title="Terms of Service"
-        description="Terms governing the use of the GuestAssist stay enquiry platform."
+        description="Terms governing the use of the Courtyard by Marriott stay enquiry platform."
       />
-
-      <div className="p-4 rounded-xl bg-[#F6B936]/10 border border-[#F6B936]/30 text-xs text-[#FFD16A] flex items-start gap-3">
-        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-        <p>
-          <strong>Draft Copy Notice:</strong> This document is draft legal copy prepared for review by BrightSpark Leisure Services Private Limited.
-        </p>
-      </div>
 
       <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. Nature of Service</h3>
           <p>
-            GuestAssist is an independent information and enquiry assistance platform operated by{" "}
-            <strong>{SITE_CONFIG.operatorName}</strong>. Submitting an enquiry through this platform does NOT constitute a confirmed booking, contract of carriage, or room reservation with any hotel property.
+            This website provides directory information, amenities, and stay enquiry coordination for <strong>{SITE_CONFIG.name}</strong> properties across India. Submitting an enquiry allows our guest coordinators to verify room availability, rates, and special requests for your stay.
           </p>
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">2. Non-Affiliation</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">2. Enquiries and Booking Confirmation</h3>
           <p>
-            GuestAssist is independent and is not owned, operated, authorized, or endorsed by Marriott International, Inc. All brand names and property references are used descriptively to assist users in locating hotel properties.
+            An enquiry submitted through this platform does not constitute an immediate confirmed room booking until details, applicable taxes, and reservation guarantees are finalized with our reservations desk or designated booking channels.
           </p>
         </section>
 
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Verification of Rates & Policies</h3>
           <p>
-            All property features, room tariffs, taxes, meal inclusions, check-in rules, and cancellation policies are established by the respective hotel management. Users must verify all final terms directly prior to executing any booking or payment.
+            All property features, room tariffs, taxes, meal inclusions, check-in timings, and cancellation policies are established in accordance with hotel property standards. Guests receive itemized confirmation details prior to completing any room reservation.
           </p>
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">4. Limitation of Liability</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">4. User Conduct</h3>
           <p>
-            {SITE_CONFIG.operatorName} provides informational coordination on an as-is basis and disclaims liability for inaccuracies in hotel amenities, unforeseen price alterations, or room unavailability at third-party hotel venues.
+            Users agree to provide accurate, genuine contact details and travel dates when submitting enquiries. Automated scraping, spamming, or fraudulent booking requests are strictly prohibited.
           </p>
         </section>
       </div>

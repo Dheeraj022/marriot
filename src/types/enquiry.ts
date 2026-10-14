@@ -6,6 +6,8 @@ export interface EnquirySearchParams {
   adults?: number;
   rooms?: number;
   children?: number;
+  roomType?: string;
+  roomTypeName?: string;
   roomCategory?: string;
 }
 
@@ -16,7 +18,9 @@ export interface EnquiryPayload {
   checkOut: string;
   adults: number;
   rooms: number;
-  children: number;
+  children?: number;
+  roomType?: string;
+  roomTypeName?: string;
   fullName: string;
   email: string;
   phone: string;
@@ -30,4 +34,5 @@ export interface EnquiryResponse {
   referenceId?: string;
   message: string;
   errors?: Record<string, string>;
+  summary?: Record<string, unknown>;
 }

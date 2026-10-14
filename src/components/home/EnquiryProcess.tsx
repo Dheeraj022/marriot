@@ -1,94 +1,137 @@
 import React from "react";
-import Link from "next/link";
-import { Search, Send, Headphones, CheckCircle, ArrowRight } from "lucide-react";
-import { SectionHeading } from "@/components/shared/SectionHeading";
+import {
+  Search,
+  FileText,
+  Headphones,
+  CalendarCheck,
+  Info,
+} from "lucide-react";
 
 const STEPS = [
   {
-    step: "01",
+    step: 1,
     icon: Search,
     title: "Search & Explore",
-    description: "Browse 29 Courtyard by Marriott locations across India. Select your destination, preferred dates, and guest specifications.",
+    description:
+      "Browse hotel options in your preferred city or destination and view details.",
   },
   {
-    step: "02",
-    icon: Send,
-    title: "Send Your Enquiry",
-    description: "Submit our simple enquiry form. No credit cards or payment deposits required at any point on GuestAssist.",
+    step: 2,
+    icon: FileText,
+    title: "Send an Enquiry",
+    description:
+      "Share your travel dates, number of guests and preferences through our enquiry form or contact our team.",
   },
   {
-    step: "03",
+    step: 3,
     icon: Headphones,
-    title: "Get Dedicated Assistance",
-    description: "Our stay coordinators review property features, clarify amenities, and assist with custom requirements within 2-4 business hours.",
+    title: "Get Assistance",
+    description:
+      "Our team will help you with available information and guide you with suitable options based on your requirements.",
   },
   {
-    step: "04",
-    icon: CheckCircle,
-    title: "Confirm Directly",
-    description: "Verify rates, policies, and room availability directly with the hotel or authorized booking provider to complete your stay reservation.",
+    step: 4,
+    icon: CalendarCheck,
+    title: "Make Your Own Booking Decision",
+    description:
+      "Review the details shared and proceed directly with the hotel or booking provider of your choice. We do not process bookings or payments.",
   },
 ];
 
-export function EnquiryProcess() {
-  return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="bg-gradient-to-b from-[#06172A] to-[#0A2340] border border-[#123452] rounded-3xl p-8 sm:p-12 md:p-16 relative overflow-hidden shadow-2xl">
-        <SectionHeading
-          eyebrow="TRANSPARENT WORKFLOW"
-          title="How Our Stay Enquiry Assistance Works"
-          description="We make planning your Courtyard hotel stay straightforward, transparent, and completely pressure-free."
-        />
+interface EnquiryProcessProps {
+  className?: string;
+  showCardWrapper?: boolean;
+}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-          {STEPS.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={idx}
-                className="bg-[#03101F]/60 border border-[#123452] p-6 rounded-2xl relative space-y-4 hover:border-[#F6B936]/40 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-serif font-black text-2xl text-[#F6B936]/40">
-                    {item.step}
-                  </span>
-                  <div className="w-10 h-10 rounded-xl bg-[#F6B936]/15 border border-[#F6B936]/30 flex items-center justify-center text-[#FFD16A]">
-                    <Icon className="w-5 h-5" />
-                  </div>
+export function EnquiryProcess({
+  className = "",
+  showCardWrapper = false,
+}: EnquiryProcessProps) {
+  const content = (
+    <div className="space-y-8 max-w-4xl">
+      {/* Header */}
+      <div className="space-y-3">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#F7F8FA] flex items-center flex-wrap gap-2.5">
+          <span>How Our</span>
+          <span className="text-[#F6B936]">Enquiry Assistance</span>
+          <span>Works</span>
+          <span className="inline-block w-8 sm:w-12 h-[2.5px] bg-[#F6B936] rounded-full align-middle ml-1" />
+        </h2>
+        <p className="text-sm sm:text-base text-[#C4D1DF] max-w-2xl leading-relaxed">
+          A simple and transparent process to help you find the right hotel for your next stay in India.
+        </p>
+      </div>
+
+      {/* 4 Steps with Timeline */}
+      <div className="space-y-0 pt-2">
+        {STEPS.map((item, idx) => {
+          const Icon = item.icon;
+          const isLast = idx === STEPS.length - 1;
+
+          return (
+            <div key={item.step} className="flex items-start gap-4 sm:gap-6 relative group">
+              {/* Left Column: Numbered Circle + Dashed Connecting Line */}
+              <div className="flex flex-col items-center shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-[#FFE399] via-[#F6B936] to-[#d49619] text-[#03101F] font-serif font-bold text-base sm:text-lg flex items-center justify-center shadow-lg shadow-[#F6B936]/20 z-10 transition-transform duration-200 group-hover:scale-105">
+                  {item.step}
                 </div>
 
-                <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">
-                  {item.title}
-                </h3>
-
-                <p className="text-xs text-[#C4D1DF] leading-relaxed">
-                  {item.description}
-                </p>
+                {!isLast && (
+                  <div className="w-0 border-l-2 border-dashed border-[#F6B936]/50 min-h-[70px] sm:min-h-[80px] my-1.5" />
+                )}
               </div>
-            );
-          })}
-        </div>
 
-        {/* CTA Banner at bottom */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div>
-            <h4 className="font-serif font-bold text-xl text-[#F7F8FA]">
-              Ready to submit your stay enquiry?
-            </h4>
-            <p className="text-xs text-[#C4D1DF]">
-              Fast assistance across all 29 Indian destinations with zero service fees.
-            </p>
-          </div>
+              {/* Right Column: Icon Card + Step Content */}
+              <div
+                className={`flex items-start gap-3.5 sm:gap-5 flex-1 ${
+                  !isLast ? "pb-6 sm:pb-8" : "pb-2"
+                }`}
+              >
+                {/* Icon Card */}
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#06172A] border border-[#123452] flex items-center justify-center text-[#F6B936] shrink-0 shadow-md group-hover:border-[#F6B936]/40 transition-colors">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#F6B936]" />
+                </div>
 
-          <Link
-            href="/#directory"
-            className="btn-gold px-6 py-3 rounded-xl text-sm font-bold inline-flex items-center gap-2 shadow-lg shrink-0"
-          >
-            <span>Explore Properties</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
+                {/* Text Content */}
+                <div className="space-y-1 pt-1 flex-1">
+                  <h3 className="font-serif font-bold text-base sm:text-lg text-[#F7F8FA]">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#C4D1DF] leading-relaxed max-w-xl">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+      {/* Advisory / Disclaimer Notice Box */}
+      <div className="rounded-2xl border border-[#F6B936] bg-[#06172A]/85 backdrop-blur-sm p-4 sm:p-5 flex items-start sm:items-center gap-3.5 sm:gap-4 shadow-xl shadow-black/30">
+        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#F6B936] flex items-center justify-center text-[#F6B936] shrink-0 mt-0.5 sm:mt-0">
+          <Info className="w-4 h-4 sm:w-5 sm:h-5 text-[#F6B936]" />
+        </div>
+        <p className="text-xs sm:text-sm text-[#C4D1DF] leading-relaxed">
+          Submitting an enquiry does not confirm a booking. Availability, rates and booking terms must be verified with the hotel or relevant booking provider.
+        </p>
+      </div>
+    </div>
+  );
+
+  if (showCardWrapper) {
+    return (
+      <section className={`py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${className}`}>
+        <div className="bg-[#06172A] border border-[#123452] rounded-3xl p-6 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
+          {content}
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className={`py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${className}`}>
+      {content}
     </section>
   );
 }

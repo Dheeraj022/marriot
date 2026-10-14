@@ -30,7 +30,7 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
     { label: "Home", href: "/", icon: Building2 },
     { label: "All 29 Locations", href: "/#directory", icon: MapPin },
     { label: "Accommodation", href: "/#accommodation", icon: BedDouble },
-    { label: "About GuestAssist", href: "/about", icon: Info },
+    { label: "About Us", href: "/about", icon: Info },
     { label: "Contact Us", href: "/contact", icon: Mail },
   ];
 
@@ -51,15 +51,15 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FFD16A] via-[#F6B936] to-[#b37c15] p-0.5 shadow-md flex items-center justify-center">
                 <div className="w-full h-full bg-[#03101F] rounded-[7px] flex items-center justify-center">
-                  <span className="font-serif font-black text-sm text-[#F6B936]">GA</span>
+                  <span className="font-serif font-black text-xs text-[#F6B936]">CY</span>
                 </div>
               </div>
               <div>
-                <span className="block font-serif font-bold text-base text-[#F7F8FA] tracking-wide">
-                  GuestAssist
+                <span className="block font-serif font-bold text-sm text-[#F7F8FA] tracking-wide">
+                  Courtyard by Marriott
                 </span>
                 <span className="block text-[10px] text-[#C4D1DF] tracking-wider uppercase">
-                  Stay Assistance
+                  Hotels & Resorts India
                 </span>
               </div>
             </div>
@@ -115,8 +115,7 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
           </div>
 
           <p className="text-[10px] text-[#8ba2bc] text-center leading-relaxed">
-            Operated by <strong className="text-[#C4D1DF]">{SITE_CONFIG.operatorName}</strong>.
-            Independent stay assistance service.
+            Courtyard by Marriott India. All rights reserved.
           </p>
         </div>
       </div>

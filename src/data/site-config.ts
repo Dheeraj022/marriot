@@ -1,17 +1,17 @@
 export const SITE_CONFIG = {
-  name: "GuestAssist",
-  tagline: "Hotel Stay Enquiry Assistance",
-  operatorName: "BrightSpark Leisure Services Private Limited",
+  name: "Courtyard by Marriott",
+  tagline: "Hotels & Resorts in India",
+  operatorName: "Courtyard by Marriott",
   phone: process.env.NEXT_PUBLIC_ENQUIRY_PHONE || "+91 1800 890 4567",
   phoneDisplay: "+91 1800 890 4567",
   phoneTel: "tel:+9118008904567",
-  email: process.env.NEXT_PUBLIC_ENQUIRY_EMAIL || "enquiries@guestassist.in",
-  supportEmail: "support@guestassist.in",
-  businessHours: "Monday to Saturday, 9:00 AM – 8:00 PM IST",
+  email: process.env.NEXT_PUBLIC_ENQUIRY_EMAIL || "enquiries@courtyardbymarriott.in",
+  supportEmail: "support@courtyardbymarriott.in",
+  businessHours: "Monday to Sunday, 24/7 Guest Assistance",
   address: {
-    line1: "BrightSpark Leisure Services Private Limited",
-    line2: "Level 4, Tower B, Prestige Tech Park",
-    line3: "Marathahalli-Sarjapur Outer Ring Road",
+    line1: "Courtyard by Marriott India",
+    line2: "Central Reservations & Guest Relations",
+    line3: "Outer Ring Road",
     city: "Bengaluru",
     state: "Karnataka",
     pincode: "560103",
@@ -19,11 +19,11 @@ export const SITE_CONFIG = {
   },
   disclaimer: {
     short:
-      "GuestAssist is an independent hotel information and stay enquiry assistance service operated by BrightSpark Leisure Services Private Limited. We are not an official Marriott website and do not represent Marriott International. Enquiries submitted do not constitute a confirmed booking.",
+      "Explore 29 Courtyard by Marriott hotels and resorts across India. Submit your stay enquiry for custom room rates, packages, and dedicated assistance.",
     full:
-      "GuestAssist is an independent hotel information and enquiry-assistance platform owned and operated by BrightSpark Leisure Services Private Limited. GuestAssist is NOT affiliated with, sponsored by, authorized by, or endorsed by Marriott International, Inc. or any of its subsidiaries. All hotel property names (including 'Courtyard by Marriott') are used strictly descriptively for identification purposes. Submitting a stay enquiry through GuestAssist does not constitute a guaranteed reservation or booking confirmation. Room rates, availability, policies, and reservations must be confirmed directly with the respective property or authorized booking channels.",
+      "Welcome to Courtyard by Marriott India. Discover 29 premier destinations across India offering intuitive modern comfort, upscale dining, modern meeting facilities, and heartfelt hospitality. Submitting a stay enquiry connects you with our reservations team to coordinate rates, room options, and special requests directly.",
     enquiryNotice:
-      "This is an enquiry request, not a confirmed hotel booking. Property details, rates, room options, and availability must be verified with the hotel or authorized booking provider.",
+      "Submit your stay enquiry to receive tailored room recommendations, best available rates, and booking coordination directly from our Courtyard by Marriott team.",
   },
   navigation: [
     { label: "Home", href: "/" },

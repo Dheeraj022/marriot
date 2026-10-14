@@ -18,29 +18,30 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | GuestAssist - Hotel Enquiry Assistance",
-    default: "GuestAssist | Explore Courtyard by Marriott Hotels in India",
+    template: "%s | Courtyard by Marriott",
+    default: "Courtyard by Marriott | Explore 29 Hotels Across India",
   },
   description:
-    "GuestAssist is an independent hotel information and stay enquiry assistance platform operated by BrightSpark Leisure Services Private Limited. Explore Courtyard by Marriott properties across India and submit an enquiry.",
+    "Explore 29 Courtyard by Marriott hotels and resorts across India. Discover premier accommodations, luxury amenities, flexible event spaces, and submit your stay enquiry.",
   keywords: [
-    "GuestAssist",
+    "Courtyard by Marriott",
     "Courtyard by Marriott India",
-    "Hotel enquiry assistance",
-    "Hotel directory India",
-    "BrightSpark Leisure Services",
+    "Courtyard hotels",
+    "Marriott hotels India",
+    "Hotel enquiry India",
     "Courtyard Marriott Mumbai",
     "Courtyard Marriott Bengaluru",
+    "Courtyard Marriott Delhi",
   ],
-  authors: [{ name: "BrightSpark Leisure Services Private Limited" }],
+  authors: [{ name: "Courtyard by Marriott" }],
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://guestassist.in",
-    siteName: "GuestAssist",
-    title: "GuestAssist | Hotel Information & Stay Enquiry Assistance",
+    url: "https://courtyardbymarriott.in",
+    siteName: "Courtyard by Marriott",
+    title: "Courtyard by Marriott | Explore 29 Hotels Across India",
     description:
-      "Explore 29 Courtyard by Marriott hotels across India and connect with our stay enquiry assistance team.",
+      "Explore 29 Courtyard by Marriott hotels and resorts across India. Discover premier accommodations, luxury amenities, and submit your stay enquiry.",
   },
   robots: {
     index: true,

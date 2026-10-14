@@ -2,11 +2,11 @@ import React from "react";
 import { Metadata } from "next";
 import { SITE_CONFIG } from "@/data/site-config";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { Mail, PhoneCall, MapPin, AlertCircle } from "lucide-react";
+import { Mail, PhoneCall, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Grievance & Support | GuestAssist",
-  description: "Customer grievance redressal mechanism and support contacts for GuestAssist.",
+  title: "Grievance & Support | Courtyard by Marriott",
+  description: "Customer grievance resolution and guest support contacts for Courtyard by Marriott India.",
 };
 
 export default function GrievanceSupportPage() {
@@ -14,22 +14,15 @@ export default function GrievanceSupportPage() {
     <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
       <SectionHeading
         eyebrow="SUPPORT & RESOLUTION"
-        title="Grievance Redressal & Support"
-        description="We are committed to prompt and transparent resolution of user concerns."
+        title="Guest Support & Grievance Redressal"
+        description="We are committed to prompt, courteous, and transparent resolution of all guest concerns."
       />
-
-      <div className="p-4 rounded-xl bg-[#F6B936]/10 border border-[#F6B936]/30 text-xs text-[#FFD16A] flex items-start gap-3">
-        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-        <p>
-          <strong>Draft Copy Notice:</strong> Grievance redressal procedure in accordance with applicable consumer protection guidelines in India.
-        </p>
-      </div>
 
       <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. Support Mechanism</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. Guest Assistance Desk</h3>
           <p>
-            For any queries or concerns regarding stay enquiry assistance, communication preferences, or information displayed on GuestAssist, please contact our support desk:
+            For any queries, feedback, or concerns regarding your stay enquiry, property coordination, or platform assistance, please reach out to our dedicated support desk:
           </p>
 
           <div className="mt-3 p-4 rounded-xl bg-[#03101F] border border-[#123452] space-y-2">
@@ -51,20 +44,20 @@ export default function GrievanceSupportPage() {
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">2. Grievance Officer Details</h3>
           <p>
-            In compliance with Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, the Grievance Officer details for BrightSpark Leisure Services Private Limited are:
+            In compliance with applicable consumer service and digital intermediary guidelines, the details for our designated grievance desk are:
           </p>
           <div className="p-4 rounded-xl bg-[#03101F] border border-[#123452] text-xs space-y-1">
-            <p><strong>Designation:</strong> Grievance Redressal Officer</p>
-            <p><strong>Entity:</strong> {SITE_CONFIG.operatorName}</p>
-            <p><strong>Email:</strong> grievance@brightsparkleisure.com</p>
-            <p><strong>Response Timeline:</strong> Acknowledgement within 48 hours; resolution within 15 business days.</p>
+            <p><strong>Designation:</strong> Guest Grievance Redressal Officer</p>
+            <p><strong>Entity:</strong> {SITE_CONFIG.name} India Central Desk</p>
+            <p><strong>Email:</strong> grievance@courtyardbymarriott.in</p>
+            <p><strong>Response Timeline:</strong> Initial response within 24 to 48 hours; resolution within 15 business days.</p>
           </div>
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Third-Party Hotel Grievances</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Property-Specific Queries</h3>
           <p>
-            Please note that service quality, billing disputes, room assignments, and facility maintenance at actual hotel premises are the sole responsibility of the respective hotel management. However, our team will provide guidance and appropriate hotel management contact points upon request.
+            If your query pertains to an on-property stay experience, specific food & beverage service, or billing statement from a past checkout, our central team can coordinate directly with the duty manager or front office team of the respective hotel location.
           </p>
         </section>
       </div>
