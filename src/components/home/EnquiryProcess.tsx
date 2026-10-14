@@ -1,10 +1,13 @@
 import React from "react";
+import Link from "next/link";
 import {
   Search,
   FileText,
   Headphones,
   CalendarCheck,
   Info,
+  ArrowRight,
+  Building,
 } from "lucide-react";
 
 const STEPS = [
@@ -45,10 +48,10 @@ interface EnquiryProcessProps {
 
 export function EnquiryProcess({
   className = "",
-  showCardWrapper = false,
+  showCardWrapper = true,
 }: EnquiryProcessProps) {
   const content = (
-    <div className="space-y-8 max-w-4xl">
+    <div className="space-y-8 lg:space-y-10">
       {/* Header */}
       <div className="space-y-3">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#F7F8FA] flex items-center flex-wrap gap-2.5">
@@ -62,8 +65,10 @@ export function EnquiryProcess({
         </p>
       </div>
 
-      {/* 4 Steps with Timeline */}
-      <div className="space-y-0 pt-2">
+      {/* =========================================================================
+          MOBILE / TABLET VIEW (< lg): Connected Vertical Timeline
+          ========================================================================= */}
+      <div className="lg:hidden space-y-0 pt-2">
         {STEPS.map((item, idx) => {
           const Icon = item.icon;
           const isLast = idx === STEPS.length - 1;
@@ -107,14 +112,84 @@ export function EnquiryProcess({
         })}
       </div>
 
+      {/* =========================================================================
+          LAPTOP / DESKTOP VIEW (>= lg): 4-Column Horizontal Step Cards Pipeline
+          ========================================================================= */}
+      <div className="hidden lg:grid grid-cols-4 gap-6 relative">
+        {STEPS.map((item, idx) => {
+          const Icon = item.icon;
+          const isLast = idx === STEPS.length - 1;
+
+          return (
+            <div
+              key={item.step}
+              className="bg-[#03101F]/80 border border-[#123452] hover:border-[#F6B936]/50 rounded-2xl p-6 relative flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-[#F6B936]/10 group"
+            >
+              {/* Card Header: Gold Circle & Icon Container */}
+              <div className="flex items-center justify-between mb-5">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#FFE399] via-[#F6B936] to-[#d49619] text-[#03101F] font-serif font-bold text-base flex items-center justify-center shadow-md shadow-[#F6B936]/20 group-hover:scale-105 transition-transform">
+                  {item.step}
+                </div>
+
+                <div className="w-12 h-12 rounded-xl bg-[#06172A] border border-[#123452] group-hover:border-[#F6B936]/40 flex items-center justify-center text-[#F6B936] transition-colors shadow-inner">
+                  <Icon className="w-5 h-5 text-[#F6B936]" />
+                </div>
+              </div>
+
+              {/* Card Body: Title & Description */}
+              <div className="space-y-2 flex-1">
+                <h3 className="font-serif font-bold text-base sm:text-lg text-[#F7F8FA] group-hover:text-[#FFD16A] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-[#C4D1DF] leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+
+              {/* Sub-card step indicator tag */}
+              <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-[#8ba2bc]">
+                <span className="font-mono text-[#F6B936]">Step 0{item.step}</span>
+                <span>{item.step === 4 ? "Direct Booking" : "Stay Planning"}</span>
+              </div>
+
+              {/* Pipeline Arrow Between Cards on Extra-Wide Screens */}
+              {!isLast && (
+                <div className="hidden xl:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-[#06172A] border border-[#F6B936]/50 items-center justify-center text-[#F6B936] shadow-lg">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
       {/* Advisory / Disclaimer Notice Box */}
-      <div className="rounded-2xl border border-[#F6B936] bg-[#06172A]/85 backdrop-blur-sm p-4 sm:p-5 flex items-start sm:items-center gap-3.5 sm:gap-4 shadow-xl shadow-black/30">
-        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#F6B936] flex items-center justify-center text-[#F6B936] shrink-0 mt-0.5 sm:mt-0">
-          <Info className="w-4 h-4 sm:w-5 sm:h-5 text-[#F6B936]" />
+      <div className="rounded-2xl border border-[#F6B936] bg-[#06172A]/85 backdrop-blur-sm p-4 sm:p-5 flex items-start sm:items-center justify-between flex-col md:flex-row gap-4 shadow-xl shadow-black/30">
+        <div className="flex items-start sm:items-center gap-3.5 sm:gap-4 flex-1">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#F6B936] flex items-center justify-center text-[#F6B936] shrink-0 mt-0.5 sm:mt-0">
+            <Info className="w-4 h-4 sm:w-5 sm:h-5 text-[#F6B936]" />
+          </div>
+          <p className="text-xs sm:text-sm text-[#C4D1DF] leading-relaxed">
+            Submitting an enquiry does not confirm a booking. Availability, rates and booking terms must be verified with the hotel or relevant booking provider.
+          </p>
         </div>
-        <p className="text-xs sm:text-sm text-[#C4D1DF] leading-relaxed">
-          Submitting an enquiry does not confirm a booking. Availability, rates and booking terms must be verified with the hotel or relevant booking provider.
-        </p>
+
+        <div className="shrink-0 flex items-center gap-3 w-full md:w-auto pt-2 md:pt-0 border-t md:border-t-0 border-white/10">
+          <Link
+            href="/enquiry"
+            className="w-full md:w-auto px-5 py-2.5 rounded-xl btn-gold text-xs font-bold inline-flex items-center justify-center gap-2 shadow-md transition-all shrink-0"
+          >
+            <span>Start Stay Enquiry</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[#102033]" />
+          </Link>
+          <Link
+            href="/#directory"
+            className="hidden sm:inline-flex px-4 py-2.5 rounded-xl bg-[#0A2340] border border-[#123452] hover:border-[#F6B936]/40 text-xs font-semibold text-[#F7F8FA] hover:text-[#FFD16A] items-center gap-1.5 transition-colors shrink-0"
+          >
+            <Building className="w-3.5 h-3.5 text-[#F6B936]" />
+            <span>29 Hotels</span>
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -122,7 +197,7 @@ export function EnquiryProcess({
   if (showCardWrapper) {
     return (
       <section className={`py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto ${className}`}>
-        <div className="bg-[#06172A] border border-[#123452] rounded-3xl p-6 sm:p-10 md:p-14 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-b from-[#06172A] to-[#0A2340] border border-[#123452] rounded-3xl p-6 sm:p-10 md:p-12 lg:p-14 shadow-2xl relative overflow-hidden">
           {content}
         </div>
       </section>

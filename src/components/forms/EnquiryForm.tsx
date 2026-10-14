@@ -122,7 +122,7 @@ export function EnquiryForm() {
       {/* =========================================================================
           STEP 1: Check Availability Search Card
           ========================================================================= */}
-      <div className="bg-[#06172A] border border-[#123452] rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <div className="bg-[#06172A] border border-[#123452] rounded-3xl p-6 sm:p-8 shadow-2xl relative z-20">
         <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-[#F6B936]/20 border border-[#F6B936]/40 flex items-center justify-center text-[#FFD16A] text-sm font-bold">
@@ -153,7 +153,7 @@ export function EnquiryForm() {
         <form onSubmit={handleCheckAvailability} noValidate>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
             {/* 1. Location */}
-            <div className="sm:col-span-2 lg:col-span-4 relative" ref={dropdownRef}>
+            <div className="sm:col-span-2 lg:col-span-4 relative z-30" ref={dropdownRef}>
               <label
                 htmlFor="avail-location"
                 className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
@@ -198,7 +198,7 @@ export function EnquiryForm() {
                 {isDropdownOpen && (
                   <div
                     id="avail-properties-dropdown"
-                    className="absolute left-0 right-0 top-full mt-2 z-50 max-h-60 overflow-y-auto bg-[#0A2340] border border-[#123452] rounded-xl shadow-2xl divide-y divide-white/5 py-1"
+                    className="absolute left-0 right-0 top-full mt-2 z-50 max-h-52 sm:max-h-56 overflow-y-auto bg-[#071B30] border-2 border-[#F6B936]/40 rounded-xl shadow-2xl shadow-black/95 divide-y divide-white/5 py-1 backdrop-blur-xl"
                   >
                     {filteredProperties.length > 0 ? (
                       filteredProperties.map((p) => {

@@ -150,7 +150,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
         </div>
 
         {/* Central Search Card - Step 1: Check Availability */}
-        <div className="bg-[#06172A]/95 border border-[#123452] p-5 sm:p-7 md:p-8 rounded-2xl shadow-2xl backdrop-blur-xl max-w-5xl mx-auto text-left relative">
+        <div className="bg-[#06172A]/95 border border-[#123452] p-5 sm:p-7 md:p-8 rounded-2xl shadow-2xl backdrop-blur-xl max-w-5xl mx-auto text-left relative z-20">
           <div className="mb-4 flex items-center justify-between pb-3 border-b border-white/10">
             <span className="text-xs font-bold uppercase tracking-wider text-[#FFD16A] flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-[#F6B936]/20 text-[#FFD16A] flex items-center justify-center text-[11px] font-bold">1</span>
@@ -162,7 +162,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           <form onSubmit={handleSubmit} noValidate>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end">
               {/* Location Selector (4 cols) */}
-              <div className="sm:col-span-2 lg:col-span-4 relative" ref={dropdownRef}>
+              <div className="sm:col-span-2 lg:col-span-4 relative z-30" ref={dropdownRef}>
                 <label
                   htmlFor="location-search"
                   className="block text-xs font-semibold uppercase tracking-wider text-[#FFD16A] mb-2 flex items-center gap-1.5"
@@ -210,7 +210,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
                     <div
                       id="properties-dropdown"
                       role="listbox"
-                      className="absolute left-0 right-0 top-full mt-2 z-50 max-h-64 overflow-y-auto bg-[#0A2340] border border-[#123452] rounded-xl shadow-2xl divide-y divide-white/5 py-1"
+                      className="absolute left-0 right-0 top-full mt-2 z-50 max-h-52 sm:max-h-56 overflow-y-auto bg-[#071B30] border-2 border-[#F6B936]/40 rounded-xl shadow-2xl shadow-black/95 divide-y divide-white/5 py-1 backdrop-blur-xl"
                     >
                       {filteredProperties.length > 0 ? (
                         filteredProperties.map((p) => {
@@ -392,7 +392,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
         </div>
 
         {/* Hero Feature Highlights Badges */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-4 relative z-10">
           <div className="p-3 rounded-xl bg-[#06172A]/80 border border-[#123452] backdrop-blur-sm">
             <span className="block text-xl font-bold text-[#FFD16A] font-serif">29</span>
             <span className="block text-xs text-[#C4D1DF]">Pan-India Locations</span>
