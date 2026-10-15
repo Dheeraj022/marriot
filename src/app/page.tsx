@@ -8,6 +8,7 @@ import { AmenitiesSection } from "@/components/home/AmenitiesSection";
 import { ActivitiesSection } from "@/components/home/ActivitiesSection";
 import { DiningSection } from "@/components/home/DiningSection";
 import { EnquiryProcess } from "@/components/home/EnquiryProcess";
+import { ReviewsMarquee } from "@/components/home/ReviewsMarquee";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
@@ -46,7 +47,10 @@ export default function HomePage() {
       {/* 8. 4-Step Transparent Enquiry Process */}
       <EnquiryProcess />
 
-      {/* 9. FAQs Section */}
+      {/* 9. Guest Reviews Slider Marquee (24 Reviews) */}
+      <ReviewsMarquee />
+
+      {/* 10. FAQs Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="FREQUENTLY ASKED QUESTIONS"
