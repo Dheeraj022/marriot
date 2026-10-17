@@ -10,12 +10,27 @@ interface PropertyCardProps {
   property: Property;
   featured?: boolean;
   className?: string;
+  onRequestStayDetails?: (property: Property) => void;
 }
 
-export function PropertyCard({ property, featured = false, className = "" }: PropertyCardProps) {
-  const enquiryUrl = `/enquiry?property=${property.slug}&propertyName=${encodeURIComponent(
-    property.name
-  )}`;
+export function PropertyCard({
+  property,
+  featured = false,
+  className = "",
+  onRequestStayDetails,
+}: PropertyCardProps) {
+  const handleRequestClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onRequestStayDetails) {
+      onRequestStayDetails(property);
+    } else {
+      window.dispatchEvent(
+        new CustomEvent("open-stay-details-modal", {
+          detail: { property },
+        })
+      );
+    }
+  };
 
   return (
     <article className={`group bg-[#06172A] border border-[#123452] rounded-2xl overflow-hidden hover:border-[#F6B936]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#03101F] flex flex-col justify-between ${className}`}>
@@ -84,13 +99,14 @@ export function PropertyCard({ property, featured = false, className = "" }: Pro
 
         {/* Action Buttons */}
         <div className="pt-3 border-t border-white/10 flex items-center gap-2">
-          <Link
-            href={enquiryUrl}
-            className="flex-1 py-2.5 px-3 rounded-lg btn-gold text-xs font-bold text-center flex items-center justify-center gap-1.5 transition-all shadow-sm"
+          <button
+            type="button"
+            onClick={handleRequestClick}
+            className="flex-1 py-2.5 px-3 rounded-lg btn-gold text-xs font-bold text-center flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer hover:brightness-105 active:scale-[0.99]"
           >
             <span>Request Stay Details</span>
             <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          </button>
 
           <CallNowButton
             variant="compact"

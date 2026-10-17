@@ -3,9 +3,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, SlidersHorizontal, Sparkles } from "lucide-react";
 import { PROPERTIES } from "@/data/properties";
-import { Region } from "@/types/property";
+import { Region, Property } from "@/types/property";
 import { PropertyCard } from "@/components/home/PropertyCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { StayDetailsModal } from "@/components/forms/StayDetailsModal";
 
 const REGIONS: ("All" | Region)[] = ["All", "West", "North", "South", "Central", "East"];
 const TOTAL_DOTS = 5;
@@ -15,8 +16,23 @@ export function PropertyDirectory() {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [currentSlideNum, setCurrentSlideNum] = useState(1);
+  const [selectedPropertyForModal, setSelectedPropertyForModal] = useState<Property | null>(null);
 
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Listen for global open-stay-details-modal event
+  useEffect(() => {
+    const handleOpenModal = (e: Event) => {
+      const customEvent = e as CustomEvent<{ property?: Property }>;
+      if (customEvent.detail?.property) {
+        setSelectedPropertyForModal(customEvent.detail.property);
+      }
+    };
+    window.addEventListener("open-stay-details-modal", handleOpenModal);
+    return () => {
+      window.removeEventListener("open-stay-details-modal", handleOpenModal);
+    };
+  }, []);
 
   // Filter properties based on region
   const filteredProperties = PROPERTIES.filter((property) => {
@@ -197,6 +213,7 @@ export function PropertyDirectory() {
               <PropertyCard
                 property={property}
                 featured={property.isFeatured}
+                onRequestStayDetails={(prop) => setSelectedPropertyForModal(prop)}
                 className="h-full shadow-2xl"
               />
             </div>
@@ -263,6 +280,15 @@ export function PropertyDirectory() {
           <span>Swipe or click arrows to explore • Auto-playing every 4s • Pause on hover or touch</span>
         </div>
       </div>
+
+      {/* Stay Details Enquiry Popup Modal */}
+      {selectedPropertyForModal && (
+        <StayDetailsModal
+          isOpen={Boolean(selectedPropertyForModal)}
+          property={selectedPropertyForModal}
+          onClose={() => setSelectedPropertyForModal(null)}
+        />
+      )}
     </section>
   );
 }

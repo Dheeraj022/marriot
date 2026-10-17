@@ -1,9 +1,14 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { PROPERTIES } from "@/data/properties";
+import { Property } from "@/types/property";
 import { PropertyCard } from "@/components/home/PropertyCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { StayDetailsModal } from "@/components/forms/StayDetailsModal";
 
 export function FeaturedProperties() {
+  const [selectedPropertyForModal, setSelectedPropertyForModal] = useState<Property | null>(null);
   const featured = PROPERTIES.filter((p) => p.isFeatured);
 
   return (
@@ -16,9 +21,22 @@ export function FeaturedProperties() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {featured.map((property) => (
-          <PropertyCard key={property.slug} property={property} featured={true} />
+          <PropertyCard
+            key={property.slug}
+            property={property}
+            featured={true}
+            onRequestStayDetails={(prop) => setSelectedPropertyForModal(prop)}
+          />
         ))}
       </div>
+
+      {selectedPropertyForModal && (
+        <StayDetailsModal
+          isOpen={Boolean(selectedPropertyForModal)}
+          property={selectedPropertyForModal}
+          onClose={() => setSelectedPropertyForModal(null)}
+        />
+      )}
     </section>
   );
 }
