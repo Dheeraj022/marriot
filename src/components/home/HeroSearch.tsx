@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ShieldAlert } from "lucide-react";
 import { AvailabilityCard } from "./AvailabilityCard";
 
@@ -8,7 +8,48 @@ interface HeroSearchProps {
   initialPropertySlug?: string;
 }
 
+const HERO_SLIDES = [
+  {
+    url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Luxury Hotel Exterior at Twilight",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Resort Poolside with Palm Trees",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Five-Star Hotel Architecture",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Luxury Hotel Grand Atrium",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Executive Suite",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Evening Pool Cabanas",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=2000&q=85",
+    alt: "Courtyard by Marriott Premier Metropolitan Destination",
+  },
+];
+
 export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Automatic background image rotation every 5 seconds
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(slideInterval);
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const hash = window.location.hash;
@@ -29,19 +70,37 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
   return (
     <section
       id="search"
-      className="relative z-20 min-h-[84vh] lg:min-h-[86vh] flex items-center justify-center pt-16 sm:pt-20 lg:pt-20 pb-14 sm:pb-16 px-4 sm:px-6 lg:px-8 scroll-mt-24"
+      className="relative z-20 min-h-[84vh] lg:min-h-[86vh] flex items-center justify-center pt-16 sm:pt-20 lg:pt-20 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 scroll-mt-24 overflow-hidden"
     >
-      {/* Background Hero Image with Deep Navy Gradient Overlays */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div
-          className="w-full h-full bg-cover bg-center scale-105 transition-transform duration-10000"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=2000&q=85')",
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#03101F]/85 via-[#03101F]/90 to-[#03101F]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#F6B936]/10 via-transparent to-transparent pointer-events-none" />
+      {/* Background Automatic Image Slider with Black Overlay */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        {HERO_SLIDES.map((slide, idx) => {
+          const isActive = idx === currentSlide;
+          return (
+            <div
+              key={slide.url}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <img
+                src={slide.url}
+                alt={slide.alt}
+                className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${
+                  isActive ? "scale-105" : "scale-100"
+                }`}
+                loading={idx === 0 ? "eager" : "lazy"}
+              />
+            </div>
+          );
+        })}
+
+        {/* Dedicated Black Overlay */}
+        <div className="absolute inset-0 bg-black/70" />
+
+        {/* Smooth Vignette and Base Color Transitions */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#03101F]/80 via-transparent to-[#03101F]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#F6B936]/15 via-transparent to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-5xl xl:max-w-6xl mx-auto text-center space-y-6 sm:space-y-7">
@@ -92,6 +151,23 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           <p>
             Direct enquiry coordination across all 29 Courtyard by Marriott hotels in India.
           </p>
+        </div>
+
+        {/* Automatic Slider Indicators */}
+        <div className="flex items-center justify-center gap-1.5 pt-1">
+          {HERO_SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setCurrentSlide(idx)}
+              aria-label={`Go to background slide ${idx + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                currentSlide === idx
+                  ? "w-6 bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
+                  : "w-1.5 bg-white/25 hover:bg-white/50"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
