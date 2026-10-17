@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { ArrowRight, UtensilsCrossed } from "lucide-react";
+import { UtensilsCrossed } from "lucide-react";
 import { DINING_ITEMS } from "@/data/room-categories";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
@@ -48,16 +47,6 @@ export function DiningSection() {
                 <p className="text-xs text-[#C4D1DF] leading-relaxed">
                   {item.description}
                 </p>
-              </div>
-
-              <div className="pt-4 border-t border-white/10">
-                <Link
-                  href="/enquiry?message=Interested%20in%20hotel%20dining%20and%20banquet%20options"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FFD16A] hover:text-[#FFF8EA] transition-colors"
-                >
-                  <span>Enquire About Dining & Banquets</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
               </div>
             </div>
           </div>
