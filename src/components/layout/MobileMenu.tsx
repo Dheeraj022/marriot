@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { X, Building2, MapPin, BedDouble, Info, Mail } from "lucide-react";
+import { X, Building2, MapPin, BedDouble, Info, Mail, Compass } from "lucide-react";
 import { SITE_CONFIG } from "@/data/site-config";
 import { CallNowButton } from "@/components/shared/CallNowButton";
 
@@ -49,17 +49,17 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
           {/* Header */}
           <div className="flex items-center justify-between pb-6 border-b border-white/10">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FFD16A] via-[#F6B936] to-[#b37c15] p-0.5 shadow-md flex items-center justify-center">
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FFE399] via-[#F6B936] to-[#b37c15] p-[1.5px] shadow-md flex items-center justify-center">
                 <div className="w-full h-full bg-[#03101F] rounded-[7px] flex items-center justify-center">
-                  <span className="font-serif font-black text-xs text-[#F6B936]">CY</span>
+                  <Compass className="w-4 h-4 text-[#F6B936]" />
                 </div>
               </div>
               <div>
                 <span className="block font-serif font-bold text-sm text-[#F7F8FA] tracking-wide">
-                  Courtyard by Marriott
+                  {SITE_CONFIG.name}
                 </span>
-                <span className="block text-[10px] text-[#C4D1DF] tracking-wider uppercase">
-                  Hotels & Resorts India
+                <span className="block text-[10px] text-[#C4D1DF] tracking-wider uppercase font-medium">
+                  {SITE_CONFIG.tagline}
                 </span>
               </div>
             </div>

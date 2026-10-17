@@ -21,7 +21,7 @@ export default function TermsOfServicePage() {
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. Nature of Service</h3>
           <p>
-            This website provides directory information, amenities, and stay enquiry coordination for <strong>{SITE_CONFIG.name}</strong> properties across India. Submitting an enquiry allows our guest coordinators to verify room availability, rates, and special requests for your stay.
+            This website provides directory information, amenities, and stay enquiry coordination for <strong>Courtyard by Marriott</strong> properties across India. Submitting an enquiry allows our guest coordinators to verify room availability, rates, and special requests for your stay.
           </p>
         </section>
 

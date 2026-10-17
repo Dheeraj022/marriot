@@ -15,7 +15,7 @@ import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
 import { FAQS } from "@/data/faqs";
 
 export const metadata: Metadata = {
-  title: "Courtyard by Marriott | Explore 29 Hotels Across India",
+  title: "Guest Assist | Explore 29 Courtyard by Marriott Hotels Across India",
   description:
     "Explore 29 Courtyard by Marriott hotels across India. Check room categories, hotel amenities, and submit an enquiry for personalized stay assistance.",
 };

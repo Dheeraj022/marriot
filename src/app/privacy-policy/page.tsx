@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">1. Data Controller Information</h3>
           <p>
-            This portal is operated for <strong>{SITE_CONFIG.name}</strong> ({SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}, India) to facilitate stay enquiries and customer service across our 29 Indian properties.
+            This portal is operated by <strong>{SITE_CONFIG.name}</strong> ({SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}, India) to facilitate stay enquiries and customer service across 29 Courtyard by Marriott properties in India.
           </p>
         </section>
 

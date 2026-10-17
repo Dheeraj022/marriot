@@ -20,7 +20,7 @@ export function SiteHeader() {
           <div className="flex items-center gap-2 truncate">
             <Info className="w-3.5 h-3.5 text-[#F6B936] shrink-0" />
             <span className="truncate">
-              <strong className="text-[#F7F8FA]">Courtyard by Marriott:</strong> 29 Premier Hotels & Resorts Across India
+              <strong className="text-[#F7F8FA]">{SITE_CONFIG.name}:</strong> 29 Premier Hotels & Resorts Across India
             </span>
           </div>
           <div className="flex items-center gap-4 shrink-0 text-xs">

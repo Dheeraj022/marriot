@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Disclaimer & Information Notice | Courtyard by Marriott",
+  title: "Disclaimer & Information Notice",
   description: "Website disclaimer and stay enquiry information notice for Courtyard by Marriott India.",
 };
 

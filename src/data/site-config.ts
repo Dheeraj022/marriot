@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
-  name: "Courtyard by Marriott",
+  name: "Guest Assist",
   tagline: "Hotels & Resorts in India",
-  operatorName: "Courtyard by Marriott",
+  operatorName: "Guest Assist",
   phone: process.env.NEXT_PUBLIC_ENQUIRY_PHONE || "+91 1800 890 4567",
   phoneDisplay: "+91 1800 890 4567",
   phoneTel: "tel:+9118008904567",

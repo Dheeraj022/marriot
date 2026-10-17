@@ -10,7 +10,7 @@ import { FAQS } from "@/data/faqs";
 import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Courtyard by Marriott",
+  title: "Contact Us",
   description:
     "Get in touch with the Courtyard by Marriott stay enquiry and reservations team. Call our helpline or send a message for hotel information and stay coordination across India.",
 };

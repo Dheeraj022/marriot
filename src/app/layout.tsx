@@ -18,12 +18,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Courtyard by Marriott",
-    default: "Courtyard by Marriott | Explore 29 Hotels Across India",
+    template: "%s | Guest Assist",
+    default: "Guest Assist | Explore 29 Courtyard by Marriott Hotels Across India",
   },
   description:
     "Explore 29 Courtyard by Marriott hotels and resorts across India. Discover premier accommodations, luxury amenities, flexible event spaces, and submit your stay enquiry.",
   keywords: [
+    "Guest Assist",
     "Courtyard by Marriott",
     "Courtyard by Marriott India",
     "Courtyard hotels",
@@ -33,13 +34,13 @@ export const metadata: Metadata = {
     "Courtyard Marriott Bengaluru",
     "Courtyard Marriott Delhi",
   ],
-  authors: [{ name: "Courtyard by Marriott" }],
+  authors: [{ name: "Guest Assist" }],
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://courtyardbymarriott.in",
-    siteName: "Courtyard by Marriott",
-    title: "Courtyard by Marriott | Explore 29 Hotels Across India",
+    siteName: "Guest Assist",
+    title: "Guest Assist | Explore 29 Courtyard by Marriott Hotels Across India",
     description:
       "Explore 29 Courtyard by Marriott hotels and resorts across India. Discover premier accommodations, luxury amenities, and submit your stay enquiry.",
   },

@@ -18,7 +18,7 @@ import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
 import { EnquiryProcess } from "@/components/home/EnquiryProcess";
 
 export const metadata: Metadata = {
-  title: "About Us | Courtyard by Marriott",
+  title: "About Us",
   description:
     "Learn about Courtyard by Marriott across India — 29 premier hotels and resorts offering modern comfort, flexible workspaces, and exceptional hospitality.",
 };
