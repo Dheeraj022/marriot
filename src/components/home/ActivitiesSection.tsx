@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { Briefcase, Users, Compass, PartyPopper, ArrowRight } from "lucide-react";
+import { Briefcase, Users, Compass, PartyPopper } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const TRAVELLER_TYPES = [
@@ -71,16 +70,6 @@ export function ActivitiesSection() {
                 <p className="text-xs text-[#C4D1DF] leading-relaxed line-clamp-3">
                   {item.description}
                 </p>
-
-                <div className="pt-2">
-                  <Link
-                    href="/#directory"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FFD16A] hover:text-[#FFF8EA] transition-colors"
-                  >
-                    <span>Explore Locations</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
               </div>
             </div>
           );
