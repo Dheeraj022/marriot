@@ -1,93 +1,117 @@
+"use client";
+
 import React from "react";
 import {
-  Utensils,
-  Wine,
+  UtensilsCrossed,
+  Martini,
   Waves,
   Sparkles,
   Dumbbell,
-  Calendar,
+  Briefcase,
+  Laptop,
   Wifi,
-  Car,
-  ShieldAlert,
+  PlaneTakeoff,
+  CircleParking,
+  BellRing,
+  Shirt,
+  ShieldCheck,
 } from "lucide-react";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 
-const AMENITIES = [
+interface Amenity {
+  title: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const HOTEL_AMENITIES: Amenity[] = [
   {
-    icon: Utensils,
-    title: "Signature Dining",
-    desc: "All-day restaurants offering global breakfast buffets, authentic regional cuisine, and live cooking stations.",
+    title: "All Day Dining",
+    icon: UtensilsCrossed,
   },
   {
-    icon: Wine,
-    title: "Lounge & Evening Bar",
-    desc: "Sophisticated social settings for handcrafted cocktails, premium spirits, and gourmet tapas.",
+    title: "Bar & Lounge",
+    icon: Martini,
   },
   {
+    title: "Swimming Pool",
     icon: Waves,
-    title: "Swimming Pools",
-    desc: "Scenic outdoor, infinity, and rooftop pools designed for invigorating morning laps and relaxing afternoon leisure.",
   },
   {
-    icon: Dumbbell,
-    title: "24/7 Fitness Centres",
-    desc: "Equipped with advanced cardio gear, free weights, and dedicated stretching zones to keep your routine active.",
-  },
-  {
-    icon: Sparkles,
     title: "Spa & Wellness",
-    desc: "Rejuvenating therapies, steam rooms, and therapeutic wellness treatments at select full-service properties.",
+    icon: Sparkles,
   },
   {
-    icon: Calendar,
-    title: "Meetings & Grand Banquets",
-    desc: "Flexible pillarless ballrooms and audiovisual-enabled boardrooms ideal for corporate summits and milestone celebrations.",
+    title: "Fitness Centre",
+    icon: Dumbbell,
   },
   {
+    title: "Meetings & Event Spaces",
+    icon: Briefcase,
+  },
+  {
+    title: "Business Centre",
+    icon: Laptop,
+  },
+  {
+    title: "Free Wi-Fi",
     icon: Wifi,
-    title: "High-Speed Wi-Fi",
-    desc: "Reliable high-bandwidth wireless internet throughout public areas, event halls, and guest accommodations.",
   },
   {
-    icon: Car,
-    title: "Transit & Airport Connectivity",
-    desc: "Strategic proximity to international airports, valet parking assistance, and seamless city taxi coordination.",
+    title: "Airport Connectivity",
+    icon: PlaneTakeoff,
+  },
+  {
+    title: "Parking Facility",
+    icon: CircleParking,
+  },
+  {
+    title: "24/7 Front Desk",
+    icon: BellRing,
+  },
+  {
+    title: "Laundry Service",
+    icon: Shirt,
   },
 ];
 
 export function AmenitiesSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <SectionHeading
-        eyebrow="HOTEL EXPERIENCES"
-        title="Curated Hospitality & Lifestyle Amenities"
-        description="Discover standard amenities commonly available across Courtyard by Marriott hotels in India."
-      />
+    <section id="amenities" className="py-14 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-24">
+      {/* Heading & Subtitle */}
+      <div className="mb-6 sm:mb-8 text-left">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#F7F8FA] tracking-tight">
+          Hotel Amenities &amp; Facilities
+        </h2>
+        <p className="text-xs sm:text-sm md:text-base text-[#C4D1DF] mt-1.5 leading-relaxed font-light">
+          Enjoy a range of world-class amenities for a comfortable and convenient stay.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {AMENITIES.map((item, idx) => {
-          const Icon = item.icon;
+      {/* Grid: 3 columns on mobile -> 4 columns on tablet -> 6 columns on computer screens */}
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-3.5 md:gap-4">
+        {HOTEL_AMENITIES.map((amenity, idx) => {
+          const Icon = amenity.icon;
           return (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#06172A] border border-[#123452] hover:border-[#F6B936]/40 transition-all duration-300 group hover:-translate-y-1 shadow-md shadow-[#03101F]"
+              className="bg-[#06172A]/85 hover:bg-[#0A2340] border border-[#14324F] hover:border-[#F6B936]/60 rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-3.5 flex flex-col items-center justify-center text-center aspect-square md:aspect-auto md:h-28 lg:h-30 transition-all duration-200 group shadow-md shadow-black/20 hover:shadow-xl hover:-translate-y-0.5"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936] group-hover:scale-110 group-hover:border-[#F6B936]/60 transition-all duration-300 mb-4">
-                <Icon className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif font-bold text-lg text-[#F7F8FA] mb-2 group-hover:text-[#FFD16A] transition-colors">
-                {item.title}
-              </h3>
-              <p className="text-xs text-[#C4D1DF] leading-relaxed">{item.desc}</p>
+              {/* Golden Yellow Icon */}
+              <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-6 md:h-6 text-[#F6B936] mb-1.5 sm:mb-2 stroke-[1.8] group-hover:scale-110 transition-transform duration-200 shrink-0" />
+
+              {/* Amenity Title */}
+              <span className="text-[10px] sm:text-xs md:text-xs font-semibold text-[#F7F8FA] leading-tight text-center">
+                {amenity.title}
+              </span>
             </div>
           );
         })}
       </div>
 
-      <div className="mt-8 p-4 rounded-xl bg-[#06172A]/70 border border-[#123452]/70 text-xs text-[#8ba2bc] text-center max-w-3xl mx-auto flex items-center justify-center gap-2">
-        <ShieldAlert className="w-4 h-4 text-[#F6B936] shrink-0" />
+      {/* Under-amenities notice */}
+      <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-center gap-2 text-xs text-[#8ba2bc] text-center">
+        <ShieldCheck className="w-3.5 h-3.5 text-[#F6B936] shrink-0" />
         <span>
-          Note: Specific facilities, operating hours, and service availability vary by property. Our team will verify exact amenities for your chosen destination upon enquiry.
+          Amenities and operational timings vary by property. Exact facilities confirmed upon stay enquiry.
         </span>
       </div>
     </section>

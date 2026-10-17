@@ -1,153 +1,270 @@
 "use client";
 
-import React, { useState, useRef } from "react";
-import { Search, ChevronLeft, ChevronRight, SlidersHorizontal, MapPin } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, SlidersHorizontal, Sparkles } from "lucide-react";
 import { PROPERTIES } from "@/data/properties";
 import { Region } from "@/types/property";
 import { PropertyCard } from "@/components/home/PropertyCard";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
-const REGIONS: ("All" | Region)[] = ["All", "West", "South", "North", "East", "Central"];
+const REGIONS: ("All" | Region)[] = ["All", "West", "North", "South", "Central", "East"];
+const TOTAL_DOTS = 5;
 
 export function PropertyDirectory() {
   const [selectedRegion, setSelectedRegion] = useState<"All" | Region>("All");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeDotIndex, setActiveDotIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [currentSlideNum, setCurrentSlideNum] = useState(1);
+
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  // Filter properties based on region
   const filteredProperties = PROPERTIES.filter((property) => {
-    const matchesRegion =
-      selectedRegion === "All" || property.region === selectedRegion;
-    const matchesSearch =
-      property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.state.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesRegion && matchesSearch;
+    return selectedRegion === "All" || property.region === selectedRegion;
   });
 
-  const scrollCarousel = (direction: "left" | "right") => {
+  const totalHotels = filteredProperties.length;
+
+  // Reset scroll position when region filter changes
+  useEffect(() => {
     if (carouselRef.current) {
-      const scrollAmount = 340;
-      carouselRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
+      carouselRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    }
+    setActiveDotIndex(0);
+    setCurrentSlideNum(1);
+  }, [selectedRegion]);
+
+  // Next Slide Handler
+  const scrollNext = () => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const cardEl = container.firstElementChild as HTMLElement;
+    const cardWidth = cardEl ? cardEl.offsetWidth : 320;
+    const gap = 24; // gap-6
+    const step = cardWidth + gap;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+
+    if (container.scrollLeft >= maxScroll - 15) {
+      container.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: step, behavior: "smooth" });
     }
   };
 
+  // Previous Slide Handler
+  const scrollPrev = () => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const cardEl = container.firstElementChild as HTMLElement;
+    const cardWidth = cardEl ? cardEl.offsetWidth : 320;
+    const gap = 24;
+    const step = cardWidth + gap;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+
+    if (container.scrollLeft <= 15) {
+      container.scrollTo({ left: maxScroll, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: -step, behavior: "smooth" });
+    }
+  };
+
+  // Autoplay timer: auto-advances smoothly across all devices
+  useEffect(() => {
+    if (isHovered || totalHotels <= 1) return;
+
+    const timer = setInterval(() => {
+      scrollNext();
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [isHovered, totalHotels]);
+
+  // Sync active dot and current item number on scroll
+  const handleScroll = () => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+
+    if (maxScroll <= 0) {
+      setActiveDotIndex(0);
+      setCurrentSlideNum(1);
+      return;
+    }
+
+    const cardEl = container.firstElementChild as HTMLElement;
+    const cardWidth = cardEl ? cardEl.offsetWidth : 320;
+    const gap = 24;
+    const step = cardWidth + gap;
+
+    // Current item number (1-indexed)
+    const currentItem = Math.min(
+      totalHotels,
+      Math.max(1, Math.round(container.scrollLeft / step) + 1)
+    );
+    setCurrentSlideNum(currentItem);
+
+    // Active dot index (0 to TOTAL_DOTS - 1)
+    const progress = container.scrollLeft / maxScroll;
+    const activeDot = Math.min(
+      TOTAL_DOTS - 1,
+      Math.max(0, Math.round(progress * (TOTAL_DOTS - 1)))
+    );
+    setActiveDotIndex(activeDot);
+  };
+
+  // Jump to segment on dot click
+  const handleDotClick = (dotIdx: number) => {
+    if (!carouselRef.current) return;
+    const container = carouselRef.current;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const targetScroll = (dotIdx / (TOTAL_DOTS - 1)) * maxScroll;
+    container.scrollTo({ left: targetScroll, behavior: "smooth" });
+  };
+
+  const dotsCount = Math.min(TOTAL_DOTS, Math.max(1, totalHotels));
+
   return (
-    <section id="directory" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
-      <SectionHeading
-        eyebrow="PAN-INDIA DIRECTORY"
-        title="Explore All 29 Courtyard by Marriott Properties"
-        description="Browse through our comprehensive directory across India. Filter by geographical region or search by destination name."
-      />
+    <section
+      id="directory"
+      className="py-16 sm:py-20 overflow-hidden relative border-t border-b border-white/5 bg-[#03101F] scroll-mt-24"
+    >
+      {/* Decorative Radial Ambient Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#F6B936]/5 blur-[140px] rounded-full pointer-events-none" />
 
-      {/* Filter and Search Bar Controls */}
-      <div className="bg-[#06172A] border border-[#123452] p-4 sm:p-5 rounded-2xl mb-8 space-y-4">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          {/* Search Input */}
-          <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 text-[#8ba2bc] absolute left-3.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by hotel, city or state..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#0A2340] border border-[#123452] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#8ba2bc] hover:text-[#F7F8FA]"
-              >
-                Clear
-              </button>
-            )}
-          </div>
+      {/* Section Header */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10 mb-8">
+        <SectionHeading
+          eyebrow="PAN-INDIA SHOWCASE"
+          title="All 29 Courtyard by Marriott Properties"
+          description="Explore our complete portfolio across India. Automatically moving showcase across major business hubs, airport gateways, and luxury leisure retreats."
+        />
 
-          {/* Carousel Scroll Controls */}
-          <div className="flex items-center justify-between md:justify-end gap-3">
-            <span className="text-xs font-medium text-[#C4D1DF]">
-              Showing <strong className="text-[#FFD16A]">{filteredProperties.length}</strong> of 29 hotels
+        {/* Region Filter Chips - Scrollable without clipping */}
+        <div className="pt-2 w-full overflow-x-auto no-scrollbar pb-1">
+          <div className="flex items-center justify-start sm:justify-center gap-1.5 sm:gap-2 px-4 sm:px-0 min-w-max mx-auto">
+            <span className="text-xs text-[#8ba2bc] uppercase tracking-wider font-semibold mr-1 shrink-0 flex items-center gap-1">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#F6B936]" />
+              <span className="hidden sm:inline">Regions:</span>
             </span>
+            {REGIONS.map((region) => {
+              const isSelected = selectedRegion === region;
+              const count =
+                region === "All"
+                  ? 29
+                  : PROPERTIES.filter((p) => p.region === region).length;
 
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => scrollCarousel("left")}
-                aria-label="Previous properties"
-                className="p-2 rounded-lg bg-[#0A2340] border border-[#123452] text-[#C4D1DF] hover:text-[#FFD16A] hover:border-[#F6B936]/40 transition-colors"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollCarousel("right")}
-                aria-label="Next properties"
-                className="p-2 rounded-lg bg-[#0A2340] border border-[#123452] text-[#C4D1DF] hover:text-[#FFD16A] hover:border-[#F6B936]/40 transition-colors"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
+              return (
+                <button
+                  key={region}
+                  type="button"
+                  onClick={() => setSelectedRegion(region)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all shrink-0 cursor-pointer ${
+                    isSelected
+                      ? "bg-[#F6B936] text-[#03101F] font-bold shadow-md shadow-[#F6B936]/25"
+                      : "bg-[#0A2340] text-[#C4D1DF] border border-[#123452] hover:border-[#F6B936]/40 hover:text-[#F7F8FA]"
+                  }`}
+                >
+                  {region === "All" ? `All (${count})` : `${region} (${count})`}
+                </button>
+              );
+            })}
           </div>
-        </div>
-
-        {/* Region Filter Chips */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-1 no-scrollbar">
-          <span className="text-xs text-[#8ba2bc] uppercase tracking-wider font-semibold mr-1 shrink-0 flex items-center gap-1">
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-            Regions:
-          </span>
-          {REGIONS.map((region) => {
-            const isSelected = selectedRegion === region;
-            return (
-              <button
-                key={region}
-                type="button"
-                onClick={() => setSelectedRegion(region)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all shrink-0 ${
-                  isSelected
-                    ? "bg-[#F6B936] text-[#03101F] font-bold shadow-md shadow-[#F6B936]/20"
-                    : "bg-[#0A2340] text-[#C4D1DF] border border-[#123452] hover:border-[#F6B936]/40 hover:text-[#F7F8FA]"
-                }`}
-              >
-                {region === "All" ? "All Locations (29)" : `${region} India`}
-              </button>
-            );
-          })}
         </div>
       </div>
 
-      {/* Directory Grid / Carousel */}
-      {filteredProperties.length > 0 ? (
+      {/* 
+        Responsive Slider Container:
+        - Mobile (< sm): Exactly 1 hotel visible at a time (w-full snap-start), full card visible with zero clipping
+        - Tablet (sm:): 2 hotels visible side-by-side
+        - Computer screen (lg:): 3 hotels visible side-by-side across max-w-7xl
+      */}
+      <div
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Carousel Moving Track with Smooth Scroll & Snap */}
         <div
           ref={carouselRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          onScroll={handleScroll}
+          className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-3 -my-3"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {filteredProperties.map((property) => (
-            <PropertyCard key={property.slug} property={property} />
+            <div
+              key={property.slug}
+              className="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start"
+            >
+              <PropertyCard
+                property={property}
+                featured={property.isFeatured}
+                className="h-full shadow-2xl"
+              />
+            </div>
           ))}
         </div>
-      ) : (
-        <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-12 text-center space-y-4">
-          <MapPin className="w-10 h-10 text-[#8ba2bc] mx-auto opacity-50" />
-          <h3 className="text-lg font-serif font-bold text-[#F7F8FA]">No properties found</h3>
-          <p className="text-sm text-[#C4D1DF] max-w-md mx-auto">
-            We couldn&apos;t find any properties matching &quot;{searchQuery}&quot; in the selected region.
-          </p>
-          <button
-            type="button"
-            onClick={() => {
-              setSearchQuery("");
-              setSelectedRegion("All");
-            }}
-            className="px-4 py-2 rounded-lg bg-[#0A2340] border border-[#123452] text-xs font-semibold text-[#FFD16A] hover:border-[#F6B936] transition-colors"
-          >
-            Reset Filters
-          </button>
+
+        {/* =========================================================================
+            SLIDER CONTROLS BAR:
+            Left: Active Gold Elongated Pill + Inactive Circular Dots
+            Center: Hotel Counter
+            Right: Circular Previous & Next Outline Buttons
+            ========================================================================= */}
+        <div className="flex items-center justify-between pt-6 sm:pt-8 px-1">
+          {/* Left: Active Elongated Gold Pill + Inactive Circular Dots */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: dotsCount }).map((_, idx) => {
+              const isActive = idx === activeDotIndex;
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleDotClick(idx)}
+                  aria-label={`Go to hotel group ${idx + 1}`}
+                  className={`transition-all duration-300 cursor-pointer ${
+                    isActive
+                      ? "w-8 sm:w-9 h-2.5 rounded-full bg-[#C6923C] sm:bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
+                      : "w-2.5 h-2.5 rounded-full bg-[#3B4262] hover:bg-white/40"
+                  }`}
+                />
+              );
+            })}
+          </div>
+
+          {/* Center: Current Hotel / Total Hotels */}
+          <span className="text-[11px] font-semibold text-[#FFD16A] bg-[#0A2340] border border-[#123452] px-3 py-1 rounded-full">
+            {currentSlideNum} of {totalHotels} Hotels
+          </span>
+
+          {/* Right: Circular Outline Navigation Arrow Buttons */}
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={scrollPrev}
+              aria-label="Previous hotel"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/20 hover:border-[#F6B936] text-white hover:text-[#F6B936] flex items-center justify-center transition-all cursor-pointer hover:bg-white/5 active:scale-95"
+            >
+              <ChevronLeft className="w-5 h-5 stroke-[2.2]" />
+            </button>
+            <button
+              type="button"
+              onClick={scrollNext}
+              aria-label="Next hotel"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/20 hover:border-[#F6B936] text-white hover:text-[#F6B936] flex items-center justify-center transition-all cursor-pointer hover:bg-white/5 active:scale-95"
+            >
+              <ChevronRight className="w-5 h-5 stroke-[2.2]" />
+            </button>
+          </div>
         </div>
-      )}
+      </div>
+
+      {/* Bottom Information Notice */}
+      <div className="max-w-7xl mx-auto px-4 mt-8 text-center relative z-10">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#06172A]/80 border border-[#123452] text-xs text-[#C4D1DF]">
+          <Sparkles className="w-3.5 h-3.5 text-[#F6B936]" />
+          <span>Swipe or click arrows to explore • Auto-playing every 4s • Pause on hover or touch</span>
+        </div>
+      </div>
     </section>
   );
 }

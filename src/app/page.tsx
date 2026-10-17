@@ -5,10 +5,10 @@ import { FeaturedProperties } from "@/components/home/FeaturedProperties";
 import { PropertyDirectory } from "@/components/home/PropertyDirectory";
 import { AccommodationSection } from "@/components/home/AccommodationSection";
 import { AmenitiesSection } from "@/components/home/AmenitiesSection";
+import { NearbyDestinations } from "@/components/home/NearbyDestinations";
 import { ActivitiesSection } from "@/components/home/ActivitiesSection";
 import { DiningSection } from "@/components/home/DiningSection";
 import { EnquiryProcess } from "@/components/home/EnquiryProcess";
-import { ReviewsMarquee } from "@/components/home/ReviewsMarquee";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
@@ -41,16 +41,16 @@ export default function HomePage() {
       {/* 6. Signature Amenities */}
       <AmenitiesSection />
 
-      {/* 7. Dining & Culinary Concepts */}
+      {/* 7. Nearby Destinations */}
+      <NearbyDestinations />
+
+      {/* 8. Dining & Culinary Concepts */}
       <DiningSection />
 
       {/* 8. 4-Step Transparent Enquiry Process */}
       <EnquiryProcess />
 
-      {/* 9. Guest Reviews Slider Marquee (24 Reviews) */}
-      <ReviewsMarquee />
-
-      {/* 10. FAQs Section */}
+      {/* 9. FAQs Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <SectionHeading
           eyebrow="FREQUENTLY ASKED QUESTIONS"

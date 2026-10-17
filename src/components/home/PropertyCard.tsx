@@ -9,15 +9,16 @@ import { CallNowButton } from "@/components/shared/CallNowButton";
 interface PropertyCardProps {
   property: Property;
   featured?: boolean;
+  className?: string;
 }
 
-export function PropertyCard({ property, featured = false }: PropertyCardProps) {
+export function PropertyCard({ property, featured = false, className = "" }: PropertyCardProps) {
   const enquiryUrl = `/enquiry?property=${property.slug}&propertyName=${encodeURIComponent(
     property.name
   )}`;
 
   return (
-    <article className="group bg-[#06172A] border border-[#123452] rounded-2xl overflow-hidden hover:border-[#F6B936]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#03101F] flex flex-col justify-between">
+    <article className={`group bg-[#06172A] border border-[#123452] rounded-2xl overflow-hidden hover:border-[#F6B936]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#03101F] flex flex-col justify-between ${className}`}>
       {/* Top Image Container */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0A2340]">
         <img
