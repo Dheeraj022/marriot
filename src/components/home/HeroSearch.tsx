@@ -70,7 +70,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
   return (
     <section
       id="search"
-      className="relative z-20 min-h-[84vh] lg:min-h-[86vh] flex items-center justify-center pt-16 sm:pt-20 lg:pt-20 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 scroll-mt-24 overflow-hidden"
+      className="relative z-20 min-h-[84vh] lg:min-h-[86vh] flex items-center justify-center pt-16 sm:pt-20 lg:pt-20 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 scroll-mt-24"
     >
       {/* Background Automatic Image Slider with Black Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">

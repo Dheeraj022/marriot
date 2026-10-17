@@ -116,10 +116,11 @@ export function AvailabilityCard({
   const [isHighlighted, setIsHighlighted] = useState(false);
   const [preferredRoomType, setPreferredRoomType] = useState<string>("deluxe-room");
 
-  // Refs for click outside
+  // Refs for click outside & viewport positioning
   const propertyRef = useRef<HTMLDivElement>(null);
   const guestsRef = useRef<HTMLDivElement>(null);
   const datePickerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
   const minDate = getTodayDateString();
 
@@ -191,17 +192,13 @@ export function AvailabilityCard({
 
   // Ensure calendar popover is smoothly visible in view if opened near bottom of viewport
   useEffect(() => {
-    if (isDatePickerOpen && datePickerRef.current) {
+    if (isDatePickerOpen) {
       const timer = setTimeout(() => {
-        const rect = datePickerRef.current?.getBoundingClientRect();
-        if (rect) {
-          const popoverBottom = rect.bottom + 380;
-          if (popoverBottom > window.innerHeight) {
-            window.scrollBy({
-              top: Math.min(popoverBottom - window.innerHeight + 24, 220),
-              behavior: "smooth",
-            });
-          }
+        if (popoverRef.current) {
+          popoverRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          });
         }
       }, 60);
       return () => clearTimeout(timer);
@@ -614,83 +611,75 @@ export function AvailabilityCard({
 
             {/* Custom Interactive Calendar Popover */}
             {isDatePickerOpen && (
-              <div className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 lg:left-0 top-full mt-2.5 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 p-4 w-[330px] sm:w-[350px] animate-in fade-in zoom-in-95 duration-150">
+              <div
+                ref={popoverRef}
+                className="absolute left-1/2 -translate-x-1/2 sm:translate-x-0 sm:left-0 lg:left-0 top-full mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200/90 z-50 p-3 sm:p-3.5 w-[315px] sm:w-[330px] max-h-[calc(100vh-140px)] overflow-y-auto animate-in fade-in zoom-in-95 duration-150"
+              >
                 {/* Step Switcher / Selected Dates Display */}
-                <div className="flex items-center justify-between p-1 bg-slate-100 rounded-xl mb-3 text-xs">
+                <div className="flex items-center justify-between p-1 bg-slate-100 rounded-xl mb-2 text-xs">
                   <button
                     type="button"
                     onClick={() => setDatePickerStep("checkIn")}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-center transition-all ${
+                    className={`flex-1 py-1 px-2 rounded-lg text-center transition-all flex items-center justify-center gap-1.5 ${
                       datePickerStep === "checkIn"
-                        ? "bg-white text-[#0F172A] shadow-sm font-bold border border-slate-200/60"
+                        ? "bg-white text-[#0F172A] shadow-sm font-bold border border-slate-200/80"
                         : "text-slate-600 hover:text-slate-900 font-medium"
                     }`}
                   >
-                    <span className="block text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
-                      Check-in
-                    </span>
-                    <span className="truncate block font-bold text-[#0F172A]">
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold">In:</span>
+                    <span className="truncate font-bold text-[#0F172A] text-xs">
                       {checkIn ? formatDateDisplay(checkIn) : "Select date"}
                     </span>
                   </button>
-                  <span className="px-2 text-slate-400 font-bold">→</span>
+                  <span className="px-1.5 text-slate-400 font-bold text-xs">→</span>
                   <button
                     type="button"
                     onClick={() => setDatePickerStep("checkOut")}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-center transition-all ${
+                    className={`flex-1 py-1 px-2 rounded-lg text-center transition-all flex items-center justify-center gap-1.5 ${
                       datePickerStep === "checkOut"
-                        ? "bg-white text-[#0F172A] shadow-sm font-bold border border-slate-200/60"
+                        ? "bg-white text-[#0F172A] shadow-sm font-bold border border-slate-200/80"
                         : "text-slate-600 hover:text-slate-900 font-medium"
                     }`}
                   >
-                    <span className="block text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
-                      Check-out
-                    </span>
-                    <span className="truncate block font-bold text-[#0F172A]">
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold">Out:</span>
+                    <span className="truncate font-bold text-[#0F172A] text-xs">
                       {checkOut ? formatDateDisplay(checkOut) : "Select date"}
                     </span>
                   </button>
                 </div>
 
-                {/* Helpful Instruction Tip */}
-                <div className="text-[11px] font-medium text-slate-500 mb-2 flex items-center justify-between px-1">
-                  <span>
-                    {datePickerStep === "checkIn"
-                      ? "• Select your check-in date"
-                      : "• Select your check-out date"}
-                  </span>
-                  {nightsCount && (
-                    <span className="font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
-                      {nightsCount} {nightsCount === 1 ? "Night" : "Nights"}
-                    </span>
-                  )}
-                </div>
-
                 {/* Month Navigator Header */}
-                <div className="flex items-center justify-between mb-2 px-1">
-                  <span className="text-sm font-bold text-[#0F172A]">
-                    {viewMonth.toLocaleDateString("en-US", {
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </span>
+                <div className="flex items-center justify-between mb-1.5 px-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-[#0F172A]">
+                      {viewMonth.toLocaleDateString("en-US", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                    {nightsCount && (
+                      <span className="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+                        {nightsCount} {nightsCount === 1 ? "Night" : "Nights"}
+                      </span>
+                    )}
+                  </div>
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
                       onClick={handlePrevMonth}
                       disabled={isPrevDisabled}
-                      className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                      className="w-6 h-6 rounded-md border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
                       aria-label="Previous month"
                     >
-                      <ChevronLeft className="w-4 h-4" />
+                      <ChevronLeft className="w-3.5 h-3.5" />
                     </button>
                     <button
                       type="button"
                       onClick={handleNextMonth}
-                      className="w-7 h-7 rounded-lg border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors"
+                      className="w-6 h-6 rounded-md border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition-colors"
                       aria-label="Next month"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
@@ -700,7 +689,7 @@ export function AvailabilityCard({
                   {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
                     <span
                       key={day}
-                      className="text-[11px] font-semibold text-slate-400 py-1"
+                      className="text-[10px] font-semibold text-slate-400 py-0.5"
                     >
                       {day}
                     </span>
@@ -710,7 +699,7 @@ export function AvailabilityCard({
                 {/* Calendar Days Grid */}
                 <div className="grid grid-cols-7 gap-1 text-center">
                   {blanks.map((b) => (
-                    <div key={`blank-${b}`} className="w-full h-8" />
+                    <div key={`blank-${b}`} className="w-full h-7 sm:h-7.5" />
                   ))}
                   {days.map((d) => {
                     const dayDate = new Date(calYear, calMonth, d);
@@ -756,7 +745,7 @@ export function AvailabilityCard({
                         onClick={() => handleSelectDate(dayStr)}
                         onMouseEnter={() => !isPast && setHoverDate(dayStr)}
                         onMouseLeave={() => setHoverDate(null)}
-                        className={`w-full h-8 flex items-center justify-center text-xs rounded-lg transition-colors ${cellStyle}`}
+                        className={`w-full h-7 sm:h-7.5 flex items-center justify-center text-xs rounded-lg transition-colors ${cellStyle}`}
                       >
                         {d}
                       </button>
@@ -764,47 +753,47 @@ export function AvailabilityCard({
                   })}
                 </div>
 
-                {/* Quick Presets */}
-                <div className="flex items-center gap-1.5 pt-3 border-t border-slate-100 mt-3 overflow-x-auto no-scrollbar">
-                  <button
-                    type="button"
-                    onClick={handleQuickTonight}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors whitespace-nowrap"
-                  >
-                    Tonight
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleQuickTomorrow}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors whitespace-nowrap"
-                  >
-                    Tomorrow
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleQuickWeekend}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors whitespace-nowrap"
-                  >
-                    This Weekend
-                  </button>
-                </div>
-
-                {/* Action Footer */}
-                <div className="flex items-center justify-between pt-2.5 border-t border-slate-100 mt-2.5">
-                  <button
-                    type="button"
-                    onClick={handleClearDates}
-                    className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
-                  >
-                    Clear
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsDatePickerOpen(false)}
-                    className="px-4 py-1.5 bg-[#0F172A] hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-colors shadow-sm"
-                  >
-                    Done
-                  </button>
+                {/* Combined Presets & Actions Footer */}
+                <div className="flex items-center justify-between pt-2 border-t border-slate-100 mt-2 gap-2">
+                  <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
+                    <button
+                      type="button"
+                      onClick={handleQuickTonight}
+                      className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors whitespace-nowrap"
+                    >
+                      Tonight
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleQuickTomorrow}
+                      className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors whitespace-nowrap"
+                    >
+                      Tomorrow
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleQuickWeekend}
+                      className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors whitespace-nowrap"
+                    >
+                      Weekend
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={handleClearDates}
+                      className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsDatePickerOpen(false)}
+                      className="px-3 py-1 bg-[#0F172A] hover:bg-slate-800 text-white text-xs font-bold rounded-lg transition-colors shadow-sm"
+                    >
+                      Done
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
