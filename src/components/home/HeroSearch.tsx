@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { ShieldAlert } from "lucide-react";
 import { AvailabilityCard } from "./AvailabilityCard";
 
@@ -9,8 +9,28 @@ interface HeroSearchProps {
 }
 
 export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash;
+      if (hash === "#search" || hash === "#home-search") {
+        const timer = setTimeout(() => {
+          const el =
+            document.getElementById("home-search") ||
+            document.getElementById("search");
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 150);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
   return (
-    <section className="relative z-20 min-h-[84vh] lg:min-h-[86vh] flex items-center justify-center pt-16 sm:pt-20 lg:pt-20 pb-14 sm:pb-16 px-4 sm:px-6 lg:px-8">
+    <section
+      id="search"
+      className="relative z-20 min-h-[84vh] lg:min-h-[86vh] flex items-center justify-center pt-16 sm:pt-20 lg:pt-20 pb-14 sm:pb-16 px-4 sm:px-6 lg:px-8 scroll-mt-24"
+    >
       {/* Background Hero Image with Deep Navy Gradient Overlays */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div
@@ -42,7 +62,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
         </div>
 
         {/* Dedicated Availability Card matching user design */}
-        <div className="pt-1">
+        <div id="home-search" className="pt-1 scroll-mt-24">
           <AvailabilityCard initialPropertySlug={initialPropertySlug} />
         </div>
 

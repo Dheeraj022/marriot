@@ -45,8 +45,9 @@ const POPULAR_CITIES = [
   "Mumbai",
   "Bengaluru",
   "Delhi NCR",
-  "Goa",
+  "Ahmedabad",
   "Pune",
+  "Goa",
   "Jaipur",
   "Agra",
   "Chennai",
@@ -112,6 +113,8 @@ export function AvailabilityCard({
   // Errors & Modal state
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHighlighted, setIsHighlighted] = useState(false);
+  const [preferredRoomType, setPreferredRoomType] = useState<string>("deluxe-room");
 
   // Refs for click outside
   const propertyRef = useRef<HTMLDivElement>(null);
@@ -119,6 +122,44 @@ export function AvailabilityCard({
   const datePickerRef = useRef<HTMLDivElement>(null);
 
   const minDate = getTodayDateString();
+
+  // Listen for redirection from accommodation / room cards
+  useEffect(() => {
+    function handleFocusHomeSearch(e: Event) {
+      const customEvent = e as CustomEvent<{ roomId?: string }>;
+      if (customEvent.detail?.roomId) {
+        setPreferredRoomType(customEvent.detail.roomId);
+      }
+      setIsHighlighted(true);
+      setTimeout(() => setIsHighlighted(false), 2200);
+
+      // Open the property dropdown so the user can easily select destination
+      setIsPropertyDropdownOpen(true);
+    }
+
+    window.addEventListener("focus-home-search", handleFocusHomeSearch);
+
+    function handleSelectHomeProperty(e: Event) {
+      const customEvent = e as CustomEvent<{ propertySlug?: string }>;
+      if (customEvent.detail?.propertySlug) {
+        const found = PROPERTIES.find((p) => p.slug === customEvent.detail?.propertySlug);
+        if (found) {
+          setSelectedProperty(found);
+          setValidationError(null);
+        }
+      }
+      setIsHighlighted(true);
+      setTimeout(() => setIsHighlighted(false), 2200);
+      setIsPropertyDropdownOpen(false);
+    }
+
+    window.addEventListener("select-home-property", handleSelectHomeProperty);
+
+    return () => {
+      window.removeEventListener("focus-home-search", handleFocusHomeSearch);
+      window.removeEventListener("select-home-property", handleSelectHomeProperty);
+    };
+  }, []);
 
   // Handle outside clicks and keyboard dismissal for dropdowns & datepicker
   useEffect(() => {
@@ -377,7 +418,11 @@ export function AvailabilityCard({
   return (
     <>
       <div
-        className={`w-full max-w-[440px] sm:max-w-[480px] lg:max-w-5xl xl:max-w-6xl mx-auto bg-white rounded-3xl p-3.5 sm:p-4 lg:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 text-left relative z-30 transition-all ${className}`}
+        className={`w-full max-w-[440px] sm:max-w-[480px] lg:max-w-5xl xl:max-w-6xl mx-auto bg-white rounded-3xl p-3.5 sm:p-4 lg:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 text-left relative z-30 transition-all duration-500 ${
+          isHighlighted
+            ? "ring-4 ring-[#F6B936] shadow-[0_0_35px_rgba(246,185,54,0.5)] scale-[1.01]"
+            : ""
+        } ${className}`}
       >
         <form onSubmit={handleCheckAvailability} noValidate className="space-y-2.5 lg:space-y-0 lg:flex lg:items-center lg:gap-2.5">
           {/* =========================================================================
@@ -927,7 +972,7 @@ export function AvailabilityCard({
           checkIn={checkIn || getTodayDateString()}
           checkOut={checkOut && checkOut > checkIn ? checkOut : getTomorrowDateString()}
           adults={adults}
-          initialRoomType="deluxe-room"
+          initialRoomType={preferredRoomType}
         />
       )}
     </>

@@ -135,7 +135,7 @@ export function PropertyDirectory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10 mb-8">
         <SectionHeading
           eyebrow="PAN-INDIA SHOWCASE"
-          title="All 29 Courtyard by Marriott Properties"
+          title="All Courtyard by Marriott Properties"
           description="Explore our complete portfolio across India. Automatically moving showcase across major business hubs, airport gateways, and luxury leisure retreats."
         />
 
@@ -150,7 +150,7 @@ export function PropertyDirectory() {
               const isSelected = selectedRegion === region;
               const count =
                 region === "All"
-                  ? 29
+                  ? PROPERTIES.length
                   : PROPERTIES.filter((p) => p.region === region).length;
 
               return (
@@ -158,11 +158,10 @@ export function PropertyDirectory() {
                   key={region}
                   type="button"
                   onClick={() => setSelectedRegion(region)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all shrink-0 cursor-pointer ${
-                    isSelected
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all shrink-0 cursor-pointer ${isSelected
                       ? "bg-[#F6B936] text-[#03101F] font-bold shadow-md shadow-[#F6B936]/25"
                       : "bg-[#0A2340] text-[#C4D1DF] border border-[#123452] hover:border-[#F6B936]/40 hover:text-[#F7F8FA]"
-                  }`}
+                    }`}
                 >
                   {region === "All" ? `All (${count})` : `${region} (${count})`}
                 </button>
@@ -221,11 +220,10 @@ export function PropertyDirectory() {
                   type="button"
                   onClick={() => handleDotClick(idx)}
                   aria-label={`Go to hotel group ${idx + 1}`}
-                  className={`transition-all duration-300 cursor-pointer ${
-                    isActive
+                  className={`transition-all duration-300 cursor-pointer ${isActive
                       ? "w-8 sm:w-9 h-2.5 rounded-full bg-[#C6923C] sm:bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
                       : "w-2.5 h-2.5 rounded-full bg-[#3B4262] hover:bg-white/40"
-                  }`}
+                    }`}
                 />
               );
             })}

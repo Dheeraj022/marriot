@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { HeroSearch } from "@/components/home/HeroSearch";
-import { FeaturedProperties } from "@/components/home/FeaturedProperties";
+import { TopLocationsSection } from "@/components/home/TopLocationsSection";
 import { PropertyDirectory } from "@/components/home/PropertyDirectory";
 import { AccommodationSection } from "@/components/home/AccommodationSection";
 import { AmenitiesSection } from "@/components/home/AmenitiesSection";
@@ -26,8 +26,8 @@ export default function HomePage() {
       {/* 1. Hero & Central Search */}
       <HeroSearch />
 
-      {/* 2. Top Featured Properties */}
-      <FeaturedProperties />
+      {/* 2. Top 6 Courtyard by Marriott Locations (Most Popular) */}
+      <TopLocationsSection />
 
       {/* 3. Comprehensive 29-Property Directory & Carousel with Region Filters */}
       <PropertyDirectory />

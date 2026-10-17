@@ -28,13 +28,13 @@ export function CallNowButton({
       <a
         href={tel}
         className={cn(
-          "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide btn-gold transition-all duration-200",
+          "inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide whitespace-nowrap shrink-0 btn-gold transition-all duration-200 active:scale-95 shadow-md shadow-[#F6B936]/25",
           className
         )}
         title={`Call ${phone}`}
       >
-        {showIcon && <PhoneCall className="w-3.5 h-3.5 animate-pulse" />}
-        <span>Call Now</span>
+        {showIcon && <PhoneCall className="w-3.5 h-3.5 shrink-0 animate-pulse text-[#102033]" />}
+        <span className="whitespace-nowrap leading-none">Call Now</span>
       </a>
     );
   }

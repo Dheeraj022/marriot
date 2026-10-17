@@ -1,11 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { BedDouble, User, ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { BookingModal } from "@/components/forms/BookingModal";
-import { PROPERTIES } from "@/data/properties";
-import { getTodayDateString, getTomorrowDateString } from "@/lib/utils";
 
 interface HomeRoomType {
   id: string;
@@ -51,12 +48,25 @@ const HOME_ROOM_TYPES: HomeRoomType[] = [
 ];
 
 export function AccommodationSection() {
-  const [selectedRoomId, setSelectedRoomId] = useState<string>("deluxe-room");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const handleRedirectToSearch = (e: React.MouseEvent, roomId: string) => {
+    e.preventDefault();
+    const searchElement =
+      document.getElementById("home-search") ||
+      document.getElementById("search");
 
-  const handleRequestDetails = (roomId: string) => {
-    setSelectedRoomId(roomId);
-    setIsModalOpen(true);
+    if (searchElement) {
+      searchElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (typeof window !== "undefined" && window.history.pushState) {
+        window.history.pushState(null, "", "/#home-search");
+      }
+      window.dispatchEvent(
+        new CustomEvent("focus-home-search", {
+          detail: { roomId },
+        })
+      );
+    } else {
+      window.location.href = "/#home-search";
+    }
   };
 
   return (
@@ -75,7 +85,8 @@ export function AccommodationSection() {
         {HOME_ROOM_TYPES.map((room) => (
           <div
             key={room.id}
-            className="bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] hover:border-amber-400/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
+            onClick={(e) => handleRedirectToSearch(e, room.id)}
+            className="group bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] hover:border-amber-400/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer"
           >
             {/* Top Row: Left Image & Right Room Info */}
             <div className="flex items-center gap-3.5 sm:gap-4 mb-3.5 sm:mb-4">
@@ -84,14 +95,14 @@ export function AccommodationSection() {
                 <img
                   src={room.image}
                   alt={room.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
               </div>
 
               {/* Room Details Stack */}
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-base sm:text-lg text-[#0A192F] tracking-tight">
+                <h3 className="font-bold text-base sm:text-lg text-[#0A192F] tracking-tight group-hover:text-amber-700 transition-colors">
                   {room.title}
                 </h3>
 
@@ -115,28 +126,20 @@ export function AccommodationSection() {
             </div>
 
             {/* Bottom Row: Full-width Request for Stay Details Button */}
-            <button
-              type="button"
-              onClick={() => handleRequestDetails(room.id)}
+            <a
+              href="/#home-search"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRedirectToSearch(e, room.id);
+              }}
               className="w-full py-3 px-4 rounded-2xl bg-gradient-to-b from-[#FDC858] via-[#F5A623] to-[#EE9017] hover:brightness-105 active:scale-[0.99] text-[#0A192F] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.45)] transition-all cursor-pointer"
             >
               <span>Request for Stay Details</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-            </button>
+              <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
         ))}
       </div>
-
-      {/* Booking Enquiry Modal Pre-activated with Selected Room */}
-      <BookingModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        property={PROPERTIES[0]}
-        checkIn={getTodayDateString()}
-        checkOut={getTomorrowDateString()}
-        adults={2}
-        initialRoomType={selectedRoomId}
-      />
     </section>
   );
 }
