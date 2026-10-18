@@ -183,7 +183,7 @@ export function EnquiryProcess({
             <ArrowRight className="w-3.5 h-3.5 text-[#102033]" />
           </Link>
           <Link
-            href="/#directory"
+            href="/locations"
             className="hidden sm:inline-flex px-4 py-2.5 rounded-xl bg-[#0A2340] border border-[#123452] hover:border-[#F6B936]/40 text-xs font-semibold text-[#F7F8FA] hover:text-[#FFD16A] items-center gap-1.5 transition-colors shrink-0"
           >
             <Building className="w-3.5 h-3.5 text-[#F6B936]" />

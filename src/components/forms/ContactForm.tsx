@@ -172,7 +172,7 @@ export function ContactForm() {
               className="mt-0.5 rounded border-[#123452] bg-[#0A2340] text-[#F6B936] focus:ring-[#F6B936]"
             />
             <span>
-              I authorize Courtyard by Marriott representatives to respond to my query via email or phone.
+              I authorize Guest Assist representatives to respond to my enquiry via email or phone.
             </span>
           </label>
         </div>

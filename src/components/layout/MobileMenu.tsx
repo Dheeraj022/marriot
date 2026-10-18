@@ -28,7 +28,7 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
 
   const links = [
     { label: "Home", href: "/", icon: Building2 },
-    { label: "All 29 Locations", href: "/#directory", icon: MapPin },
+    { label: "All 29 Locations", href: "/locations", icon: MapPin },
     { label: "Accommodation", href: "/#accommodation", icon: BedDouble },
     { label: "About Us", href: "/about", icon: Info },
     { label: "Contact Us", href: "/contact", icon: Mail },
