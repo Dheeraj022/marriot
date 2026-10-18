@@ -79,16 +79,14 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           return (
             <div
               key={slide.url}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? "opacity-100" : "opacity-0"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? "opacity-100" : "opacity-0"
+                }`}
             >
               <img
                 src={slide.url}
                 alt={slide.alt}
-                className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${
-                  isActive ? "scale-105" : "scale-100"
-                }`}
+                className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-out ${isActive ? "scale-105" : "scale-100"
+                  }`}
                 loading={idx === 0 ? "eager" : "lazy"}
               />
             </div>
@@ -132,7 +130,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
             <span className="block text-xs text-[#C4D1DF]">Pan-India Locations</span>
           </div>
           <div className="p-3 rounded-xl bg-[#06172A]/80 border border-[#123452] backdrop-blur-sm">
-            <span className="block text-xl font-bold text-[#FFD16A] font-serif">4 Types</span>
+            <span className="block text-xl font-bold text-[#FFD16A] font-serif">6 Types</span>
             <span className="block text-xs text-[#C4D1DF]">Available Rooms</span>
           </div>
           <div className="p-3 rounded-xl bg-[#06172A]/80 border border-[#123452] backdrop-blur-sm">
@@ -161,11 +159,10 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
               type="button"
               onClick={() => setCurrentSlide(idx)}
               aria-label={`Go to background slide ${idx + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                currentSlide === idx
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${currentSlide === idx
                   ? "w-6 bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
                   : "w-1.5 bg-white/25 hover:bg-white/50"
-              }`}
+                }`}
             />
           ))}
         </div>

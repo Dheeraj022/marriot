@@ -36,7 +36,7 @@ export default function GrievanceSupportPage() {
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#F6B936]" />
-              <span>Address: {SITE_CONFIG.operatorName}, {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state}</span>
+              <span>Address: {SITE_CONFIG.operatorName}, India</span>
             </div>
           </div>
         </section>

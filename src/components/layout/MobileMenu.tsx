@@ -58,10 +58,7 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
                 <span className="block font-serif font-bold text-sm text-[#F7F8FA] tracking-wide leading-tight">
                   {SITE_CONFIG.name}
                 </span>
-                <span className="block text-[10px] text-[#C4D1DF] tracking-wider uppercase font-medium mt-0.5">
-                  {SITE_CONFIG.tagline}
-                </span>
-                <span className="block text-[9px] text-[#8ba2bc] tracking-normal font-normal mt-0.5">
+                <span className="block text-[10px] text-[#8ba2bc] tracking-normal font-normal mt-0.5">
                   {SITE_CONFIG.networkTagline}
                 </span>
               </div>

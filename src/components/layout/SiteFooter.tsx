@@ -24,10 +24,7 @@ export function SiteFooter() {
                 <span className="block font-serif font-bold text-xl text-[#F7F8FA] leading-tight">
                   {SITE_CONFIG.name}
                 </span>
-                <span className="block text-[11px] text-[#C4D1DF] tracking-wider uppercase font-medium mt-0.5">
-                  {SITE_CONFIG.tagline}
-                </span>
-                <span className="block text-[10px] text-[#8ba2bc] tracking-normal font-normal mt-0.5">
+                <span className="block text-xs text-[#8ba2bc] tracking-normal font-normal mt-0.5">
                   {SITE_CONFIG.networkTagline}
                 </span>
               </div>
@@ -128,7 +125,7 @@ export function SiteFooter() {
                 <div>
                   <span className="block text-xs text-[#8ba2bc]">Operator:</span>
                   <span className="text-xs text-[#C4D1DF]">
-                    {SITE_CONFIG.operatorName}, {SITE_CONFIG.address.city}
+                    {SITE_CONFIG.operatorName}
                   </span>
                   <span className="block text-[11px] text-[#8ba2bc] mt-0.5 font-mono">
                     GSTIN: {SITE_CONFIG.gst}
@@ -158,9 +155,14 @@ export function SiteFooter() {
 
         {/* Copyright and Operator line */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8ba2bc] gap-4">
-          <p className="text-center sm:text-left">
-            © {currentYear} {SITE_CONFIG.name}. Operated by {SITE_CONFIG.companyName} (GSTIN: {SITE_CONFIG.gst}). All rights reserved.
-          </p>
+          <div className="space-y-1 text-center sm:text-left">
+            <p>
+              © {currentYear} {SITE_CONFIG.name}. Operated by {SITE_CONFIG.companyName} (GSTIN: {SITE_CONFIG.gst}). All rights reserved.
+            </p>
+            <p className="text-[11px] text-[#FFD16A]/90 font-medium tracking-wide">
+              {SITE_CONFIG.footerAssistanceNotice}
+            </p>
+          </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-[#FFD16A] transition-colors">
               Privacy

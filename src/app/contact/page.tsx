@@ -146,9 +146,9 @@ export default function ContactPage() {
               <p className="text-xs text-[#C4D1DF] leading-relaxed">
                 <strong>{SITE_CONFIG.operatorName}</strong>
                 <br />
-                {SITE_CONFIG.address.line2}, {SITE_CONFIG.address.line3}
+                {SITE_CONFIG.address.line2}
                 <br />
-                {SITE_CONFIG.address.city}, {SITE_CONFIG.address.state} {SITE_CONFIG.address.pincode}, India
+                {SITE_CONFIG.address.country}
               </p>
             </div>
           </div>
