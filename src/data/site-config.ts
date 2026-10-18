@@ -1,7 +1,6 @@
 export const SITE_CONFIG = {
   name: "GuestAssist",
   brandName: "GuestAssist",
-  tagline: "Hotels & Resorts in India",
   networkTagline: "Independent travel network partners",
   companyName: "BrightSpark Leisure Services Private Limited",
   operatorName: "BrightSpark Leisure Services Private Limited",
