@@ -21,11 +21,14 @@ export function SiteFooter() {
                 </div>
               </div>
               <div>
-                <span className="block font-serif font-bold text-xl text-[#F7F8FA]">
+                <span className="block font-serif font-bold text-xl text-[#F7F8FA] leading-tight">
                   {SITE_CONFIG.name}
                 </span>
-                <span className="block text-[11px] text-[#C4D1DF] tracking-wider uppercase font-medium">
+                <span className="block text-[11px] text-[#C4D1DF] tracking-wider uppercase font-medium mt-0.5">
                   {SITE_CONFIG.tagline}
+                </span>
+                <span className="block text-[10px] text-[#8ba2bc] tracking-normal font-normal mt-0.5">
+                  {SITE_CONFIG.networkTagline}
                 </span>
               </div>
             </div>
@@ -51,7 +54,7 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/#directory" className="hover:text-[#FFD16A] transition-colors">
+                <Link href="/locations" className="hover:text-[#FFD16A] transition-colors">
                   All 29 Locations
                 </Link>
               </li>
@@ -127,6 +130,9 @@ export function SiteFooter() {
                   <span className="text-xs text-[#C4D1DF]">
                     {SITE_CONFIG.operatorName}, {SITE_CONFIG.address.city}
                   </span>
+                  <span className="block text-[11px] text-[#8ba2bc] mt-0.5 font-mono">
+                    GSTIN: {SITE_CONFIG.gst}
+                  </span>
                 </div>
               </li>
             </ul>
@@ -137,19 +143,23 @@ export function SiteFooter() {
         <div className="my-8 p-5 rounded-xl bg-[#06172A] border border-[#123452] text-xs leading-relaxed text-[#C4D1DF]">
           <div className="flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-[#F6B936] shrink-0 mt-0.5" />
-            <div className="space-y-1">
-              <h5 className="font-semibold text-[#F7F8FA] tracking-wide uppercase text-[11px]">
-                Courtyard by Marriott India Notice
+            <div className="space-y-2.5">
+              <h5 className="font-semibold text-[#FFD16A] tracking-wider uppercase text-xs">
+                {SITE_CONFIG.disclaimer.title}
               </h5>
-              <p>{SITE_CONFIG.disclaimer.full}</p>
+              <div className="space-y-2 text-xs leading-relaxed text-[#C4D1DF]">
+                {SITE_CONFIG.disclaimer.paragraphs.map((p, idx) => (
+                  <p key={idx}>{p}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Copyright and Operator line */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8ba2bc] gap-4">
-          <p>
-            © {currentYear} {SITE_CONFIG.name}. Operated by {SITE_CONFIG.companyName}. All rights reserved.
+          <p className="text-center sm:text-left">
+            © {currentYear} {SITE_CONFIG.name}. Operated by {SITE_CONFIG.companyName} (GSTIN: {SITE_CONFIG.gst}). All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-[#FFD16A] transition-colors">

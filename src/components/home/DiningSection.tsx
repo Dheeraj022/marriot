@@ -52,6 +52,14 @@ export function DiningSection() {
           </div>
         ))}
       </div>
+
+      {/* Under-dining notice */}
+      <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-center gap-2 text-xs text-[#8ba2bc] text-center">
+        <UtensilsCrossed className="w-3.5 h-3.5 text-[#F6B936] shrink-0" />
+        <span>
+          Dining information is for reference only. Timings, availability and charges may vary.
+        </span>
+      </div>
     </section>
   );
 }

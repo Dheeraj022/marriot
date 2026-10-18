@@ -26,7 +26,7 @@ export default function HomePage() {
       {/* 1. Hero & Central Search */}
       <HeroSearch />
 
-      {/* 2. Top 6 Courtyard by Marriott Locations (Most Popular) */}
+      {/* 2. Explore Hotel Stays Across India */}
       <TopLocationsSection />
 
       {/* 3. Comprehensive 29-Property Directory & Carousel with Region Filters */}

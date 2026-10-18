@@ -115,7 +115,7 @@ export function AvailabilityCard({
   const [validationError, setValidationError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHighlighted, setIsHighlighted] = useState(false);
-  const [preferredRoomType, setPreferredRoomType] = useState<string>("deluxe-room");
+  const [preferredRoomType, setPreferredRoomType] = useState<string>("guest-room");
 
   // Refs for click outside & viewport positioning
   const propertyRef = useRef<HTMLDivElement>(null);

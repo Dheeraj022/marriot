@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { BedDouble, User, ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { StayDetailsModal } from "@/components/forms/StayDetailsModal";
+import { PROPERTIES } from "@/data/properties";
 
 interface HomeRoomType {
   id: string;
@@ -16,33 +16,49 @@ interface HomeRoomType {
 
 const HOME_ROOM_TYPES: HomeRoomType[] = [
   {
-    id: "standard-room",
-    title: "Standard Room",
-    bed: "King / Twin Bed",
-    guests: "1 to 2 Guests",
+    id: "guest-room",
+    title: "Guest Room",
+    bed: "King Bed",
+    guests: "Up to 2 Guests",
     image:
       "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
   },
   {
-    id: "deluxe-room",
-    title: "Deluxe Room",
+    id: "twin-room",
+    title: "Twin Room",
+    bed: "2 Twin Beds",
+    guests: "2 Guests",
+    image:
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: "premium-room",
+    title: "Premium Room",
     bed: "King Bed",
     guests: "Up to 3 Guests",
     image:
       "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
   },
   {
-    id: "executive-room",
-    title: "Executive Room",
-    bed: "King Bed",
-    guests: "Access to Executive Lounge",
+    id: "terrace-room",
+    title: "Terrace Room",
+    bed: "King Bed & Private Terrace",
+    guests: "Up to 2 Guests",
+    image:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    id: "junior-suite",
+    title: "Junior Suite",
+    bed: "King Bed & Lounge Area",
+    guests: "Up to 3 Guests",
     image:
       "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
   },
   {
-    id: "suite",
-    title: "Suite",
-    bed: "Separate Living Area",
+    id: "executive-suite",
+    title: "Executive Suite",
+    bed: "Master King Bed & Salon",
     guests: "Up to 4 Guests",
     image:
       "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80",
@@ -50,27 +66,12 @@ const HOME_ROOM_TYPES: HomeRoomType[] = [
 ];
 
 export function AccommodationSection() {
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRoomTitle, setSelectedRoomTitle] = useState("Guest Room");
 
-  const handleRedirectToSearch = (e: React.MouseEvent, roomId: string) => {
-    e.preventDefault();
-    const searchElement =
-      document.getElementById("home-search") ||
-      document.getElementById("search");
-
-    if (searchElement) {
-      searchElement.scrollIntoView({ behavior: "smooth", block: "center" });
-      if (typeof window !== "undefined" && window.history.pushState) {
-        window.history.pushState(null, "", "/#home-search");
-      }
-      window.dispatchEvent(
-        new CustomEvent("focus-home-search", {
-          detail: { roomId },
-        })
-      );
-    } else {
-      router.push("/#home-search");
-    }
+  const handleOpenModal = (roomTitle: string) => {
+    setSelectedRoomTitle(roomTitle);
+    setIsModalOpen(true);
   };
 
   return (
@@ -80,16 +81,16 @@ export function AccommodationSection() {
     >
       <SectionHeading
         eyebrow="DISTINGUISHED COMFORT"
-        title="Accommodation Options"
-        description="Experience refined comfort thoughtfully curated for business productivity and relaxing leisure retreats across Courtyard destinations."
+        title="Find Accommodation That Suits Your Stay"
+        description="Explore available property information and room categories to identify options that may suit your travel dates, group size and preferences."
       />
 
-      {/* Cards Grid: 1 column on mobile / 2 columns on tablet & desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full max-w-5xl mx-auto">
+      {/* Cards Grid: 1 column on mobile / 2 columns on tablet / 3 columns on desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full max-w-7xl mx-auto">
         {HOME_ROOM_TYPES.map((room) => (
           <div
             key={room.id}
-            onClick={(e) => handleRedirectToSearch(e, room.id)}
+            onClick={() => handleOpenModal(room.title)}
             className="group bg-white rounded-3xl p-4 sm:p-5 border border-slate-200/90 shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] hover:border-amber-400/40 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between cursor-pointer"
           >
             {/* Top Row: Left Image & Right Room Info */}
@@ -130,20 +131,30 @@ export function AccommodationSection() {
             </div>
 
             {/* Bottom Row: Full-width Request for Stay Details Button */}
-            <Link
-              href="/#home-search"
+            <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                handleRedirectToSearch(e, room.id);
+                handleOpenModal(room.title);
               }}
               className="w-full py-3 px-4 rounded-2xl bg-gradient-to-b from-[#FDC858] via-[#F5A623] to-[#EE9017] hover:brightness-105 active:scale-[0.99] text-[#0A192F] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(245,158,11,0.35)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.45)] transition-all cursor-pointer"
             >
               <span>Request for Stay Details</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </button>
           </div>
         ))}
       </div>
+
+      {/* Stay Details Popup Modal */}
+      {isModalOpen && (
+        <StayDetailsModal
+          isOpen={isModalOpen}
+          property={PROPERTIES[0]}
+          initialRoomType={selectedRoomTitle}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </section>
   );
 }

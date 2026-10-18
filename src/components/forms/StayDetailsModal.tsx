@@ -20,6 +20,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Property } from "@/types/property";
+import { PROPERTIES } from "@/data/properties";
 import {
   getTodayDateString,
   getTomorrowDateString,
@@ -31,15 +32,17 @@ import { validateEnquiryForm, EnquiryFormValidationErrors } from "@/lib/validati
 interface StayDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  property: Property;
+  property?: Property;
   initialRoomType?: string;
 }
 
 const DEFAULT_ROOM_CATEGORIES = [
-  "Deluxe Room",
-  "Executive Room",
-  "Courtyard Suite",
-  "Standard Guest Room",
+  "Guest Room",
+  "Twin Room",
+  "Premium Room",
+  "Terrace Room",
+  "Junior Suite",
+  "Executive Suite",
 ];
 
 export function StayDetailsModal({
@@ -50,22 +53,27 @@ export function StayDetailsModal({
 }: StayDetailsModalProps) {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [currentProperty, setCurrentProperty] = useState<Property>(() => property || PROPERTIES[0]);
 
-  // Available room categories for this property
-  const roomCategories =
-    property.roomTypes && property.roomTypes.length > 0
-      ? property.roomTypes
-      : DEFAULT_ROOM_CATEGORIES;
+  // Update currentProperty if property prop changes
+  useEffect(() => {
+    if (property) {
+      setCurrentProperty(property);
+    }
+  }, [property]);
+
+  // Available room categories (uniform 6 room categories)
+  const roomCategories = DEFAULT_ROOM_CATEGORIES;
 
   // Form states
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [selectedRoomCategory, setSelectedRoomCategory] = useState<string>(() => {
-    if (initialRoomType && roomCategories.includes(initialRoomType)) {
+    if (initialRoomType && DEFAULT_ROOM_CATEGORIES.includes(initialRoomType)) {
       return initialRoomType;
     }
-    return roomCategories[0] || "Deluxe Room";
+    return DEFAULT_ROOM_CATEGORIES[0];
   });
 
   // Dates state
@@ -85,20 +93,12 @@ export function StayDetailsModal({
     setMounted(true);
   }, []);
 
-  // Update room category if property changes
+  // Update room category if initialRoomType changes
   useEffect(() => {
-    if (property) {
-      const cats =
-        property.roomTypes && property.roomTypes.length > 0
-          ? property.roomTypes
-          : DEFAULT_ROOM_CATEGORIES;
-      if (initialRoomType && cats.includes(initialRoomType)) {
-        setSelectedRoomCategory(initialRoomType);
-      } else {
-        setSelectedRoomCategory(cats[0] || "Deluxe Room");
-      }
+    if (initialRoomType && DEFAULT_ROOM_CATEGORIES.includes(initialRoomType)) {
+      setSelectedRoomCategory(initialRoomType);
     }
-  }, [property, initialRoomType]);
+  }, [initialRoomType]);
 
   // Manage body scroll and Escape key
   useEffect(() => {
@@ -146,8 +146,8 @@ export function StayDetailsModal({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          propertyName: property.name,
-          propertySlug: property.slug,
+          propertyName: currentProperty.name,
+          propertySlug: currentProperty.slug,
           checkIn,
           checkOut,
           adults,
@@ -179,9 +179,9 @@ export function StayDetailsModal({
           "courtyard_last_enquiry",
           JSON.stringify({
             referenceId: data.referenceId,
-            propertyName: property.name,
-            propertySlug: property.slug,
-            city: property.city,
+            propertyName: currentProperty.name,
+            propertySlug: currentProperty.slug,
+            city: currentProperty.city,
             checkIn,
             checkOut,
             nights: totalNights,
@@ -260,13 +260,37 @@ export function StayDetailsModal({
           className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1 custom-scrollbar"
         >
           {/* =========================================================================
-              AUTO-PICKED HOTEL NAME CARD
+              DESTINATION / HOTEL SELECTOR & PREVIEW
               ========================================================================= */}
+          <div>
+            <label className="block text-xs font-semibold text-[#C4D1DF] mb-1.5">
+              Select Destination / Property <span className="text-[#F6B936]">*</span>
+            </label>
+            <div className="relative">
+              <Building2 className="w-4 h-4 text-[#F6B936] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <select
+                value={currentProperty.slug}
+                onChange={(e) => {
+                  const found = PROPERTIES.find((p) => p.slug === e.target.value);
+                  if (found) setCurrentProperty(found);
+                }}
+                className="w-full bg-[#03101F] border border-slate-700 rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-[#F7F8FA] focus:outline-none focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936] appearance-none cursor-pointer"
+              >
+                {PROPERTIES.map((p) => (
+                  <option key={p.slug} value={p.slug} className="bg-[#06172A] text-white">
+                    {p.name} — {p.city}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            </div>
+          </div>
+
           <div className="bg-[#03101F] border border-[#123452] rounded-2xl p-3 sm:p-3.5 flex items-center gap-3 shadow-md">
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-slate-900">
               <img
-                src={property.heroImage}
-                alt={property.name}
+                src={currentProperty.heroImage}
+                alt={currentProperty.name}
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -274,14 +298,14 @@ export function StayDetailsModal({
             <div className="min-w-0 flex-1">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#FFD16A] flex items-center gap-1 mb-0.5">
                 <CheckCircle2 className="w-3 h-3 text-[#F6B936]" />
-                Selected Property
+                Selected Destination
               </span>
               <h3 className="font-serif font-bold text-sm sm:text-base text-[#F7F8FA] leading-tight truncate">
-                {property.name}
+                {currentProperty.name}
               </h3>
               <p className="text-xs text-[#8ba2bc] flex items-center gap-1 mt-0.5 truncate">
                 <MapPin className="w-3 h-3 text-[#F6B936] shrink-0" />
-                {property.city}, {property.state}
+                {currentProperty.city}, {currentProperty.state}
               </p>
             </div>
           </div>

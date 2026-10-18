@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { MobileFloatingCallTab } from "@/components/shared/MobileFloatingCallTab";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -68,6 +69,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <MobileFloatingCallTab />
       </body>
     </html>
   );

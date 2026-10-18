@@ -67,7 +67,7 @@ export function NearbyDestinations() {
           Explore Nearby Destinations
         </h2>
         <p className="text-xs sm:text-sm md:text-base text-[#C4D1DF] mt-1.5 leading-relaxed font-light">
-          Discover popular attractions near Courtyard by Marriott hotels across India.
+          Find nearby attractions, dining options and places of interest to help plan your time around your destination.
         </p>
       </div>
 

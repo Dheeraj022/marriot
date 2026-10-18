@@ -214,7 +214,7 @@ export default function AboutPage() {
           title="Common Questions"
           description="Everything you need to know about our properties and stay enquiries."
         />
-        <FAQAccordion items={FAQS.slice(0, 5)} />
+        <FAQAccordion items={FAQS} />
       </section>
 
       {/* 6. Role & Independence Section */}

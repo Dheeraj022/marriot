@@ -49,7 +49,7 @@ export default function GrievanceSupportPage() {
           <div className="p-4 rounded-xl bg-[#03101F] border border-[#123452] text-xs space-y-1">
             <p><strong>Designation:</strong> Guest Grievance Redressal Officer</p>
             <p><strong>Entity:</strong> {SITE_CONFIG.name} India Central Desk</p>
-            <p><strong>Email:</strong> grievance@courtyardbymarriott.in</p>
+            <p><strong>Email:</strong> {SITE_CONFIG.email}</p>
             <p><strong>Response Timeline:</strong> Initial response within 24 to 48 hours; resolution within 15 business days.</p>
           </div>
         </section>

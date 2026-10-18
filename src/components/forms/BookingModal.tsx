@@ -29,80 +29,118 @@ import { validateEnquiryForm, EnquiryFormValidationErrors } from "@/lib/validati
 
 export const AVAILABLE_ROOMS = [
   {
-    id: "deluxe-room",
-    title: "Deluxe Room",
-    tagline: "Comfortable Elegance for Business & Leisure",
+    id: "guest-room",
+    title: "Guest Room",
+    tagline: "Smart, Contemporary & Intuitive Comfort",
     description:
       "Carefully designed contemporary room featuring plush signature bedding, ergonomic workspace, and modern ensuite bathroom.",
     image:
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
     features: [
       "High-speed Wi-Fi",
       "Ergonomic work desk",
       "LED TV & media hub",
       "Signature bath amenities",
     ],
-    bed: "1 King Bed or 2 Twin Beds",
-    size: "38 m² / 409 sq ft",
+    bed: "1 King Bed",
+    size: "32 m² / 344 sq ft",
     capacity: "2 Adults",
-    badge: "Most Popular",
+    badge: "Smart Value",
   },
   {
-    id: "executive-room",
-    title: "Executive Room",
-    tagline: "Elevated Stays for Discerning Travellers",
+    id: "twin-room",
+    title: "Twin Room",
+    tagline: "Versatile Comfort for Shared Travel",
     description:
-      "Enhanced space with premium city or courtyard vistas, elevated amenities, and thoughtful details tailored for corporate productivity.",
+      "Thoughtfully arranged room with two comfortable twin beds, dedicated workspace, and refined amenities ideal for colleagues or friends.",
     image:
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
     features: [
-      "High floor city vistas",
-      "Complimentary buffet breakfast",
+      "Two twin beds",
+      "Ergonomic work desk",
+      "Rainfall shower",
+      "Complimentary Wi-Fi",
+    ],
+    bed: "2 Twin Beds",
+    size: "35 m² / 376 sq ft",
+    capacity: "2 Adults",
+    badge: "Twin Comfort",
+  },
+  {
+    id: "premium-room",
+    title: "Premium Room",
+    tagline: "Enhanced Space with Scenic City Vistas",
+    description:
+      "Enhanced space on higher floors with panoramic city views, elevated amenities, and thoughtful details tailored for corporate productivity.",
+    image:
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Higher floor location",
+      "Panoramic views",
       "Enhanced bath amenities",
       "High-speed Wi-Fi",
     ],
     bed: "1 King Bed",
-    size: "42 m² / 452 sq ft",
-    capacity: "2 Adults",
-    badge: "Executive Floor",
+    size: "40 m² / 430 sq ft",
+    capacity: "3 Adults",
+    badge: "Most Popular",
   },
   {
-    id: "suite",
-    title: "Courtyard Suite",
-    tagline: "Spacious Luxury & Distinguished Ambiance",
+    id: "terrace-room",
+    title: "Terrace Room",
+    tagline: "Private Open-Air Terrace & Scenic Relaxation",
     description:
-      "Generously proportioned suite with expansive lounging area, scenic views, and curated hospitality touches for memorable family or VIP stays.",
+      "Exclusive room opening onto a private outdoor terrace with relaxing outdoor seating, fresh breezes, and scenic surroundings.",
+    image:
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Private outdoor terrace",
+      "Outdoor patio seating",
+      "Plush king bed",
+      "Express stay coordination",
+    ],
+    bed: "1 King Bed",
+    size: "44 m² / 473 sq ft",
+    capacity: "2 Adults",
+    badge: "Open Terrace",
+  },
+  {
+    id: "junior-suite",
+    title: "Junior Suite",
+    tagline: "Integrated Living Area & Boutique Luxury",
+    description:
+      "Expansive layout with an integrated living lounge, plush sofa, walk-in dressing space, and luxurious ensuite bath.",
+    image:
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    features: [
+      "Integrated living lounge",
+      "Walk-in closet",
+      "Deep soaking tub",
+      "VIP arrival amenities",
+    ],
+    bed: "1 King Bed",
+    size: "52 m² / 560 sq ft",
+    capacity: "3 Adults",
+    badge: "Boutique Suite",
+  },
+  {
+    id: "executive-suite",
+    title: "Executive Suite",
+    tagline: "The Pinnacle of Sophistication & Space",
+    description:
+      "Prestigious multi-room suite featuring a private master bedroom, separate dining and living salon, and VIP executive privileges.",
     image:
       "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80",
     features: [
       "Separate living room & bedroom",
-      "Luxury deep soaking tub",
-      "Panoramic city views",
-      "VIP arrival amenities",
+      "Dining area",
+      "Panoramic corner views",
+      "Executive lounge access",
     ],
     bed: "1 Master King Bed",
-    size: "65 m² / 700 sq ft",
-    capacity: "3 Adults",
-    badge: "Luxury Suite",
-  },
-  {
-    id: "standard-room",
-    title: "Standard Guest Room",
-    tagline: "Essential Comfort & Modern Efficiency",
-    description:
-      "Smart and functional guest room equipped with all core essentials for short city transits and focused work trips.",
-    image:
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
-    features: [
-      "Soundproof glazing",
-      "Comfortable queen bed",
-      "Rainfall shower",
-      "Climate control",
-    ],
-    bed: "1 Queen Bed",
-    size: "32 m² / 344 sq ft",
-    capacity: "2 Adults",
-    badge: "Smart Value",
+    size: "68 m² / 731 sq ft",
+    capacity: "4 Adults",
+    badge: "Executive VIP",
   },
 ];
 
@@ -123,7 +161,7 @@ export function BookingModal({
   checkIn,
   checkOut,
   adults,
-  initialRoomType = "deluxe-room",
+  initialRoomType = "guest-room",
 }: BookingModalProps) {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);

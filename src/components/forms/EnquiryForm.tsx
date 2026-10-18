@@ -25,10 +25,12 @@ import { BookingModal } from "@/components/forms/BookingModal";
 
 export const ROOM_TYPE_OPTIONS = [
   { id: "all", name: "All Room Types" },
-  { id: "deluxe-room", name: "Deluxe Room" },
-  { id: "executive-room", name: "Executive Room" },
-  { id: "suite", name: "Courtyard Suite" },
-  { id: "standard-room", name: "Standard Guest Room" },
+  { id: "guest-room", name: "Guest Room" },
+  { id: "twin-room", name: "Twin Room" },
+  { id: "premium-room", name: "Premium Room" },
+  { id: "terrace-room", name: "Terrace Room" },
+  { id: "junior-suite", name: "Junior Suite" },
+  { id: "executive-suite", name: "Executive Suite" },
 ];
 
 export function EnquiryForm() {

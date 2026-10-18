@@ -167,3 +167,43 @@ h1, h2, h3, .font-heading {
   animation-play-state: paused;
 }
 
+/* Mobile Floating Call Tab Animations */
+@keyframes phone-wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  5%, 15% {
+    transform: rotate(14deg);
+  }
+  10%, 20% {
+    transform: rotate(-14deg);
+  }
+  25% {
+    transform: rotate(8deg);
+  }
+  30% {
+    transform: rotate(-8deg);
+  }
+  35% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-phone-wiggle {
+  animation: phone-wiggle 3.2s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes call-tab-glow {
+  0%, 100% {
+    box-shadow: -3px 0 12px rgba(246, 185, 54, 0.25), 0 4px 18px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: -5px 0 20px rgba(246, 185, 54, 0.45), 0 6px 24px rgba(0, 0, 0, 0.65);
+  }
+}
+
+.animate-call-tab-glow {
+  animation: call-tab-glow 3s ease-in-out infinite;
+}
+

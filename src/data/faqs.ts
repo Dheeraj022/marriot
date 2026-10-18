@@ -6,45 +6,51 @@ export interface FAQItem {
 
 export const FAQS: FAQItem[] = [
   {
-    question: "What is the Courtyard by Marriott India platform?",
+    question: "What is Guest Assist?",
     answer:
-      "Courtyard by Marriott India is a comprehensive directory and stay enquiry platform showcasing all 29 Courtyard by Marriott hotels and resorts across India. We assist leisure and business travellers with property information, amenities, conference facilities, and stay coordination.",
-    category: "Overview",
+      "Guest Assist is a customer assistance website operated by Brightspark Leisure Services Private Limited. It provides general hotel property information, stay guidance and enquiry assistance for destinations in India.",
+    category: "About Guest Assist",
   },
   {
-    question: "Does submitting a stay enquiry confirm my reservation?",
+    question: "Is Guest Assist the official website of Marriott or any listed hotel?",
     answer:
-      "Submitting an enquiry transmits your travel dates, destination property, guest count, and preferences to our reservations coordination team. Our team will contact you promptly to provide exact room availability, rates, and complete your reservation directly.",
-    category: "Enquiries & Bookings",
+      "No. Guest Assist is independently operated and is not the official website of Marriott International or any listed hotel. We do not claim hotel affiliation or authorization.",
+    category: "Independence & Affiliation",
   },
   {
-    question: "How are room rates and availability confirmed?",
+    question: "Does submitting an enquiry confirm my reservation?",
     answer:
-      "Room rates, taxes, and real-time inventory are confirmed based on your dates and party size. Our team coordinates directly with the respective Courtyard by Marriott property to secure the best available tariff, seasonal packages, or corporate rates for your stay.",
+      "No. Submitting an enquiry is a request for information and assistance. Your stay is not confirmed unless the responsible booking provider confirms the reservation.",
+    category: "Enquiries & Reservations",
+  },
+  {
+    question: "Can Guest Assist guarantee room rates or availability?",
+    answer:
+      "No. Rates, availability, amenities and booking conditions can change. Please verify the latest details with the relevant property or booking provider.",
     category: "Rates & Availability",
   },
   {
-    question: "How are payments, deposits, and cancellations handled?",
+    question: "How can I request stay details?",
     answer:
-      "No payments or credit card details are required when submitting an enquiry on this website. All financial transactions, room guarantees, deposits, and cancellation terms are handled securely during reservation confirmation in accordance with hotel policy.",
-    category: "Payments & Policies",
+      "Use the Request Stay Details form or call the contact number displayed on our website. Please provide accurate travel dates and guest details so we can understand your request.",
+    category: "Request Process",
   },
   {
-    question: "How quickly will my stay enquiry be processed?",
+    question: "Does Guest Assist collect payment for hotel bookings?",
     answer:
-      "Our guest assistance team reviews your selected Courtyard by Marriott property, dates, and requirements, typically responding within 2 to 4 business hours via phone or email to provide availability details and booking guidance.",
-    category: "Process",
+      "An enquiry does not require you to assume that a reservation or payment has been processed. Before making any payment, verify the responsible booking provider, payment recipient, final amount and applicable terms. If Guest Assist's actual payment process changes, this answer must be updated.",
+    category: "Payments & Terms",
   },
   {
-    question: "What details should I provide in my enquiry for faster assistance?",
+    question: "Which destinations does Guest Assist cover?",
     answer:
-      "Providing your arrival and departure dates, guest count, preferred room tier (e.g., Deluxe, Executive, Suite), and special requests (such as airport transfers, extra beds, or meeting facilities) ensures we tailor your reservation promptly.",
-    category: "Process",
+      "Guest Assist focuses on hotel information and enquiry assistance for destinations within India.",
+    category: "Destinations",
   },
   {
-    question: "Can I enquire about corporate group stays or conferences?",
+    question: "How do I verify property details?",
     answer:
-      "Yes. You can specify group requirements, conference rooms, or banquet needs in your enquiry form, or contact our reservations desk directly by clicking 'Call Now'. We gladly assist corporate travel coordinators and event planners across all 29 Indian destinations.",
-    category: "Group & Corporate Stays",
+      "You can contact the relevant property or consult its official website to verify facilities, current rates, availability and booking terms.",
+    category: "Property Verification",
   },
 ];

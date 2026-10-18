@@ -46,8 +46,8 @@ export function DisclaimerNotice({
             <ShieldAlert className="w-5 h-5" />
           </div>
           <div className="space-y-1.5">
-            <h4 className="text-sm font-semibold text-[#F7F8FA] tracking-wide uppercase">
-              Courtyard by Marriott Stay Notice
+            <h4 className="text-sm font-semibold text-[#FFD16A] tracking-wide uppercase">
+              {SITE_CONFIG.disclaimer.title}
             </h4>
             <p className="text-xs leading-relaxed text-[#C4D1DF]">
               {customText || SITE_CONFIG.disclaimer.full}

@@ -111,7 +111,7 @@ export function AmenitiesSection() {
       <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-center gap-2 text-xs text-[#8ba2bc] text-center">
         <ShieldCheck className="w-3.5 h-3.5 text-[#F6B936] shrink-0" />
         <span>
-          Amenities and operational timings vary by property. Exact facilities confirmed upon stay enquiry.
+          * Amenities shown are for reference only. Availability, access, timings and inclusions may vary.
         </span>
       </div>
     </section>

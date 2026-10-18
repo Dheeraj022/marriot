@@ -38,8 +38,8 @@ export function ActivitiesSection() {
     <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       <SectionHeading
         eyebrow="TAILORED HOSPITALITY"
-        title="Designed for Every Type of Travel"
-        description="Whether embarking on an intensive corporate tour or a relaxing weekend getaway, explore how Courtyard properties cater to your stay needs."
+        title="Stay Information for Every Type of Traveller"
+        description="Whether you are planning a business trip, family holiday, couples' getaway or leisure break, Guest Assist can help you explore relevant property information."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

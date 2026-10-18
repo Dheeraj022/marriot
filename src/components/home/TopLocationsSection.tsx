@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ArrowRight } from "lucide-react";
 
 interface TopLocation {
   id: string;
@@ -93,14 +94,22 @@ export function TopLocationsSection() {
       className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl lg:max-w-6xl mx-auto scroll-mt-24"
     >
       {/* Section Title matching user design */}
-      <div className="mb-6 sm:mb-8 text-left">
-        <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#FFD16A] tracking-tight leading-tight">
-          Top 6 Courtyard by Marriott <br className="sm:hidden" />
-          Locations{" "}
-          <span className="font-sans font-normal text-base sm:text-xl lg:text-2xl text-[#C4D1DF]">
-            (Most Popular)
-          </span>
-        </h2>
+      <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <h2 className="font-serif font-bold text-2xl sm:text-3xl lg:text-4xl text-[#FFD16A] tracking-tight leading-tight">
+            Explore Hotel Stays Across India
+          </h2>
+          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-[#C4D1DF] max-w-3xl leading-relaxed">
+            Discover hotel information, explore accommodation options and request stay details with assistance from Guest Assist.
+          </p>
+        </div>
+        <Link
+          href="/locations"
+          className="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-[#FFD16A] hover:text-white transition-colors shrink-0 whitespace-nowrap group"
+        >
+          <span>View All 29 Locations</span>
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </Link>
       </div>
 
       {/* 2-Column Mobile & Responsive Grid of Cards */}
@@ -137,6 +146,17 @@ export function TopLocationsSection() {
             </div>
           </a>
         ))}
+      </div>
+
+      {/* View All Locations Button */}
+      <div className="mt-8 sm:mt-10 flex justify-center">
+        <Link
+          href="/locations"
+          className="btn-gold px-8 py-3.5 rounded-2xl text-sm sm:text-base font-bold flex items-center gap-3 shadow-lg hover:shadow-xl transition-all group cursor-pointer"
+        >
+          <span>View All 29 Locations</span>
+          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+        </Link>
       </div>
     </section>
   );

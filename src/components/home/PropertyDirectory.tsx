@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, SlidersHorizontal, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, SlidersHorizontal, Info } from "lucide-react";
 import { PROPERTIES } from "@/data/properties";
 import { Region, Property } from "@/types/property";
 import { PropertyCard } from "@/components/home/PropertyCard";
@@ -152,7 +152,7 @@ export function PropertyDirectory() {
         <SectionHeading
           eyebrow="PAN-INDIA SHOWCASE"
           title="All Courtyard by Marriott Properties"
-          description="Explore our complete portfolio across India. Automatically moving showcase across major business hubs, airport gateways, and luxury leisure retreats."
+          description="Browse property information, locations, facilities and accommodation details before making your stay enquiry."
         />
 
         {/* Region Filter Chips - Scrollable without clipping */}
@@ -175,8 +175,8 @@ export function PropertyDirectory() {
                   type="button"
                   onClick={() => setSelectedRegion(region)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all shrink-0 cursor-pointer ${isSelected
-                      ? "bg-[#F6B936] text-[#03101F] font-bold shadow-md shadow-[#F6B936]/25"
-                      : "bg-[#0A2340] text-[#C4D1DF] border border-[#123452] hover:border-[#F6B936]/40 hover:text-[#F7F8FA]"
+                    ? "bg-[#F6B936] text-[#03101F] font-bold shadow-md shadow-[#F6B936]/25"
+                    : "bg-[#0A2340] text-[#C4D1DF] border border-[#123452] hover:border-[#F6B936]/40 hover:text-[#F7F8FA]"
                     }`}
                 >
                   {region === "All" ? `All (${count})` : `${region} (${count})`}
@@ -238,8 +238,8 @@ export function PropertyDirectory() {
                   onClick={() => handleDotClick(idx)}
                   aria-label={`Go to hotel group ${idx + 1}`}
                   className={`transition-all duration-300 cursor-pointer ${isActive
-                      ? "w-8 sm:w-9 h-2.5 rounded-full bg-[#C6923C] sm:bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
-                      : "w-2.5 h-2.5 rounded-full bg-[#3B4262] hover:bg-white/40"
+                    ? "w-8 sm:w-9 h-2.5 rounded-full bg-[#C6923C] sm:bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
+                    : "w-2.5 h-2.5 rounded-full bg-[#3B4262] hover:bg-white/40"
                     }`}
                 />
               );
@@ -274,10 +274,12 @@ export function PropertyDirectory() {
       </div>
 
       {/* Bottom Information Notice */}
-      <div className="max-w-7xl mx-auto px-4 mt-8 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#06172A]/80 border border-[#123452] text-xs text-[#C4D1DF]">
-          <Sparkles className="w-3.5 h-3.5 text-[#F6B936]" />
-          <span>Swipe or click arrows to explore • Auto-playing every 4s • Pause on hover or touch</span>
+      <div className="max-w-4xl mx-auto px-4 mt-8 text-center relative z-10">
+        <div className="inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl sm:rounded-full bg-[#06172A]/90 border border-[#123452] text-xs sm:text-[13px] text-[#C4D1DF] shadow-md text-left sm:text-center">
+          <Info className="w-4 h-4 text-[#F6B936] shrink-0" />
+          <span className="leading-relaxed">
+            Property information is provided for general guidance. Please verify the latest property details, facilities, rates, and availability with the booking provider.
+          </span>
         </div>
       </div>
 

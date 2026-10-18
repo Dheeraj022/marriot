@@ -189,7 +189,7 @@ export default function ContactPage() {
           title="Frequently Asked Inquiries"
           description="Instant clarity on enquiry submissions, contact channels, and stay support."
         />
-        <FAQAccordion items={FAQS.slice(0, 4)} />
+        <FAQAccordion items={FAQS} />
       </section>
 
       {/* 5. Advisory Notice Card */}
