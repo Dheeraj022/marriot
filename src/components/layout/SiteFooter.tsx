@@ -149,7 +149,7 @@ export function SiteFooter() {
         {/* Copyright and Operator line */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8ba2bc] gap-4">
           <p>
-            © {currentYear} {SITE_CONFIG.name}. All rights reserved.
+            © {currentYear} {SITE_CONFIG.name}. Operated by {SITE_CONFIG.companyName}. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy-policy" className="hover:text-[#FFD16A] transition-colors">

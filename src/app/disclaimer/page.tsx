@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { SITE_CONFIG } from "@/data/site-config";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { ShieldCheck } from "lucide-react";
+import { RoleIndependenceSection } from "@/components/shared/RoleIndependenceSection";
 
 export const metadata: Metadata = {
   title: "Disclaimer & Information Notice",
@@ -11,21 +11,16 @@ export const metadata: Metadata = {
 
 export default function DisclaimerPage() {
   return (
-    <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-8">
+    <div className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
       <SectionHeading
         eyebrow="NOTICE"
         title="Disclaimer & Information Notice"
         description="Important information regarding stay enquiries, room tariffs, and property details."
       />
 
-      <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
-        <div className="p-5 rounded-xl bg-[#03101F] border border-[#123452] flex items-start gap-3 text-xs sm:text-sm text-[#F7F8FA]">
-          <ShieldCheck className="w-6 h-6 text-[#F6B936] shrink-0 mt-0.5" />
-          <p className="leading-relaxed">
-            {SITE_CONFIG.disclaimer.full}
-          </p>
-        </div>
+      <RoleIndependenceSection className="px-0 sm:px-0 lg:px-0" />
 
+      <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">Property Information & Real-Time Availability</h3>
           <p>

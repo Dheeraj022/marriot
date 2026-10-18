@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 
 interface TopLocation {
@@ -63,6 +64,8 @@ const TOP_LOCATIONS: TopLocation[] = [
 ];
 
 export function TopLocationsSection() {
+  const router = useRouter();
+
   const handleLocationClick = (e: React.MouseEvent, propertySlug: string) => {
     e.preventDefault();
     const searchElement =
@@ -80,7 +83,7 @@ export function TopLocationsSection() {
         })
       );
     } else {
-      window.location.href = `/enquiry?property=${propertySlug}`;
+      router.push(`/enquiry?property=${propertySlug}`);
     }
   };
 

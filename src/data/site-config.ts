@@ -1,7 +1,9 @@
 export const SITE_CONFIG = {
-  name: "Guest Assist",
+  name: "GuestAssist",
+  brandName: "GuestAssist",
   tagline: "Hotels & Resorts in India",
-  operatorName: "Guest Assist",
+  companyName: "BrightSpark Leisure Services Private Limited",
+  operatorName: "BrightSpark Leisure Services Private Limited",
   phone: process.env.NEXT_PUBLIC_ENQUIRY_PHONE || "+91 1800 890 4567",
   phoneDisplay: "+91 1800 890 4567",
   phoneTel: "tel:+9118008904567",
@@ -21,9 +23,9 @@ export const SITE_CONFIG = {
     short:
       "Explore 29 Courtyard by Marriott hotels and resorts across India. Submit your stay enquiry for custom room rates, packages, and dedicated assistance.",
     full:
-      "Welcome to Courtyard by Marriott India. Discover 29 premier destinations across India offering intuitive modern comfort, upscale dining, modern meeting facilities, and heartfelt hospitality. Submitting a stay enquiry connects you with our reservations team to coordinate rates, room options, and special requests directly.",
+      "GuestAssist is an independent hotel information and stay enquiry assistance platform operated by BrightSpark Leisure Services Private Limited. We help travellers explore Courtyard by Marriott properties across India, review accommodations and amenities, and submit stay enquiries. GuestAssist is not the owner, operator, or official representative of Marriott International or any Courtyard by Marriott property unless specifically stated.",
     enquiryNotice:
-      "Submit your stay enquiry to receive tailored room recommendations, best available rates, and booking coordination directly from our Courtyard by Marriott team.",
+      "Submit your stay enquiry to receive tailored room recommendations, best available rates, and booking coordination directly from our GuestAssist team.",
   },
   navigation: [
     { label: "Home", href: "/" },

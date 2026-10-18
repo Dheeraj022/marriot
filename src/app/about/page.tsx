@@ -14,7 +14,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { CallNowButton } from "@/components/shared/CallNowButton";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { FAQS } from "@/data/faqs";
-import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
+import { RoleIndependenceSection } from "@/components/shared/RoleIndependenceSection";
 import { EnquiryProcess } from "@/components/home/EnquiryProcess";
 
 export const metadata: Metadata = {
@@ -217,9 +217,9 @@ export default function AboutPage() {
         <FAQAccordion items={FAQS.slice(0, 5)} />
       </section>
 
-      {/* 6. Notice Card */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <DisclaimerNotice variant="card" />
+      {/* 6. Role & Independence Section */}
+      <div className="max-w-7xl mx-auto">
+        <RoleIndependenceSection />
       </div>
     </div>
   );

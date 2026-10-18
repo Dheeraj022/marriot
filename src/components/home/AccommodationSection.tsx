@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { BedDouble, User, ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
@@ -48,6 +50,8 @@ const HOME_ROOM_TYPES: HomeRoomType[] = [
 ];
 
 export function AccommodationSection() {
+  const router = useRouter();
+
   const handleRedirectToSearch = (e: React.MouseEvent, roomId: string) => {
     e.preventDefault();
     const searchElement =
@@ -65,7 +69,7 @@ export function AccommodationSection() {
         })
       );
     } else {
-      window.location.href = "/#home-search";
+      router.push("/#home-search");
     }
   };
 
@@ -126,7 +130,7 @@ export function AccommodationSection() {
             </div>
 
             {/* Bottom Row: Full-width Request for Stay Details Button */}
-            <a
+            <Link
               href="/#home-search"
               onClick={(e) => {
                 e.stopPropagation();
@@ -136,7 +140,7 @@ export function AccommodationSection() {
             >
               <span>Request for Stay Details</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </div>
         ))}
       </div>

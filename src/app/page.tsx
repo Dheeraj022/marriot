@@ -11,11 +11,11 @@ import { DiningSection } from "@/components/home/DiningSection";
 import { EnquiryProcess } from "@/components/home/EnquiryProcess";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
-import { DisclaimerNotice } from "@/components/shared/DisclaimerNotice";
+import { RoleIndependenceSection } from "@/components/shared/RoleIndependenceSection";
 import { FAQS } from "@/data/faqs";
 
 export const metadata: Metadata = {
-  title: "Guest Assist | Explore 29 Courtyard by Marriott Hotels Across India",
+  title: "GuestAssist | Explore 29 Courtyard by Marriott Hotels Across India",
   description:
     "Explore 29 Courtyard by Marriott hotels across India. Check room categories, hotel amenities, and submit an enquiry for personalized stay assistance.",
 };
@@ -60,9 +60,9 @@ export default function HomePage() {
         <FAQAccordion items={FAQS} />
       </section>
 
-      {/* 10. Stay Notice */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <DisclaimerNotice variant="card" />
+      {/* 10. Our Role & Independence Section */}
+      <div className="pb-16">
+        <RoleIndependenceSection />
       </div>
     </div>
   );

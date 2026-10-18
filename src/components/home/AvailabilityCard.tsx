@@ -20,6 +20,7 @@ import {
 import { Property } from "@/types/property";
 import { PROPERTIES } from "@/data/properties";
 import { BookingModal } from "@/components/forms/BookingModal";
+import { TrustBadge } from "@/components/shared/TrustBadge";
 import {
   getTodayDateString,
   getTomorrowDateString,
@@ -381,7 +382,7 @@ export function AvailabilityCard({
       checkOut && checkOut > finalCheckIn ? checkOut : getTomorrowDateString();
 
     // Default to first property if none picked or prompt user
-    let propToUse = selectedProperty;
+    const propToUse = selectedProperty;
     if (!propToUse) {
       // Auto-open property dropdown to guide user
       setIsPropertyDropdownOpen(true);
@@ -414,6 +415,11 @@ export function AvailabilityCard({
 
   return (
     <>
+      {/* Desktop Only Trust Badge: Enquiry Based | No Booking | No Payment | Independent Service */}
+      <div className="hidden md:flex items-center justify-center mb-3 sm:mb-4">
+        <TrustBadge />
+      </div>
+
       <div
         className={`w-full max-w-[440px] sm:max-w-[480px] lg:max-w-5xl xl:max-w-6xl mx-auto bg-white rounded-3xl p-3.5 sm:p-4 lg:p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-slate-200/90 text-left relative z-30 transition-all duration-500 ${
           isHighlighted
