@@ -200,7 +200,7 @@ export default function AboutPage() {
               Have questions regarding destinations or need assistance with your travel dates?
             </p>
             <div className="p-4 rounded-xl bg-[#03101F] border border-[#123452] space-y-1">
-              <span className="block text-[11px] text-[#8ba2bc] uppercase">Toll-Free Helpline</span>
+              <span className="block text-[11px] text-[#8ba2bc] uppercase">Dedicated Helpline</span>
               <a href={SITE_CONFIG.phoneTel} className="text-lg font-bold text-[#FFD16A] hover:underline">
                 {SITE_CONFIG.phoneDisplay}
               </a>

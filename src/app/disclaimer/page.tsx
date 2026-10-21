@@ -59,7 +59,14 @@ export default function DisclaimerPage() {
         <section className="space-y-2 pt-4 border-t border-white/10">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">Stay Enquiries & Assistance</h3>
           <p>
-            Enquiry submissions facilitate personalized booking assistance, group coordination, and banquet requirements. For any clarifications with your stay planning, please contact our dedicated guest assistance desk at <strong>{SITE_CONFIG.phoneDisplay}</strong> or email <strong>{SITE_CONFIG.email}</strong>.
+            Enquiry submissions facilitate personalized booking assistance, group coordination, and banquet requirements. For any clarifications with your stay planning, please contact our dedicated guest assistance desk at{" "}
+            <a href={SITE_CONFIG.phoneTel} className="text-[#FFD16A] underline font-semibold">
+              {SITE_CONFIG.phoneDisplay}
+            </a>{" "}
+            or email{" "}
+            <a href={`mailto:${SITE_CONFIG.email}`} className="text-[#FFD16A] underline font-semibold">
+              {SITE_CONFIG.email}
+            </a>.
           </p>
         </section>
       </div>

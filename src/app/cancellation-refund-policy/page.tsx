@@ -1,6 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { SITE_CONFIG } from "@/data/site-config";
 
 export const metadata: Metadata = {
   title: "Cancellation & Refund Policy | Courtyard by Marriott",
@@ -39,7 +40,11 @@ export default function CancellationRefundPolicyPage() {
         <section className="space-y-2">
           <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Assistance with Booking Modifications</h3>
           <p>
-            If you need assistance modifying your travel dates, room count, or special requests for an enquiry coordinated with our team, please contact our helpline at <strong>+91 1800 890 4567</strong> or your assigned stay coordinator.
+            If you need assistance modifying your travel dates, room count, or special requests for an enquiry coordinated with our team, please contact our helpline at{" "}
+            <a href={SITE_CONFIG.phoneTel} className="text-[#FFD16A] underline font-semibold">
+              {SITE_CONFIG.phoneDisplay}
+            </a>{" "}
+            or your assigned stay coordinator.
           </p>
         </section>
       </div>
