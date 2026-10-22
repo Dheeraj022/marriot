@@ -9,7 +9,7 @@ export function DiningSection() {
       <SectionHeading
         eyebrow="GASTRONOMIC HIGHLIGHTS"
         title="Dining & Culinary Concepts"
-        description="Indulge in rich culinary traditions, signature buffets, and artisanal cocktails crafted by talented chefs across Courtyard hotels."
+        description="Indulge in rich culinary traditions, signature buffets, and artisanal cocktails crafted by talented chefs."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

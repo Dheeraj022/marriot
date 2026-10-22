@@ -4,7 +4,6 @@ import {
   Search,
   FileText,
   Headphones,
-  CalendarCheck,
   Info,
   ArrowRight,
   Building,
@@ -31,13 +30,6 @@ const STEPS = [
     title: "Get Assistance",
     description:
       "Our team will help you with available information and guide you with suitable options based on your requirements.",
-  },
-  {
-    step: 4,
-    icon: CalendarCheck,
-    title: "Make Your Own Booking Decision",
-    description:
-      "Review the details shared and proceed directly with the hotel or booking provider of your choice. We do not process bookings or payments.",
   },
 ];
 
@@ -113,9 +105,9 @@ export function EnquiryProcess({
       </div>
 
       {/* =========================================================================
-          LAPTOP / DESKTOP VIEW (>= lg): 4-Column Horizontal Step Cards Pipeline
+          LAPTOP / DESKTOP VIEW (>= lg): 3-Column Horizontal Step Cards Pipeline
           ========================================================================= */}
-      <div className="hidden lg:grid grid-cols-4 gap-6 relative">
+      <div className="hidden lg:grid grid-cols-3 gap-6 lg:gap-8 relative">
         {STEPS.map((item, idx) => {
           const Icon = item.icon;
           const isLast = idx === STEPS.length - 1;
@@ -149,7 +141,7 @@ export function EnquiryProcess({
               {/* Sub-card step indicator tag */}
               <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-[#8ba2bc]">
                 <span className="font-mono text-[#F6B936]">Step 0{item.step}</span>
-                <span>{item.step === 4 ? "Direct Booking" : "Stay Planning"}</span>
+                <span>Stay Planning</span>
               </div>
 
               {/* Pipeline Arrow Between Cards on Extra-Wide Screens */}

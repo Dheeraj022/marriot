@@ -135,18 +135,38 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Independence & Legal Disclaimer Box */}
-        <div className="my-8 p-5 rounded-xl bg-[#06172A] border border-[#123452] text-xs leading-relaxed text-[#C4D1DF]">
-          <div className="flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 text-[#F6B936] shrink-0 mt-0.5" />
-            <div className="space-y-2.5">
-              <h5 className="font-semibold text-[#FFD16A] tracking-wider uppercase text-xs">
-                {SITE_CONFIG.disclaimer.title}
-              </h5>
-              <div className="space-y-2 text-xs leading-relaxed text-[#C4D1DF]">
-                {SITE_CONFIG.disclaimer.paragraphs.map((p, idx) => (
-                  <p key={idx}>{p}</p>
-                ))}
+        {/* Important Information & Disclaimer Cards */}
+        <div className="my-8 space-y-4">
+          {/* Card 1: Important Information */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#06172A] border border-[#123452] shadow-md transition-all hover:border-[#1A456C]">
+            <div className="flex items-start gap-3.5 sm:gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#06261E] border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+                <ShieldCheck className="w-5 h-5 stroke-[2]" />
+              </div>
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <h5 className="font-bold text-xs sm:text-sm tracking-wider uppercase text-[#F7F8FA]">
+                  IMPORTANT INFORMATION
+                </h5>
+                <p className="text-xs sm:text-[13px] text-[#C4D1DF] leading-relaxed">
+                  Prices and availability may vary by property, travel dates and occupancy. {SITE_CONFIG.name}, operated by {SITE_CONFIG.operatorName}, is an independent travel agency. Final property availability with our best assistance.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Disclaimer */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-[#06172A] border border-[#123452] shadow-md transition-all hover:border-[#1A456C]">
+            <div className="flex items-start gap-3.5 sm:gap-4">
+              <div className="w-10 h-10 rounded-xl bg-[#06261E] border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5">
+                <ShieldCheck className="w-5 h-5 stroke-[2]" />
+              </div>
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <h5 className="font-bold text-xs sm:text-sm tracking-wider uppercase text-[#F7F8FA]">
+                  DISCLAIMER
+                </h5>
+                <p className="text-xs sm:text-[13px] text-[#C4D1DF] leading-relaxed">
+                  {SITE_CONFIG.name} is operated by {SITE_CONFIG.operatorName}, an independent travel agency. We are not affiliated with, endorsed by or sponsored by any hotel, resort, villa or other service provider. All brand names, logos and trademarks belong to their respective owners.
+                </p>
               </div>
             </div>
           </div>
