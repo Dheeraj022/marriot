@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ShieldAlert } from "lucide-react";
+import {
+  ShieldAlert,
+  BedDouble,
+  Utensils,
+  Mountain,
+  Binoculars,
+  Flower2,
+} from "lucide-react";
 import { AvailabilityCard } from "./AvailabilityCard";
 
 interface HeroSearchProps {
@@ -36,6 +43,34 @@ const HERO_SLIDES = [
   {
     url: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=2000&q=85",
     alt: "Courtyard by Marriott Premier Metropolitan Destination",
+  },
+];
+
+const QUICK_NAV_ITEMS = [
+  {
+    label: "Stay Options",
+    icon: BedDouble,
+    href: "#accommodation",
+  },
+  {
+    label: "Dining",
+    icon: Utensils,
+    href: "#dining",
+  },
+  {
+    label: "Experiences",
+    icon: Mountain,
+    href: "#experiences",
+  },
+  {
+    label: "Nearby",
+    icon: Binoculars,
+    href: "#nearby",
+  },
+  {
+    label: "Amenities",
+    icon: Flower2,
+    href: "#amenities",
   },
 ];
 
@@ -104,11 +139,6 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
       <div className="relative z-10 max-w-5xl xl:max-w-6xl mx-auto text-center space-y-6 sm:space-y-7">
         {/* Eyebrow & Main Headings */}
         <div className="space-y-3 sm:space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#06172A]/90 border border-[#F6B936]/30 text-xs font-semibold tracking-widest uppercase text-[#FFD16A] shadow-lg shadow-black/40">
-            <span className="w-2 h-2 rounded-full bg-[#F6B936] animate-pulse" />
-            29 PROPERTIES ACROSS INDIA
-          </div>
-
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-extrabold text-[#F7F8FA] tracking-tight leading-[1.15]">
             Explore <span className="text-gold-gradient">Courtyard by Marriott</span> Hotels Across India
           </h1>
@@ -116,6 +146,29 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           <p className="text-sm sm:text-base md:text-lg text-[#C4D1DF] max-w-2xl mx-auto font-light leading-relaxed">
             Find property information, check room availability, and submit your stay enquiry for personalized assistance across 29 premier locations.
           </p>
+
+          {/* Feature Category Icons Bar */}
+          <div className="w-full max-w-3xl lg:max-w-4xl mx-auto pt-3 pb-1">
+            <div className="border-t border-b border-white/15 py-3.5 sm:py-4 px-2 sm:px-6">
+              <div className="grid grid-cols-5 gap-1.5 sm:gap-4 items-center">
+                {QUICK_NAV_ITEMS.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="group flex flex-col items-center justify-center text-center p-1 sm:p-2 rounded-lg transition-all duration-200 hover:bg-white/[0.03]"
+                  >
+                    <item.icon
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-[#F6B936] transition-transform duration-300 group-hover:scale-110"
+                      strokeWidth={1.75}
+                    />
+                    <span className="mt-2 text-[11px] sm:text-xs md:text-sm font-semibold text-[#F7F8FA] group-hover:text-[#FFD16A] transition-colors leading-tight">
+                      {item.label}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Dedicated Availability Card matching user design */}
@@ -147,7 +200,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
         <div className="flex items-center justify-center gap-2 text-xs text-[#8ba2bc] max-w-xl mx-auto">
           <ShieldAlert className="w-4 h-4 text-[#F6B936] shrink-0" />
           <p>
-            Direct enquiry coordination across all 29 Courtyard by Marriott hotels in India.
+            Submitting an enquiry does not confirm a booking.
           </p>
         </div>
 
@@ -160,8 +213,8 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
               onClick={() => setCurrentSlide(idx)}
               aria-label={`Go to background slide ${idx + 1}`}
               className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${currentSlide === idx
-                  ? "w-6 bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
-                  : "w-1.5 bg-white/25 hover:bg-white/50"
+                ? "w-6 bg-[#F6B936] shadow-sm shadow-[#F6B936]/40"
+                : "w-1.5 bg-white/25 hover:bg-white/50"
                 }`}
             />
           ))}

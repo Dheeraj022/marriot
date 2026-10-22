@@ -58,9 +58,10 @@ const NEARBY_DESTINATIONS: NearbyDestination[] = [
 export function NearbyDestinations() {
   return (
     <section
-      id="nearby-destinations"
+      id="nearby"
       className="py-14 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-24"
     >
+      <div id="nearby-destinations" className="scroll-mt-24" />
       {/* Heading & Subtitle */}
       <div className="w-full max-w-[430px] sm:max-w-none mx-auto mb-6 sm:mb-8 text-left">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-[#F7F8FA] tracking-tight">

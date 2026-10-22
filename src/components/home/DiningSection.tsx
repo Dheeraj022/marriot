@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 
 export function DiningSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="dining" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
       <SectionHeading
         eyebrow="GASTRONOMIC HIGHLIGHTS"
         title="Dining & Culinary Concepts"
