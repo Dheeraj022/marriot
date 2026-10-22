@@ -30,7 +30,8 @@ export function SiteFooter() {
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed text-[#C4D1DF]/90 max-w-sm">
+            <p className="text-xs text-[#C4D1DF] font-medium tracking-wide">
+              Brightspark Leisure Services Pvt Ltd
             </p>
 
             <div className="pt-2">
@@ -122,12 +123,12 @@ export function SiteFooter() {
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#F6B936] shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-xs text-[#8ba2bc]">Operator:</span>
-                  <span className="text-xs text-[#C4D1DF]">
-                    {SITE_CONFIG.operatorName}
+                  <span className="block text-xs text-[#8ba2bc]">Office Address:</span>
+                  <span className="text-xs text-[#C4D1DF] block leading-relaxed">
+                    {SITE_CONFIG.address.line1}, {SITE_CONFIG.address.line2}, {SITE_CONFIG.address.line3}
                   </span>
-                  <span className="block text-[11px] text-[#8ba2bc] mt-0.5 font-mono">
-                    GSTIN: {SITE_CONFIG.gst}
+                  <span className="block text-[11px] text-[#8ba2bc] mt-1 font-mono">
+                    {SITE_CONFIG.operatorName} • GSTIN: {SITE_CONFIG.gst}
                   </span>
                 </div>
               </li>

@@ -137,24 +137,27 @@ export default function ContactPage() {
               </span>
             </div>
 
-            {/* Operator Information */}
+            {/* Office Address & Operator Details */}
             <div className="p-6 rounded-2xl bg-[#06172A] border border-[#123452] space-y-2">
               <div className="w-10 h-10 rounded-xl bg-[#0A2340] border border-[#123452] flex items-center justify-center text-[#F6B936]">
                 <MapPin className="w-5 h-5" />
               </div>
-              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Operator Details</h4>
+              <h4 className="font-serif font-bold text-lg text-[#F7F8FA]">Office Address</h4>
               <p className="text-xs text-[#C4D1DF] leading-relaxed">
-                <strong>{SITE_CONFIG.operatorName}</strong>
+                {SITE_CONFIG.address.line1}
                 <br />
                 {SITE_CONFIG.address.line2}
                 <br />
-                {SITE_CONFIG.address.country}
+                {SITE_CONFIG.address.line3}
               </p>
-              {SITE_CONFIG.gst && (
-                <p className="text-[11px] text-[#8ba2bc] font-mono pt-1">
-                  GSTIN: {SITE_CONFIG.gst}
-                </p>
-              )}
+              <div className="pt-2 border-t border-white/10 text-xs text-[#8ba2bc]">
+                <span className="block font-medium text-[#C4D1DF]">{SITE_CONFIG.operatorName}</span>
+                {SITE_CONFIG.gst && (
+                  <span className="block text-[11px] font-mono mt-0.5">
+                    GSTIN: {SITE_CONFIG.gst}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>

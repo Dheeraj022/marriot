@@ -80,9 +80,8 @@ export function EnquiryProcess({
 
               {/* Right Column: Icon Card + Step Content */}
               <div
-                className={`flex items-start gap-3.5 sm:gap-5 flex-1 ${
-                  !isLast ? "pb-6 sm:pb-8" : "pb-2"
-                }`}
+                className={`flex items-start gap-3.5 sm:gap-5 flex-1 ${!isLast ? "pb-6 sm:pb-8" : "pb-2"
+                  }`}
               >
                 {/* Icon Card */}
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#06172A] border border-[#123452] flex items-center justify-center text-[#F6B936] shrink-0 shadow-md group-hover:border-[#F6B936]/40 transition-colors">
@@ -162,7 +161,7 @@ export function EnquiryProcess({
             <Info className="w-4 h-4 sm:w-5 sm:h-5 text-[#F6B936]" />
           </div>
           <p className="text-xs sm:text-sm text-[#C4D1DF] leading-relaxed">
-            Submitting an enquiry does not confirm a booking. Availability, rates and booking terms must be verified with the hotel or relevant booking provider.
+            Submitting an enquiry does not confirm a booking.
           </p>
         </div>
 
