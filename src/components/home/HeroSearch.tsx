@@ -144,7 +144,7 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-[#C4D1DF] max-w-2xl mx-auto font-light leading-relaxed">
-            Find property information, check room availability, and submit your stay enquiry for personalized assistance across 29 premier locations.
+            Find property information, check stay options, and submit your stay enquiry for personalized assistance across 29 premier locations.
           </p>
 
           {/* Feature Category Icons Bar */}
