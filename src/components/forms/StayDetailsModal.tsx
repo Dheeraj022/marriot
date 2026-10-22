@@ -327,8 +327,8 @@ export function StayDetailsModal({
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="Enter your full name"
                   className={`w-full bg-[#03101F] border rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-[#F7F8FA] placeholder-slate-500 focus:outline-none transition-all ${errors.fullName
-                      ? "border-rose-400 bg-rose-950/20"
-                      : "border-slate-700 focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
+                    ? "border-rose-400 bg-rose-950/20"
+                    : "border-slate-700 focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
                     }`}
                 />
               </div>
@@ -361,8 +361,8 @@ export function StayDetailsModal({
                     }
                     placeholder="10-digit number"
                     className={`w-full bg-[#03101F] border rounded-r-xl px-3 py-2.5 text-xs sm:text-sm text-[#F7F8FA] placeholder-slate-500 focus:outline-none transition-all ${errors.phone
-                        ? "border-rose-400 bg-rose-950/20"
-                        : "border-slate-700 focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
+                      ? "border-rose-400 bg-rose-950/20"
+                      : "border-slate-700 focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
                       }`}
                   />
                 </div>
@@ -388,8 +388,8 @@ export function StayDetailsModal({
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@example.com"
                     className={`w-full bg-[#03101F] border rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-[#F7F8FA] placeholder-slate-500 focus:outline-none transition-all ${errors.email
-                        ? "border-rose-400 bg-rose-950/20"
-                        : "border-slate-700 focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
+                      ? "border-rose-400 bg-rose-950/20"
+                      : "border-slate-700 focus:border-[#F6B936] focus:ring-1 focus:ring-[#F6B936]"
                       }`}
                   />
                 </div>
@@ -542,7 +542,8 @@ export function StayDetailsModal({
 
           {/* Trust notice */}
           <p className="text-[11px] text-[#8ba2bc] text-center leading-relaxed">
-            By submitting, your enquiry is shared with Courtyard by Marriott reservations for personalized rate coordination.
+            Submitting an enquiry does not confirm a booking.
+
           </p>
         </form>
       </div>
