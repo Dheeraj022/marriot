@@ -363,23 +363,28 @@ export function EnquiryForm() {
               <span className="text-[#8ba2bc]"> • {selectedProperty.city} ({totalNights} Nights)</span>
             </div>
 
-            <button
-              type="submit"
-              disabled={isChecking}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl btn-gold text-sm font-bold flex items-center justify-center gap-2.5 shadow-xl shadow-[#F6B936]/20 transition-all disabled:opacity-50"
-            >
-              {isChecking ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#102033]" />
-                  <span>Checking Availability...</span>
-                </>
-              ) : (
-                <>
-                  <Search className="w-4 h-4 text-[#102033]" />
-                  <span>Check Availability</span>
-                </>
-              )}
-            </button>
+            <div className="flex flex-col items-center sm:items-end gap-1.5 w-full sm:w-auto">
+              <button
+                type="submit"
+                disabled={isChecking}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl btn-gold text-sm font-bold flex items-center justify-center gap-2.5 shadow-xl shadow-[#F6B936]/20 transition-all disabled:opacity-50"
+              >
+                {isChecking ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-[#102033]" />
+                    <span>Checking Availability...</span>
+                  </>
+                ) : (
+                  <>
+                    <Search className="w-4 h-4 text-[#102033]" />
+                    <span>Check Availability</span>
+                  </>
+                )}
+              </button>
+              <span className="text-[11px] text-[#8ba2bc] text-center sm:text-right">
+                Request only. Our team will share availability, pricing and stay details.
+              </span>
+            </div>
           </div>
         </form>
       </div>

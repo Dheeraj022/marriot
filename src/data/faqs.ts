@@ -1,56 +1,37 @@
 export interface FAQItem {
   question: string;
   answer: string;
+  iconName?: "landmark" | "rupee" | "dining" | "calendar";
   category?: string;
 }
 
 export const FAQS: FAQItem[] = [
   {
-    question: "What is Guest Assist?",
+    question: "Is GuestAssist the official Courtyard by Marriott website?",
     answer:
-      "Guest Assist is a customer assistance website operated by Brightspark Leisure Services Private Limited. It provides general hotel property information, stay guidance and enquiry assistance for destinations in India.",
-    category: "About Guest Assist",
+      "No. GuestAssist is an independent travel enquiry and guest assistance platform operated by BrightSpark Leisure Services Private Limited. We are not the official website of Courtyard by Marriott or Marriott International. We provide property information, check room availability, and assist guests with personalized stay enquiries across 29 premier locations in India.",
+    iconName: "landmark",
+    category: "Independence & About Us",
   },
   {
-    question: "Is Guest Assist the official website of Marriott or any listed hotel?",
+    question: "How will I receive availability and rates?",
     answer:
-      "No. Guest Assist is independently operated and is not the official website of Marriott International or any listed hotel. We do not claim hotel affiliation or authorization.",
-    category: "Independence & Affiliation",
+      "Once you submit your stay enquiry through GuestAssist, our team coordinates directly with the property to check real-time availability and shares personalized room options and pricing with you via phone, WhatsApp, or email within 2 to 4 hours.",
+    iconName: "rupee",
+    category: "Rates & Pricing",
   },
   {
-    question: "Does submitting an enquiry confirm my reservation?",
+    question: "Can you help with dining, activities and other information?",
     answer:
-      "No. Submitting an enquiry is a request for information and assistance. Your stay is not confirmed unless the responsible booking provider confirms the reservation.",
-    category: "Enquiries & Reservations",
+      "Yes. In addition to accommodation details, our team can assist you with information on signature restaurants, culinary offerings, meeting and banquet spaces, wellness amenities, and curated nearby local experiences across all 29 hotels.",
+    iconName: "dining",
+    category: "Services & Amenities",
   },
   {
-    question: "Can Guest Assist guarantee room rates or availability?",
+    question: "Is the information on this website always up to date?",
     answer:
-      "No. Rates, availability, amenities and booking conditions can change. Please verify the latest details with the relevant property or booking provider.",
-    category: "Rates & Availability",
-  },
-  {
-    question: "How can I request stay details?",
-    answer:
-      "Use the Request Stay Details form or call the contact number displayed on our website. Please provide accurate travel dates and guest details so we can understand your request.",
-    category: "Request Process",
-  },
-  {
-    question: "Does Guest Assist collect payment for hotel bookings?",
-    answer:
-      "An enquiry does not require you to assume that a reservation or payment has been processed. Before making any payment, verify the responsible booking provider, payment recipient, final amount and applicable terms. If Guest Assist's actual payment process changes, this answer must be updated.",
-    category: "Payments & Terms",
-  },
-  {
-    question: "Which destinations does Guest Assist cover?",
-    answer:
-      "Guest Assist focuses on hotel information and enquiry assistance for destinations within India.",
-    category: "Destinations",
-  },
-  {
-    question: "How do I verify property details?",
-    answer:
-      "You can contact the relevant property or consult its official website to verify facilities, current rates, availability and booking terms.",
-    category: "Property Verification",
+      "We strive to keep property details, room features, and amenities accurate and regularly updated. However, hotel policies, seasonal rates, and operational schedules are subject to change by property management. All details are verified for your requested dates upon enquiry.",
+    iconName: "calendar",
+    category: "Property Information",
   },
 ];

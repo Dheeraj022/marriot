@@ -12,6 +12,7 @@ import { EnquiryProcess } from "@/components/home/EnquiryProcess";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { RoleIndependenceSection } from "@/components/shared/RoleIndependenceSection";
+import { PropertyInformationSection } from "@/components/home/PropertyInformationSection";
 import { FAQS } from "@/data/faqs";
 
 export const metadata: Metadata = {
@@ -60,7 +61,10 @@ export default function HomePage() {
         <FAQAccordion items={FAQS} />
       </section>
 
-      {/* 10. Our Role & Independence Section */}
+      {/* 10. Property Information & Independent Service */}
+      <PropertyInformationSection />
+
+      {/* 11. Our Role & Independence Section */}
       <div className="pb-16">
         <RoleIndependenceSection />
       </div>

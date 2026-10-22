@@ -31,7 +31,6 @@ export function SiteFooter() {
             </div>
 
             <p className="text-sm leading-relaxed text-[#C4D1DF]/90 max-w-sm">
-              Discover 29 premier Courtyard by Marriott hotels and resorts across India. Providing personalized stay assistance, modern accommodations, world-class dining, and tailored meeting facilities.
             </p>
 
             <div className="pt-2">

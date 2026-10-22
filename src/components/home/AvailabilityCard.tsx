@@ -956,6 +956,11 @@ export function AvailabilityCard({
             <ArrowRight className="w-5 h-5 stroke-[2.5]" />
           </button>
         </form>
+
+        {/* Sub-button clarification notice */}
+        <p className="text-center text-xs sm:text-[13px] text-slate-600 font-medium pt-2.5 pb-0.5 border-t border-slate-100 mt-2">
+          Request only. Our team will share availability, pricing and stay details.
+        </p>
       </div>
 
       {/* Booking Enquiry Popup Modal */}
