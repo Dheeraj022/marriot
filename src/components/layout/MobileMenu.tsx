@@ -84,11 +84,10 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
                   key={link.label}
                   href={link.href}
                   onClick={onClose}
-                  className={`flex items-center gap-3.5 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-                    isActive
+                  className={`flex items-center gap-3.5 px-4 py-3 rounded-lg text-sm font-medium transition-all ${isActive
                       ? "bg-[#F6B936]/15 text-[#FFD16A] font-semibold border border-[#F6B936]/30"
                       : "text-[#C4D1DF] hover:bg-[#0A2340] hover:text-[#F7F8FA]"
-                  }`}
+                    }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? "text-[#F6B936]" : "text-[#8ba2bc]"}`} />
                   <span>{link.label}</span>
@@ -115,7 +114,7 @@ export function MobileMenu({ isOpen, onClose, currentPath }: MobileMenuProps) {
           </div>
 
           <p className="text-[10px] text-[#8ba2bc] text-center leading-relaxed">
-            Courtyard by Marriott India. All rights reserved.
+            Managed by Guest Assists. All rights reserved.
           </p>
         </div>
       </div>
