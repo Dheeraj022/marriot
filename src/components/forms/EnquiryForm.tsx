@@ -425,14 +425,10 @@ export function EnquiryForm() {
           </div>
 
           {/* Quick Perks */}
-          <div className="mt-6 pt-5 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-[#C4D1DF]">
+          <div className="mt-6 pt-5 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[#C4D1DF]">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
               <span>4 Room Types Available</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#F6B936] shrink-0" />
-              <span>Zero Booking Fees</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-[#F6B936] shrink-0" />
@@ -440,7 +436,7 @@ export function EnquiryForm() {
             </div>
             <div className="flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Instant Reservation</span>
+              <span>Dedicated Stay Assistance</span>
             </div>
           </div>
         </div>

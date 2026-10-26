@@ -857,11 +857,6 @@ export function BookingModal({
 
                     <div className="p-2.5 sm:p-3 rounded-xl bg-[#03101F] border border-[#123452] text-[11px] sm:text-xs text-[#8ba2bc] text-center flex flex-wrap items-center justify-center gap-2 sm:gap-3">
                       <span className="flex items-center gap-1.5">
-                        <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F6B936]" />
-                        Zero Booking Fees
-                      </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F6B936]" />
                         Fast 2-4 Hr Response
                       </span>
