@@ -19,13 +19,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Guest Assist",
-    default: "Guest Assist | Explore 29 Courtyard by Marriott Hotels Across India",
+    template: "%s | Guest Assists",
+    default: "Guest Assists | Explore Courtyard by Marriott, India",
   },
   description:
-    "Explore 29 Courtyard by Marriott hotels and resorts across India. Discover premier accommodations, luxury amenities, flexible event spaces, and submit your stay enquiry.",
+    "Explore Courtyard by Marriott hotels and resorts across India with Guest Assists. Discover premier accommodations, luxury amenities, flexible event spaces, and submit your stay enquiry.",
   keywords: [
-    "Guest Assist",
+    "Guest Assists",
     "Courtyard by Marriott",
     "Courtyard by Marriott India",
     "Courtyard hotels",
@@ -35,15 +35,15 @@ export const metadata: Metadata = {
     "Courtyard Marriott Bengaluru",
     "Courtyard Marriott Delhi",
   ],
-  authors: [{ name: "Guest Assist" }],
+  authors: [{ name: "Guest Assists" }],
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "https://courtyardbymarriott.in",
-    siteName: "Guest Assist",
-    title: "Guest Assist | Explore 29 Courtyard by Marriott Hotels Across India",
+    siteName: "Guest Assists",
+    title: "Guest Assists | Explore Courtyard by Marriott, India",
     description:
-      "Explore 29 Courtyard by Marriott hotels and resorts across India. Discover premier accommodations, luxury amenities, and submit your stay enquiry.",
+      "Explore Courtyard by Marriott hotels and resorts across India with Guest Assists. Discover premier accommodations, luxury amenities, and submit your stay enquiry.",
   },
   robots: {
     index: true,

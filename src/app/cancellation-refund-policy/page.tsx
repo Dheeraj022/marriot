@@ -14,7 +14,7 @@ export default function CancellationRefundPolicyPage() {
       <SectionHeading
         eyebrow="POLICY GUIDELINES"
         title="Cancellation & Refund Policy"
-        description="Clarification on booking cancellations, reservation deposits, and refund conditions."
+        description="Clarification on stay cancellations, reservation deposits, and refund conditions."
       />
 
       <div className="bg-[#06172A] border border-[#123452] rounded-2xl p-6 sm:p-10 space-y-6 text-sm text-[#C4D1DF] leading-relaxed">
@@ -32,13 +32,13 @@ export default function CancellationRefundPolicyPage() {
           </p>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Flexible / Best Available Rates:</strong> Typically allow penalty-free cancellation up to 24-48 hours prior to check-in.</li>
-            <li><strong>Prepaid / Promotional Offers:</strong> May be non-refundable or incur cancellation charges as specified in your booking confirmation.</li>
+            <li><strong>Prepaid / Promotional Offers:</strong> May be non-refundable or incur cancellation charges as specified in your stay confirmation.</li>
             <li><strong>Group & Event Bookings:</strong> Customized cancellation and attrition schedules are outlined in your group agreement.</li>
           </ul>
         </section>
 
         <section className="space-y-2">
-          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Assistance with Booking Modifications</h3>
+          <h3 className="font-serif font-bold text-lg text-[#F7F8FA]">3. Assistance with Stay Modifications</h3>
           <p>
             If you need assistance modifying your travel dates, room count, or special requests for an enquiry coordinated with our team, please contact our helpline at{" "}
             <a href={SITE_CONFIG.phoneTel} className="text-[#FFD16A] underline font-semibold">

@@ -429,18 +429,16 @@ export function BookingModal({
                   if (currentStep === "guest-details") setCurrentStep("select-room");
                 }}
                 disabled={currentStep === "select-room"}
-                className={`flex items-center gap-2 sm:gap-2.5 text-left transition-opacity min-w-0 ${
-                  currentStep === "select-room"
-                    ? "opacity-100 cursor-default"
-                    : "opacity-85 hover:opacity-100 cursor-pointer"
-                }`}
+                className={`flex items-center gap-2 sm:gap-2.5 text-left transition-opacity min-w-0 ${currentStep === "select-room"
+                  ? "opacity-100 cursor-default"
+                  : "opacity-85 hover:opacity-100 cursor-pointer"
+                  }`}
               >
                 <div
-                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
-                    currentStep === "select-room"
-                      ? "bg-gradient-to-r from-[#FFE399] via-[#F6B936] to-[#b37c15] text-[#03101F] shadow-md shadow-[#F6B936]/30 ring-2 ring-[#F6B936]/40"
-                      : "bg-emerald-500/20 border border-emerald-400 text-emerald-300"
-                  }`}
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${currentStep === "select-room"
+                    ? "bg-gradient-to-r from-[#FFE399] via-[#F6B936] to-[#b37c15] text-[#03101F] shadow-md shadow-[#F6B936]/30 ring-2 ring-[#F6B936]/40"
+                    : "bg-emerald-500/20 border border-emerald-400 text-emerald-300"
+                    }`}
                 >
                   {currentStep === "select-room" ? (
                     "1"
@@ -453,11 +451,10 @@ export function BookingModal({
                     Step 1
                   </span>
                   <span
-                    className={`text-xs sm:text-sm font-semibold truncate block ${
-                      currentStep === "select-room"
-                        ? "text-[#F6B936]"
-                        : "text-[#F7F8FA]"
-                    }`}
+                    className={`text-xs sm:text-sm font-semibold truncate block ${currentStep === "select-room"
+                      ? "text-[#F6B936]"
+                      : "text-[#F7F8FA]"
+                      }`}
                   >
                     {currentStep === "select-room"
                       ? "Choose Room"
@@ -469,24 +466,21 @@ export function BookingModal({
               {/* Progress Connector Line */}
               <div className="flex-1 max-w-[80px] sm:max-w-xs h-0.5 sm:h-1 bg-[#0A2340] rounded-full overflow-hidden mx-1 sm:mx-3 shrink-0">
                 <div
-                  className={`h-full bg-gradient-to-r from-[#F6B936] to-emerald-400 transition-all duration-300 ${
-                    currentStep === "guest-details" ? "w-full" : "w-1/2"
-                  }`}
+                  className={`h-full bg-gradient-to-r from-[#F6B936] to-emerald-400 transition-all duration-300 ${currentStep === "guest-details" ? "w-full" : "w-1/2"
+                    }`}
                 />
               </div>
 
               {/* Step 2 Indicator */}
               <div
-                className={`flex items-center gap-2 sm:gap-2.5 text-left transition-opacity min-w-0 ${
-                  currentStep === "guest-details" ? "opacity-100" : "opacity-60"
-                }`}
+                className={`flex items-center gap-2 sm:gap-2.5 text-left transition-opacity min-w-0 ${currentStep === "guest-details" ? "opacity-100" : "opacity-60"
+                  }`}
               >
                 <div
-                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
-                    currentStep === "guest-details"
-                      ? "bg-gradient-to-r from-[#FFE399] via-[#F6B936] to-[#b37c15] text-[#03101F] shadow-md shadow-[#F6B936]/30 ring-2 ring-[#F6B936]/40"
-                      : "bg-[#0A2340] border border-[#123452] text-[#8ba2bc]"
-                  }`}
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${currentStep === "guest-details"
+                    ? "bg-gradient-to-r from-[#FFE399] via-[#F6B936] to-[#b37c15] text-[#03101F] shadow-md shadow-[#F6B936]/30 ring-2 ring-[#F6B936]/40"
+                    : "bg-[#0A2340] border border-[#123452] text-[#8ba2bc]"
+                    }`}
                 >
                   2
                 </div>
@@ -495,11 +489,10 @@ export function BookingModal({
                     Step 2
                   </span>
                   <span
-                    className={`text-xs sm:text-sm font-semibold truncate block ${
-                      currentStep === "guest-details"
-                        ? "text-[#F6B936]"
-                        : "text-[#8ba2bc]"
-                    }`}
+                    className={`text-xs sm:text-sm font-semibold truncate block ${currentStep === "guest-details"
+                      ? "text-[#F6B936]"
+                      : "text-[#8ba2bc]"
+                      }`}
                   >
                     Guest Details
                   </span>
@@ -539,11 +532,10 @@ export function BookingModal({
                       <div
                         key={room.id}
                         onClick={() => handleSelectRoomAndProceed(room.id)}
-                        className={`cursor-pointer rounded-2xl border transition-all duration-300 overflow-hidden relative flex flex-col justify-between group shadow-lg hover:shadow-2xl hover:shadow-[#F6B936]/15 hover:-translate-y-0.5 ${
-                          isSelected
-                            ? "bg-[#0A2340] border-[#F6B936] ring-2 ring-[#F6B936]/50"
-                            : "bg-[#03101F]/70 border-[#123452] hover:border-[#F6B936] hover:bg-[#071a2e]"
-                        }`}
+                        className={`cursor-pointer rounded-2xl border transition-all duration-300 overflow-hidden relative flex flex-col justify-between group shadow-lg hover:shadow-2xl hover:shadow-[#F6B936]/15 hover:-translate-y-0.5 ${isSelected
+                          ? "bg-[#0A2340] border-[#F6B936] ring-2 ring-[#F6B936]/50"
+                          : "bg-[#03101F]/70 border-[#123452] hover:border-[#F6B936] hover:bg-[#071a2e]"
+                          }`}
                       >
                         {/* Top Room Photo & Badge */}
                         <div className="relative h-40 sm:h-44 w-full overflow-hidden">
@@ -677,7 +669,7 @@ export function BookingModal({
                     Enter Your Contact Details
                   </h3>
                   <p className="text-xs text-[#8ba2bc] mt-0.5">
-                    We will contact you shortly to confirm your booking for {activeRoom.title}.
+                    We will contact you shortly to confirm you for {activeRoom.title}.
                   </p>
                 </div>
 
@@ -723,11 +715,10 @@ export function BookingModal({
                           setFullName(e.target.value);
                           if (errors.fullName) setErrors((prev) => ({ ...prev, fullName: undefined }));
                         }}
-                        className={`w-full bg-[#0A2340] border rounded-xl px-3.5 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${
-                          errors.fullName
-                            ? "border-rose-500 ring-1 ring-rose-500"
-                            : "border-[#123452] focus:border-[#F6B936]"
-                        }`}
+                        className={`w-full bg-[#0A2340] border rounded-xl px-3.5 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${errors.fullName
+                          ? "border-rose-500 ring-1 ring-rose-500"
+                          : "border-[#123452] focus:border-[#F6B936]"
+                          }`}
                       />
                       {errors.fullName && (
                         <p className="text-xs text-rose-400 flex items-center gap-1">
@@ -756,11 +747,10 @@ export function BookingModal({
                           setPhone(e.target.value);
                           if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
                         }}
-                        className={`w-full bg-[#0A2340] border rounded-xl px-3.5 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${
-                          errors.phone
-                            ? "border-rose-500 ring-1 ring-rose-500"
-                            : "border-[#123452] focus:border-[#F6B936]"
-                        }`}
+                        className={`w-full bg-[#0A2340] border rounded-xl px-3.5 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${errors.phone
+                          ? "border-rose-500 ring-1 ring-rose-500"
+                          : "border-[#123452] focus:border-[#F6B936]"
+                          }`}
                       />
                       {errors.phone && (
                         <p className="text-xs text-rose-400 flex items-center gap-1">
@@ -789,11 +779,10 @@ export function BookingModal({
                           setEmail(e.target.value);
                           if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
                         }}
-                        className={`w-full bg-[#0A2340] border rounded-xl px-3.5 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${
-                          errors.email
-                            ? "border-rose-500 ring-1 ring-rose-500"
-                            : "border-[#123452] focus:border-[#F6B936]"
-                        }`}
+                        className={`w-full bg-[#0A2340] border rounded-xl px-3.5 py-2.5 text-sm text-[#F7F8FA] placeholder-[#8ba2bc] focus:outline-none transition-all ${errors.email
+                          ? "border-rose-500 ring-1 ring-rose-500"
+                          : "border-[#123452] focus:border-[#F6B936]"
+                          }`}
                       />
                       {errors.email && (
                         <p className="text-xs text-rose-400 flex items-center gap-1">
@@ -835,7 +824,7 @@ export function BookingModal({
                         className="mt-0.5 rounded border-[#123452] bg-[#0A2340] text-[#F6B936] focus:ring-[#F6B936] w-4 h-4"
                       />
                       <span>
-                        I agree to allow Courtyard by Marriott coordinators to contact me via phone, WhatsApp, or email regarding this stay enquiry.
+                        I agree to allow Guest Assists coordinators to contact me via phone, WhatsApp, or email regarding this stay enquiry.
                       </span>
                     </label>
                     {errors.consent && (
@@ -856,12 +845,12 @@ export function BookingModal({
                       {isSubmitting ? (
                         <>
                           <Loader2 className="w-5 h-5 animate-spin text-[#102033]" />
-                          <span>Submitting Booking Enquiry...</span>
+                          <span>Request Stay Details...</span>
                         </>
                       ) : (
                         <>
                           <CheckCircle2 className="w-5 h-5 text-[#102033]" />
-                          <span>Submit Booking Enquiry</span>
+                          <span>Request Stay Details</span>
                         </>
                       )}
                     </button>

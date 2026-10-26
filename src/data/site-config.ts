@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
-  name: "GuestAssist",
-  brandName: "GuestAssist",
+  name: "Guest Assists",
+  brandName: "Guest Assists",
   networkTagline: "Independent travel network partners",
   companyName: "BrightSpark Leisure Services Private Limited",
   operatorName: "BrightSpark Leisure Services Private Limited",
@@ -27,15 +27,15 @@ export const SITE_CONFIG = {
     short:
       "Property names, descriptions, images, amenities and other details are presented for general informational purposes and may change. Visitors should independently verify important details with the relevant property or booking provider.",
     full:
-      "Property names, descriptions, images, amenities and other details are presented for general informational purposes and may change. We aim to keep information useful, but visitors should independently verify important details with the relevant property or booking provider. Submitting a request through Guest Assist does not guarantee room availability, rates or a confirmed reservation. Any final booking, payment, cancellation or refund terms must be confirmed with the party responsible for the reservation. Guest Assist is operated by Brightspark Leisure Services Private Limited and is independent of the hotels listed on this website. Unless a specific relationship is accurately disclosed and can be substantiated, Guest Assist does not represent itself as a hotel owner, operator, manager or authorized booking agent. All third-party names and trademarks belong to their respective owners. Their appearance is for identification and informational purposes only; it does not imply affiliation or endorsement.",
+      "Property names, descriptions, images, amenities and other details are presented for general informational purposes and may change. We aim to keep information useful, but visitors should independently verify important details with the relevant property or booking provider. Submitting a request through Guest Assists does not guarantee room availability, rates or a confirmed reservation. Any final booking, payment, cancellation or refund terms must be confirmed with the party responsible for the reservation. Guest Assists is operated by Brightspark Leisure Services Private Limited and is independent of the hotels listed on this website. Unless a specific relationship is accurately disclosed and can be substantiated, Guest Assists does not represent itself as a hotel owner, operator, manager or authorized booking agent. All third-party names and trademarks belong to their respective owners. Their appearance is for identification and informational purposes only; it does not imply affiliation or endorsement.",
     paragraphs: [
       "Property names, descriptions, images, amenities and other details are presented for general informational purposes and may change. We aim to keep information useful, but visitors should independently verify important details with the relevant property or booking provider.",
-      "Submitting a request through Guest Assist does not guarantee room availability, rates or a confirmed reservation. Any final booking, payment, cancellation or refund terms must be confirmed with the party responsible for the reservation.",
-      "Guest Assist is operated by Brightspark Leisure Services Private Limited and is independent of the hotels listed on this website. Unless a specific relationship is accurately disclosed and can be substantiated, Guest Assist does not represent itself as a hotel owner, operator, manager or authorized booking agent.",
+      "Submitting a request through Guest Assists does not guarantee room availability, rates or a confirmed reservation. Any final booking, payment, cancellation or refund terms must be confirmed with the party responsible for the reservation.",
+      "Guest Assists is operated by Brightspark Leisure Services Private Limited and is independent of the hotels listed on this website. Unless a specific relationship is accurately disclosed and can be substantiated, Guest Assists does not represent itself as a hotel owner, operator, manager or authorized booking agent.",
       "All third-party names and trademarks belong to their respective owners. Their appearance is for identification and informational purposes only; it does not imply affiliation or endorsement.",
     ],
     enquiryNotice:
-      "Submit your stay enquiry to receive tailored room recommendations, best available rates, and booking coordination directly from our Guest Assist team.",
+      "Submit your stay enquiry to receive tailored room recommendations, best available rates, and booking coordination directly from our Guest Assists team.",
   },
   navigation: [
     { label: "Home", href: "/" },

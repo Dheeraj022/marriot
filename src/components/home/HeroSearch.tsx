@@ -139,12 +139,19 @@ export function HeroSearch({ initialPropertySlug }: HeroSearchProps) {
       <div className="relative z-10 max-w-5xl xl:max-w-6xl mx-auto text-center space-y-6 sm:space-y-7">
         {/* Eyebrow & Main Headings */}
         <div className="space-y-3 sm:space-y-4">
+          <div className="inline-flex items-center justify-center">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#06172A]/90 border border-[#F6B936]/30 text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#FFD16A] shadow-lg shadow-black/40">
+              <span className="w-2 h-2 rounded-full bg-[#F6B936] animate-pulse" />
+              Info &amp; Stay Details
+            </span>
+          </div>
+
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-extrabold text-[#F7F8FA] tracking-tight leading-[1.15]">
-            Explore <span className="text-gold-gradient">Courtyard by Marriott</span> Hotels Across India
+            Explore <span className="text-gold-gradient">Courtyard by Marriott</span>, India
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-[#C4D1DF] max-w-2xl mx-auto font-light leading-relaxed">
-            Find property information, check stay options, and submit your stay enquiry for personalized assistance across 29 premier locations.
+            Find property information and enquire about stay details and accommodation options.
           </p>
 
           {/* Feature Category Icons Bar */}

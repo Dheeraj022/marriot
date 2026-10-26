@@ -24,7 +24,7 @@ const HOW_WE_HELP = [
   {
     icon: MessageSquare,
     title: "Stay Enquiry Assistance",
-    desc: "Receive prompt guidance on availability, property options, and stay requirements to review before booking with the responsible provider.",
+    desc: "Receive prompt guidance on availability, property options, and stay requirements to review before making decision with the responsible provider.",
   },
   {
     icon: PhoneCall,

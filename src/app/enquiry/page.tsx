@@ -8,7 +8,7 @@ import { Loader2 } from "lucide-react";
 export const metadata: Metadata = {
   title: "Check Availability & Reserve Your Stay | Courtyard by Marriott",
   description:
-    "Check live room availability, select your preferred room type, and submit your booking enquiry across 29 Courtyard by Marriott hotels in India.",
+    "Check live room availability, select your preferred room type, and submit your stay enquiry across 29 Courtyard by Marriott hotels in India.",
 };
 
 export default function EnquiryPage() {

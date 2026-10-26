@@ -278,8 +278,7 @@ export function PropertyDirectory() {
         <div className="inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-xl sm:rounded-full bg-[#06172A]/90 border border-[#123452] text-xs sm:text-[13px] text-[#C4D1DF] shadow-md text-left sm:text-center">
           <Info className="w-4 h-4 text-[#F6B936] shrink-0" />
           <span className="leading-relaxed">
-            Property information is provided for general guidance. Please verify the latest property details, facilities, rates, and availability.
-          </span>
+            Property information is provided for general guidance. Submitting an enquiry does not confirm a booking. Availability, pricing, accommodation options and inclusions are subject to confirmation.          </span>
         </div>
       </div>
 

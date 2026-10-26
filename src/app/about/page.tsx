@@ -44,7 +44,7 @@ const FOUR_VALUES = [
   {
     icon: ShieldCheck,
     title: "Independent Guidance",
-    description: "Transparent, informative guidance helping you verify rates, availability, and facilities directly with responsible booking providers.",
+    description: "Transparent, informative guidance helping you verify rates, availability, and facilities directly with responsible providers.",
   },
 ];
 
@@ -113,7 +113,7 @@ export default function AboutPage() {
             </p>
 
             <p>
-              Our aim is to make the initial research process clearer and more convenient by helping visitors review property details and understand what information to verify before making a booking decision.
+              Our aim is to make the initial research process clearer and more convenient by helping visitors review property details and understand what information to verify before making a stay decision.
             </p>
 
             <p>

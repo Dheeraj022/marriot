@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { validateEnquiryForm } from "@/lib/validation";
+import { sendEnquiryEmail } from "@/lib/mailer";
 
 export async function POST(request: Request) {
   try {
@@ -57,16 +58,34 @@ export async function POST(request: Request) {
     const randomHex = Math.random().toString(36).substring(2, 7).toUpperCase();
     const referenceId = `CY-${new Date().getFullYear()}-${randomHex}`;
 
+    // Dispatch notification email via Hostinger SMTP
+    const emailResult = await sendEnquiryEmail({
+      referenceId,
+      propertyName,
+      propertySlug,
+      checkIn,
+      checkOut,
+      adults,
+      rooms,
+      children,
+      roomType,
+      roomTypeName,
+      fullName,
+      email,
+      phone,
+      message,
+    });
+
     // Operational log
     console.log(
-      `[Enquiry Service] New Enquiry: Ref ${referenceId} | ${propertyName} | Room: ${roomTypeName || roomType || "Standard"} | ${checkIn} to ${checkOut} | ${adults} Adults | Guest: ${fullName} (${phone}, ${email}) | Note: ${Boolean(message)}`
+      `[Enquiry Service] New Enquiry: Ref ${referenceId} | ${propertyName} | Room: ${roomTypeName || roomType || "Standard"} | ${checkIn} to ${checkOut} | ${adults} Adults | Guest: ${fullName} (${phone}, ${email}) | Email Dispatch: ${emailResult.success ? "Sent" : "Logged / " + emailResult.error}`
     );
 
     return NextResponse.json({
       success: true,
       referenceId,
       message:
-        "Thank you for your enquiry! We have received your details and will contact you shortly to assist with your booking.",
+        "Thank you for your enquiry! We have received your details and will contact you shortly to assist with your stay enquiry.",
       summary: {
         propertyName,
         propertySlug,

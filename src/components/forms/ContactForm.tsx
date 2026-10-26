@@ -27,12 +27,21 @@ export function ContactForm() {
     setIsSubmitting(true);
 
     try {
-      // Simulate real contact processing
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fullName, email, phone, category, message }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Failed to submit message");
+      }
+
       setSubmitted(true);
       setIsSubmitting(false);
-    } catch {
-      setError("Unable to submit message. Please try calling our helpline.");
+    } catch (err: any) {
+      setError(err?.message || "Unable to submit message. Please try calling our helpline.");
       setIsSubmitting(false);
     }
   };
@@ -172,7 +181,7 @@ export function ContactForm() {
               className="mt-0.5 rounded border-[#123452] bg-[#0A2340] text-[#F6B936] focus:ring-[#F6B936]"
             />
             <span>
-              I authorize Guest Assist representatives to respond to my enquiry via email or phone.
+              I authorize Guest Assists representatives to respond to my enquiry via email or phone.
             </span>
           </label>
         </div>

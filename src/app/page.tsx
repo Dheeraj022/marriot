@@ -16,9 +16,9 @@ import { PropertyInformationSection } from "@/components/home/PropertyInformatio
 import { FAQS } from "@/data/faqs";
 
 export const metadata: Metadata = {
-  title: "GuestAssist | Explore 29 Courtyard by Marriott Hotels Across India",
+  title: "Guest Assists | Explore Courtyard by Marriott, India",
   description:
-    "Explore 29 Courtyard by Marriott hotels across India. Check room categories, hotel amenities, and submit an enquiry for personalized stay assistance.",
+    "Explore Courtyard by Marriott, India. Find property information and enquire about stay details and accommodation options.",
 };
 
 export default function HomePage() {
@@ -56,7 +56,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="FREQUENTLY ASKED QUESTIONS"
           title="Stay Enquiry & Reservation FAQs"
-          description="Clear answers regarding room options, stay enquiries, booking procedures, and property details."
+          description="Clear answers regarding room options, stay enquiries, and property details."
         />
         <FAQAccordion items={FAQS} />
       </section>

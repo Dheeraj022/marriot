@@ -97,22 +97,28 @@ export function PropertyCard({
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="pt-3 border-t border-white/10 flex items-center gap-2">
-          <button
-            type="button"
-            onClick={handleRequestClick}
-            className="flex-1 py-2.5 px-3 rounded-lg btn-gold text-xs font-bold text-center flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer hover:brightness-105 active:scale-[0.99]"
-          >
-            <span>Request Stay Details</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+        {/* Action Buttons & Notice */}
+        <div className="pt-3 border-t border-white/10 space-y-2">
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleRequestClick}
+              className="flex-1 py-2.5 px-3 rounded-lg btn-gold text-xs font-bold text-center flex items-center justify-center gap-1.5 transition-all shadow-sm cursor-pointer hover:brightness-105 active:scale-[0.99]"
+            >
+              <span>Request Stay Details</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
 
-          <CallNowButton
-            variant="compact"
-            customPhone={property.phone}
-            className="shrink-0 py-2.5 px-3"
-          />
+            <CallNowButton
+              variant="compact"
+              customPhone={property.phone}
+              className="shrink-0 py-2.5 px-3"
+            />
+          </div>
+
+          <p className="text-[10.5px] sm:text-[11px] text-[#8ba2bc] text-center font-medium leading-tight">
+            Enquiry does not confirm booking
+          </p>
         </div>
       </div>
     </article>
