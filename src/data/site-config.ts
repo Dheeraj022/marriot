@@ -8,8 +8,8 @@ export const SITE_CONFIG = {
   phone: process.env.NEXT_PUBLIC_ENQUIRY_PHONE || "+91 92790 22649",
   phoneDisplay: "+91 92790 22649",
   phoneTel: "tel:+919279022649",
-  email: process.env.NEXT_PUBLIC_ENQUIRY_EMAIL || "info@guestassist.com",
-  supportEmail: "info@guestassist.com",
+  email: process.env.NEXT_PUBLIC_ENQUIRY_EMAIL || "info@guestassists.com",
+  supportEmail: "info@guestassists.com",
   footerAssistanceNotice: "This website is for travel information and enquiry assistance only.",
   businessHours: "Monday to Sunday, 24/7 Guest Assistance",
   address: {

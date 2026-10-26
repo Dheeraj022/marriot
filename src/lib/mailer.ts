@@ -26,11 +26,11 @@ export interface ContactEmailPayload {
 }
 
 function getTransporter() {
-  const host = process.env.SMTP_HOST || "smtp.hostinger.com";
+  const host = process.env.SMTP_HOST || "smtpout.secureserver.net";
   const port = Number(process.env.SMTP_PORT) || 465;
   const secure = process.env.SMTP_SECURE !== "false" && port === 465;
-  const user = process.env.SMTP_USER || "reservation@theaambyvalleyscity.com";
-  const pass = process.env.SMTP_PASSWORD || "reservation@theaambyvalleyscity.com";
+  const user = process.env.SMTP_USER || "info@guestassists.com";
+  const pass = process.env.SMTP_PASSWORD || "Guestassists@123890#";
 
   return nodemailer.createTransport({
     host,
@@ -50,8 +50,8 @@ function getTransporter() {
  * Send an email notification for a new property stay enquiry
  */
 export async function sendEnquiryEmail(payload: EnquiryEmailPayload): Promise<{ success: boolean; error?: string }> {
-  const toEmail = process.env.ENQUIRY_TO_EMAIL || "reservation@theaambyvalleyscity.com";
-  const fromEmail = process.env.ENQUIRY_FROM_EMAIL || "reservation@theaambyvalleyscity.com";
+  const toEmail = process.env.ENQUIRY_TO_EMAIL || "info@guestassists.com";
+  const fromEmail = process.env.ENQUIRY_FROM_EMAIL || "info@guestassists.com";
 
   const subject = `[New Stay Enquiry] ${payload.propertyName} - ${payload.fullName} (Ref: ${payload.referenceId})`;
 
@@ -211,8 +211,8 @@ Guest Assists Enquiry Service
  * Send an email notification for a Contact Form submission
  */
 export async function sendContactEmail(payload: ContactEmailPayload): Promise<{ success: boolean; error?: string }> {
-  const toEmail = process.env.ENQUIRY_TO_EMAIL || "reservation@theaambyvalleyscity.com";
-  const fromEmail = process.env.ENQUIRY_FROM_EMAIL || "reservation@theaambyvalleyscity.com";
+  const toEmail = process.env.ENQUIRY_TO_EMAIL || "info@guestassists.com";
+  const fromEmail = process.env.ENQUIRY_FROM_EMAIL || "info@guestassists.com";
 
   const subject = `[Contact Form Message] ${payload.category || "General"} from ${payload.fullName}`;
 
